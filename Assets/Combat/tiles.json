@@ -1,0 +1,26 @@
+﻿[
+    {
+      "name": "snow1",
+      "spriteSheet": "Rural/TileA5",
+      "sprite" : 1,
+      "movement": "1"
+    },
+    {
+      "name": "snow2",
+      "spriteSheet": "Rural/TileA5",
+      "sprite" : 26,
+      "movement": "1"
+    },
+    {
+      "name": "snow3",
+      "spriteSheet": "Rural/TileA5",
+      "sprite" : 27,
+      "movement": "1"
+    },
+    {
+      "name": "snow4",
+      "spriteSheet": "Rural/TileA5",
+      "sprite" : 28,
+      "movement": "1"
+    }
+ ]

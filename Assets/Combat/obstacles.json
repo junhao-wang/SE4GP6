@@ -1,0 +1,12 @@
+﻿[
+   {
+     "name": "table1",
+     "spriteSheet": "Rural/TileA5",
+      "sprite" : 77
+   },
+   {
+     "name": "table2",
+     "spriteSheet": "Rural/TileA5",
+      "sprite" : 78
+   }
+ ]
