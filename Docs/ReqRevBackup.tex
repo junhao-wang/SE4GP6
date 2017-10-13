@@ -5,6 +5,8 @@
 \usepackage{graphicx}
 \usepackage{enumerate}
 \usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{tabu}
 \title{Requirments Document Rev 0\\A World Apart}
 
 \author{Team SantaHatesPoorKids
@@ -132,8 +134,88 @@ N/A
 	\item The development team will ensure that the art style, gui and map design is considered clean and clear. The developers will question if features like tooltips, indications and menus are easy to read and that selections are simple for the user to understand.  There should be limit of the clutter on screen, both entity and texture wise.
 \end{enumerate}
 \subsection{Product Use Case Table}
+\begin{tabu} { | X[c] | X[c] | X[c] | X[c] | }
+ \hline
+PUC & PUC Name & Actors & Input/Output \\
+ \hline
+ 1  & Save Game  & System & Save Game button initialization, Save game file \\
+\hline
+ 2  & Load Game  & System & Load Game button initialization, Save game file, Reinitalization of Previous Game \\
+\hline
+ 3  & New Game  & System & New Game button initialization, Initalization of New Game \\
+\hline
+ 4  & Display ToolTip Info & System & Mouse x and y coords, GUI displayment of ToolTip Info \\
+\hline
+ 5  & Perform Character Action  & System & Player Input, Appropriate System output, GUI output \\
+\hline
+ 6  & Perform Character Modification  & System & Player Input, Appropriate System modification, GUI output \\
+\hline
+ 7  & Audio Modification  & System & Player Input, Appropriate Audio modification \\
+\hline
+ 8  & GUI Modification  & System & Player Input, Appropriate GUI modification \\
+\hline
+\end{tabu}
 \subsection{Individual Product Use Cases}
+\quad This Section will cover the Product Use Cases in detail. They will include their trigger conditions, preconditions, procedures, outcomes and any use cases that are related.
+\begin{enumerate}[{PUC}1. ]
+	\item \textbf{Save Game -} The user wants to save the current game session.\par
+\textbf{Trigger Conditions: }Player Selects Save Button \par
+\textbf{Preconditions Conditions: }Game Session is paused, Player is in Game Menus \par
+\textbf{Procedures: }Current Game session is formatted and outputted to coressponding save file. \par
+\textbf{Outcomes: }System displays game file is saved, Game file is saved in proper location.  \par
+\textbf{Related Use Cases: }N/A \par
+
+	\item \textbf{Load Game -} The user wants to load a desired game session.\par
+\textbf{Trigger Conditions: }Player Selects Load Button \par
+\textbf{Preconditions Conditions: }Game Session is paused, Player is in Game Menus, Player is in Main Menu \par
+\textbf{Procedures: }System asks if they wish to leave their current game session. If selected yes then system reads desired game file and reinitializes desired game data.\par
+\textbf{Outcomes: }If player selected no to leaving current game session, then the system returns the player to the game menus. Otherwise, the desired game is displayed on screen in the same state that it had been saved in. \par
+\textbf{Related Use Cases: }N/A  \par
+
+	\item \textbf{New Game -} The user wants start a new game session.\par
+\textbf{Trigger Conditions: }Player Selects New Game Button \par
+\textbf{Preconditions Conditions: }Player is in Main Menu \par
+\textbf{Procedures: }System asks to select difficulty, name the game type and waits for player input to start game. The player selects start game, the base save file is created with the corresponding difficulty and seed. Game file is generated using the corresponding seed. \par
+\textbf{Outcomes: }New game is initialized, new game save file is created. \par
+\textbf{Related Use Cases: }N/A \par
+
+	\item \textbf{Display ToolTip Info -} The user wanst to view specific character values and how they are derived.\par
+\textbf{Trigger Conditions: }Player has mouse icon hover over the GUI of a value for 0.5 seconds. \par
+\textbf{Preconditions Conditions: }The player is viewing a menu where that value is displayed. \par
+\textbf{Procedures: }The System retrives the desired value's equation and formats the dependencies in a listed format similar to:\newline value - dependency\_name. \par
+\textbf{Outcomes: }Returns a GUI format of the values dependancies and names. \par
+\textbf{Related Use Cases: }N/A \par
+
+	\item \textbf{Perform Character Action -} The user wants to perform a specific action related to a character.\par
+\textbf{Trigger Conditions: }Player right clicks on any object in the scope of possible options. \par
+\textbf{Preconditions Conditions: }The player has selected a character that is able to perform an action. \par
+\textbf{Procedures: }The System determines if the selected option is possible, if not, then the system will provide and audio feedback that indicates that is not a possible action to the player. If it is a possible action, then the system will perform that function by updating the values of the character(s) and entities involved. \par
+\textbf{Outcomes: }Returns the Graphical representation of outcome of the actions and updates the current game session. \par
+\textbf{Related Use Cases: }N/A \par
+
+	\item \textbf{Perform Character Modification -} The user wants to apply a specific modification to a character.\par
+\textbf{Trigger Conditions: }Player matches a modification with a desired character. \par
+\textbf{Preconditions Conditions: }The player is in a character editing menu. \par
+\textbf{Procedures: }The System determines if the selected option is possible, if not, then the system will provide and audio feedback that indicates that is not a possible action to the player. If it is a possible action, then the system will perform that function by updating the values of the character. \par
+\textbf{Outcomes: }Returns the Graphical representation of outcome of the modification and updates the current game session. \par
+\textbf{Related Use Cases: }N/A \par
+
+	\item \textbf{Audio Modification -} The user wants to apply a specific modification to the audio of the game.\par
+\textbf{Trigger Conditions: }Player makes adjustment to an audio feature. \par
+\textbf{Preconditions Conditions: }The player is in the audio menus. \par
+\textbf{Procedures: }The System applies to the change to the game session base on the value coressponding to the menu. \par
+\textbf{Outcomes: }Returns the Graphical representation of outcome of the modification and returns a audible que to the player representing the selection that they have changed. \par
+\textbf{Related Use Cases: }N/A \par
+
+	\item \textbf{GUI Modification -} The user wants to apply a specific modification to the graphics of the game.\par
+\textbf{Trigger Conditions: }Player makes adjustment to a graphical feature. \par
+\textbf{Preconditions Conditions: }The player is in the graphics menus. \par
+\textbf{Procedures: }The System applies to the change to the game session base on the value coressponding to the menu. The system may need to reajust it's output values depending on the input selection. \par
+\textbf{Outcomes: }Returns the Graphical representation of outcome of the modification and returns a graphical indication to the player representing that the change has been made. \par
+\textbf{Related Use Cases: }N/A \par
+\end{enumerate}
 \section{Functional Requirements}
+%Based off of use cases
 \subsection{Core Mechanics}
 \subsection{Primary Gameplay Mode}
 \subsection{Alternate Game Modes}
@@ -146,6 +228,12 @@ N/A
 \subsection{Requisite Assests}
 \subsection{Audio}
 \subsection{Visual}
+\section{Usability and Humanity Requirements}
+\subsection{Ease of Use Requirements}
+\subsection{Personalization Requirements}
+\subsection{Learning Requirements}
+\subsection{Understandability and Politeness Requirements}
+\subsection{Accessibility Requirements}
 \section{Performance Requirements}
 \subsection{Speed and Latency Requirements}
 \subsection{Precision or Accuracy Requirements}
@@ -168,12 +256,31 @@ N/A
 \subsection{Standards Requirements}
 \section{Project Schedule}
 \section{Risks}
-\quad test
+\quad The following are risks that may be assoiciated with the project
+\begin{enumerate}[{R}1. ]
+	\item \textbf{The sytem does not dealocate pointers causing a memory leak on the user's computer.} This risk will be minimized by using the C\# Script programming language which has a different garbage collection system. Unless the developers use pointers, there should be next to no dealocation problems.
+	\item \textbf{The program will cause physical injury to the user such as causing eye soreness or siezers.} This risk will be minimized by limiting the number of flashing imagery.
+\end{enumerate}
 \section{Costs}
+\quad There may be no costs on the development team unless the team proceeds to purchase \$10 worth of game assest or any other 3rd party software.
 \section{User Documentation and Training}
 \subsection{User Documentation Requirements}
+\quad The Game Developers will try to meet the same coding styles throughout the development process. These styles will include having the same spacing, parathesis format and tabulation. The development team will also attempt to document all trivial functions and describe what each created script does and when it should be used. The Developers will also keep a log book handy between group members as an phyical reference to team meetings and work being completed.
 \subsection{Training Requirements}
+\quad The Game developers will need to learn a few concepts, languages and how to use a few programs during the course of this project.
+\begin{enumerate}
+	\item \textbf{Graphic layering and 2d projections} This will be useful for when we try to layer graphics ontop of eachother in a orthographic view. It will help us polish the game better.
+	\item \textbf{C\# Scripting Language} This is the primary scripting language that Unity uses for it's games and will need to understood so that each memeber can contribute developing the game.
+	\item \textbf{Photoshop} This will be useful for developing any game assests that cannot be found on the Unity assest store. It will be used to develop character sprites, textures and GUI.
+	\item \textbf{Unity Interface} Unity is the game engine that we will be using and understanding how the engine works, how to put simple levels and scripts together will be neccissary to complete the project.
+\end{enumerate}
 \section{Waiting Room}
+%display here the functions that will not be included this week during presenting, inlcude the letters infront for clear referencing.
 \section{Ideas for Solutions}
-
+\quad The following ideas for solutions to problems that we may face during the course of the project:
+\begin{enumerate}
+	\item To solve our graphic layering problem, we will look to many bird eye view games such as Don't Starve or Roller Coaster Tycoon to see how the developers seemlessly layered their graphics in an orthotic manner.
+	\item To solve our problem of finding atleast one continous pathway, we will reference Graph Theory to ensure that all maps can be dermined as continous. 
+	\item To ensure our game is fair to the player we will look into games that have similar mechanics and try to see which game made their mechanic more fair and less dependant on chance. A few contrasts that we will make will be looking at XCOM vs Mario + Rabbits Kindom battle, FTL and The Binding of Isaac. % More references.
+\end{enumerate}
 \end{document}
