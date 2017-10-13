@@ -1,0 +1,179 @@
+\documentclass{article}
+\usepackage{comment}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\title{Requirments Document Rev 0\\A World Apart}
+
+\author{Team SantaHatesPoorKids
+		\\ Jim Wu, 001409055
+		\\ Ian Yang, 001217664
+		\\ Gabriel Castagner, 001412885
+		\\ Junhao Wang, 001215428
+}
+
+\date{\today}
+%Instructor: Dr. Jacques Carette
+%Course: Software Engineering 4GP6
+
+
+\begin{document}
+%%%%%%%%%% INIT %%%%%%%%%%%
+\maketitle
+\pagenumbering{roman}
+\tableofcontents
+%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Purpose of the Project}
+\subsection{Background}
+
+\quad This game is to being developed as the main project for the SFWR ENG 4GP6 capstone course. This game had been an original concept that never made it out of it's idea developing stage and the development team decided that the game's idea and asthetic would be a great project to make.
+\subsection{Goals}
+\quad The development team wants to create a enjoyable strategic rogue based game as a personal achivement. This game has a few aspects that have open ended solutions such as map generation and random chance variables that will give us the knowledge of how to make them and improve upon them in the future. We as a development team want to deveope this project so that we can improve our abilities to become excellent game developers and understand the process of creating a video game using the Unity Engine. The Development team wants our audience to have an enjoyable, relaxed experience while playing this game. Roguelikes can usually be very stressful and frustraiting due to its random and trial and error nature, but we wish to change this experience and base it more on long term thinking and reward thoughtful resource management.
+\section{Stakeholders}
+\quad There are a few stakeholders in for this project.\par
+Player -  The Player stake in the game is that they are the ones who are playing and enjoying the game. They are important to take into account as we will need to ask questions like, "Is this portion of the game fun" or "Does this feature benefit the player's understanding of a mechanic". The main concern for the player will be to ensure that the game is fun and understandable. \par
+Development Team - The Development Team's stake in the game is that we are the ones who are creating and organizing the game. This project will reflect our knowledge that we have acquired over the course of our university career so we must show that we can develop this game properly and so that it can be improved upon in the future. \par
+Instructor - The instructor's stake is that they will have constructive control over the duration of the project. They will provide feedback and give guidance so that the development team can create the best version of their game.\par
+Judges - The judges stake is that they will give a review based on merit and specific guidlines. They decide how good the game is and how well it fits the development criteria.
+\section{Mandated Constraints}
+\quad There are a few constraints that the instructor wants us to follow.
+\begin{enumerate}[{MC}1. ]
+	\item The project must be developed in the Unity Game Engine
+	\item The project's documents and source files must be managed in the respective GitLab files
+	\item The project must  be a fully fledged, standalone video game that must be created from scratch with the exception of game assests (models, sprites, audio, etc).
+\end{enumerate}
+\subsection{Solution Constraints}
+\quad There are a few constraints that the development team can use as solutions wants us to follow.
+\begin{enumerate}[{SC}1. ]
+	\item The project must be developed in the Unity Game Engine
+	\item Any game assests in the Unity assest store must be referenced in both the project documents and in the game folders. 
+	\item Any game assests outside of the Untity assest store and not original to the development team must have documented concent to use such game assest if not under free use terms and conditions.
+\end{enumerate}
+\subsection{Implementation Environment of the Current System}
+\quad There are a few enviroment implementation constraints.
+\begin{enumerate}[{IE}1. ]
+	\item The game will be published to be played on Windows, IOS and Linux Machines.
+	\item The game will be able to run on a player's laptop or desktop machine. 
+	\item The game will not need the internet to functions.
+\end{enumerate}
+\subsection{Partner or Collaborative Applications}
+N/A
+\subsection{Off the Shelf Software}
+\quad There are a off the shelf software that will be needed to develop the game's assests.
+\begin{enumerate}[{OSS}1. ]
+	\item The game's textures and character sprites will need to be created in either Photoshop or Gimp 2 depending on the developer.
+	\item The game's models will need to be created in either Blender or Maya.
+\end{enumerate}
+\subsection{Schedule Constraints}
+\quad There are a few Schedule constraints.
+\begin{enumerate}[{SC}1. ]
+	\item The project's  Sales pitch and first demo will need to be presented October 17th 2017
+	\item The Game requirement's document will need to be ready by October 19th 2017
+	\item The first Implementation document will need to be ready by December 7th 2017
+	\item The first V and V document will need to be ready by January 4th 2018
+	\item The last Game requirement's document will need to be ready by February 27th 2018
+	\item The last Implementation document will need to be ready by March 29th 2018
+	\item The last V and V document will need to be ready by April 6th 2018
+	\item The final demo will need to be presented sometime in April 2018
+\end{enumerate}
+\subsection{Budget Constraints}
+\quad There are a few Budget constraints.
+\begin{enumerate}[{BC}1. ]
+	\item The development team will allowcate \$10.00 for any neccisary game assests.
+	\item The development team members will be responsible for purchasing any 3rd party software needed to develop game assests.
+\end{enumerate}
+\section{Naming Conventions and Terminology}
+\quad The following are name conventions that the development team will use: \par
+\textbf{Project - }Interchangable with Game and Application. \par
+\textbf{Game Assests - }Used to reference the asthetics of the game. These include character models, sprites, textures, character specific scripts, and audio. \par
+\textbf{Game Developers - }References the four groupmates responsible for creating the game. \par
+
+\section{Relevant Facts and Assumptions}
+\subsection{Relevant Facts}
+\quad There are a few facts about game enviroment the developers made.
+\begin{enumerate}[{RF}1. ]
+	\item Maps are generated using a psuedo randomly generated seed. It is theortically possible to generate the same map given the same seed.
+\end{enumerate}
+\subsection{Assumptions}
+\quad There are a few assumptions the developers made about the players.
+\begin{enumerate}[{A}1. ]
+	\item We assume that all users of this product are capable of using a computer and a keyboard. 
+	\item We assume that all users of this product will be able to differentiate between their character and the map.
+	\item We assume that all users will have an Apple or Windows machine.
+	\item We assume that all users have used a WASD + spacebar control scheme before.
+	\item We assume that some users have played a some sort of game that uses turn based rules.
+	\item We assume that when the user achieves a game over that that specific game is no longer replayable.
+\end{enumerate}
+\section{Scope of the Work}
+\subsection{Existing Inspirations}
+\quad There are a few existing game that was are using as inspiration to model our game's mechanics and theme off of.
+\begin{enumerate}[{EI}1. ]
+	\item FTL- We are using FTL's map generation as a general concept on how the level will be connected together. 
+
+
+\end{enumerate}
+\subsection{Context of the Work}
+\quad There are a motivational factors that the development team will keep in mind when we are developing the project.
+\begin{enumerate}[{CW}1. ]
+	\item The development team will challenge each feature with the idea of fairness, is the feature implemented fair to the player. The team will as to see if the feature can be accounted for and deflected. If the feature can't be accounted for, will it terminally upset the player causing game breaking moments.
+	\item The development team will ensure that the art style, gui and map design is considered clean and clear. The developers will question if features like tooltips, indications and menus are easy to read and that selections are simple for the user to understand.  There should be limit of the clutter on screen, both entity and texture wise.
+\end{enumerate}
+\section{The Scope of the Product}
+\subsection{Product Boundary}
+\quad This section will cover what the project will include and what it will not include.
+\begin{enumerate}[{PB}1. ]
+	\item The development team will challenge each feature with the idea of fairness, is the feature implemented fair to the player. The team will as to see if the feature can be accounted for and deflected. If the feature can't be accounted for, will it terminally upset the player causing game breaking moments.
+	\item The development team will ensure that the art style, gui and map design is considered clean and clear. The developers will question if features like tooltips, indications and menus are easy to read and that selections are simple for the user to understand.  There should be limit of the clutter on screen, both entity and texture wise.
+\end{enumerate}
+\subsection{Product Use Case Table}
+\subsection{Individual Product Use Cases}
+\section{Functional Requirements}
+\subsection{Core Mechanics}
+\subsection{Primary Gameplay Mode}
+\subsection{Alternate Game Modes}
+\subsection{Menus and other Systems}
+\section{Look and Feel Requirements}
+\subsection{Apperance Requirements}
+\quad test
+\subsection{Style Requirements}
+\quad test
+\subsection{Requisite Assests}
+\subsection{Audio}
+\subsection{Visual}
+\section{Performance Requirements}
+\subsection{Speed and Latency Requirements}
+\subsection{Precision or Accuracy Requirements}
+\subsection{Reliability and Availability Requirements}
+\subsection{Robustness or Fault Tolerance Requirements}
+\subsection{Capacity Requirements}
+\subsection{Scalability and Extensibility Requirements}
+\subsection{Longevity Requirements}
+\section{Operational and Environmental Requirements}
+\subsection{Release Requirements}
+\subsection{Expected Physical Enviroment}
+\section{Maintainability and Support Requirements}
+\subsection{Maintenance Requirements}
+\subsection{Supportability Requirements}
+\subsection{Adaptability Requirements}
+\section{Security Requirements}
+\section{Cultural Requirements}
+\section{Legal Requirements}
+\subsection{Compliance Requirements}
+\subsection{Standards Requirements}
+\section{Project Schedule}
+\section{Risks}
+\quad test
+\section{Costs}
+\section{User Documentation and Training}
+\subsection{User Documentation Requirements}
+\subsection{Training Requirements}
+\section{Waiting Room}
+\section{Ideas for Solutions}
+
+\end{document}
