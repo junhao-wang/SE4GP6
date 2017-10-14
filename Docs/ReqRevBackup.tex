@@ -7,23 +7,27 @@
 \usepackage{fancyhdr}
 \usepackage{array}
 \usepackage{tabu}
+%%%%%%%% Title Page Stuff %%%%%%%%%
 \title{Requirments Document Rev 0\\A World Apart}
-
 \author{Team SantaHatesPoorKids
 		\\ Jim Wu, 001409055
 		\\ Ian Yang, 001217664
 		\\ Gabriel Castagner, 001412885
 		\\ Junhao Wang, 001215428
 }
-
 \date{\today}
-%Instructor: Dr. Jacques Carette
-%Course: Software Engineering 4GP6
 
-
-\begin{document}
 %%%%%%%%%% INIT %%%%%%%%%%%
+\begin{document}
+\begin{titlepage}
 \maketitle
+\vfill
+{\centering
+Supervised by:\par 
+Dr. Jacques Carette \par
+Software Engineering 4GP6 \par
+}
+\end{titlepage}
 \pagenumbering{roman}
 \tableofcontents
 %%%%%%%%%%%%%%%%%%%%%%%%
@@ -95,7 +99,7 @@ N/A
 \textbf{Project - }Interchangable with Game and Application. \par
 \textbf{Game Assests - }Used to reference the asthetics of the game. These include character models, sprites, textures, character specific scripts, and audio. \par
 \textbf{Game Developers - }References the four groupmates responsible for creating the game. \par
-
+\textbf{Submenu - }References any menu that can be accessed from the Main or Game menu, usually refering to save, load, new game menus and options menus. \par
 \section{Relevant Facts and Assumptions}
 \subsection{Relevant Facts}
 \quad There are a few facts about game enviroment the developers made.
@@ -213,13 +217,51 @@ PUC & PUC Name & Actors & Input/Output \\
 \textbf{Procedures: }The System applies to the change to the game session base on the value coressponding to the menu. The system may need to reajust it's output values depending on the input selection. \par
 \textbf{Outcomes: }Returns the Graphical representation of outcome of the modification and returns a graphical indication to the player representing that the change has been made. \par
 \textbf{Related Use Cases: }N/A \par
+
+	\item \textbf{Default Setting Reset -} The user wants to revert the settings to their default settings.\par
+\textbf{Trigger Conditions: }Player presses the reset to default button. \par
+\textbf{Preconditions Conditions: }The player is in the graphics or audio menus. \par
+\textbf{Procedures: }The system poses to the player if they want to reset to default options. If they say no, then they are returned to respected menu. If the player says yes, then the system resets the values to the default settings. \par
+\textbf{Outcomes: }Returns the Graphical representation of values being reset to default. \par
+\textbf{Related Use Cases: }N/A \par
 \end{enumerate}
 \section{Functional Requirements}
 %Based off of use cases
 \subsection{Core Mechanics}
+%List each mechanic and create some requirements that the mechanic needs to follow
 \subsection{Primary Gameplay Mode}
+%In gameplay element doing the fighting 
+\quad This section will cover requirements that are related to the primaru gameplay of the project, which is the fighting portion of the game. The scope of the fighting gameplay will include it's setup, duration and outcome of combat. The requirements of the figthing gameplay is:
+\begin{enumerate}[{PGR}1. ]
+	\item The player is always has the first turn.
+	\item The player's turn is followed by the AI's turn.
+	\item The AI's turn is followed by the player's turn.
+	\item Either turn will not be interupted.
+	\item The player wins if all objectives are completed.
+	\item The player loses if all character die or an objective is failed.
+	\item If the player wins, then the system updates the file with the success while having a GUI output to player the outcome of the fight.
+	\item While a character is performing an action or the AI's turn is being conducted, the player shall be able to enter the menus, pausing the game.
+	\item If the player is in the menus while a character is performing an action or the AI's turn is being conducted, the player is not able to save or load a game.
+	%add what the player can do during their turn.
+\end{enumerate}
 \subsection{Alternate Game Modes}
+%Character modification menus and map menus
 \subsection{Menus and other Systems}
+\quad This section will cover requirements that are related to the different menus of the game. There are a list of menus in the game, but the two main menus are the Main menu that is shown when the game is first initailized and the In Game menus which is the menu that will be displayed while the game is being played. The requirements of both these menus are:
+\begin{enumerate}[{MR}1. ]
+	\item The Main Menu is opened when the game is first initalized or when the player exits the current game session.
+	\item The Main Menu is closed when the player exits the game or enters a game session.
+	\item The Game Menu is opened when the esc key is pressed or the menu button is pressed.
+	\item The Game Menu is closed when the esc key is pressed or the close menu button is pressed.
+	\item For both menus, if the audio button is selected then Audio options is opened.
+	\item For both menus, if the graphics button is selected then Graphics options is opened.
+	\item For both Audio and Graphics menus, if the back menu is selected then the changes are saved and the respected menu is closed.
+	\item A new game menu is created if the player presses the New Game button from the Main Menu.
+	\item A Load game menu is created if the player presses the Load Game button from the Main Menu.
+	\item A Save game menu is created if the player presses the Save Game button from the Main Menu.
+	\item All submenus can be closed if the player presses the esc key or the coressponding close menu key.	
+	%Not sure if to include player modification menus or tooltips.
+\end{enumerate}
 \section{Look and Feel Requirements}
 \subsection{Apperance Requirements}
 \begin{enumerate}[{APPR}1. ]

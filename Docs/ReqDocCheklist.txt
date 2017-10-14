@@ -1,0 +1,12 @@
+Functional Requirements - maybe, this might just be initalization requirements
+Core Mechanics
+Primary Gameplay Mode - Need to just at turn rules and character options, what happens when player loses
+Alternate Game Mode - Character modification, pre fight menus and map gameplay
+{
+Requisite Assests
+Audio
+Visual
+} we will list these and then add all assest to a susiquient folder so we can either link them in the latex document or reference them in the folder.
+
+Waiting Room - this is done after all requirements have been determined, iterate through which ones wont be ready for the next release
+Ideas for solutions - the video games we are using as inspiration, i just need the art style and gameplay inspirations
