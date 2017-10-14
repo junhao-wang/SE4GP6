@@ -9,6 +9,7 @@ using System.Collections;
 /// </summary>
 public abstract class Unit : MonoBehaviour
 {
+    public Vector3 Offset;
     /// <summary>
     /// UnitClicked event is invoked when user clicks the unit. It requires a collider on the unit game object to work.
     /// </summary>
@@ -222,7 +223,7 @@ public abstract class Unit : MonoBehaviour
         if (MovementSpeed > 0)
             StartCoroutine(MovementAnimation(path));
         else
-            transform.position = Cell.transform.position;
+            transform.position = Cell.transform.position + Offset;
 
         if (UnitMoved != null)
             UnitMoved.Invoke(this, new MovementEventArgs(Cell, destinationCell, path));    
