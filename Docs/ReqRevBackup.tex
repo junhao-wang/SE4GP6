@@ -120,9 +120,9 @@ N/A
 \subsection{Existing Inspirations}
 \quad There are a few existing game that was are using as inspiration to model our game's mechanics and theme off of.
 \begin{enumerate}[{EI}1. ]
-	\item FTL- We are using FTL's map generation as a general concept on how the level will be connected together. 
-
-
+	\item FTL- We are using FTL's map generation as a general concept on how the level will be connected together.
+	\item Dustforce - We are using Dustforce's art style as a general concept to keep things simple and clean yet looking good.
+	\item Banner Sauga - We are using Banner Sauga's Health and Armour system to help improve our own combat system.  
 \end{enumerate}
 \subsection{Context of the Work}
 \quad There are a motivational factors that the development team will keep in mind when we are developing the project.
@@ -227,25 +227,107 @@ PUC & PUC Name & Actors & Input/Output \\
 \end{enumerate}
 \section{Functional Requirements}
 %Based off of use cases
+\quad This section will cover functional requirements that do not include main game functionality. It will primarily consist of backend workings.
+\begin{enumerate}[{FR}1. ]
+	%INIT
+	\item If the player selects the exe file, a new build of the game is created and the game is initialized.
+	\item If this is the player's first time running the game, the save folder is built to store save files.
+	\item If the player its the close window button, the game terminates.
+\end{enumerate}
 \subsection{Core Mechanics}
 %List each mechanic and create some requirements that the mechanic needs to follow
+\begin{enumerate}[{CMR}1. ]
+	%Random map generation
+	\item The system generates a map that has unqiue regions, each with their repective node maps using the generated file seed.
+	\item Each Region has more than 10 nodes, each node being connected to atleast one other node and no more than 4 nodes.
+	\item Nodes will not cross eachother's paths.
+	\item Each node has a cost of supplies in that the player needs to get to the specific node.
+	%Random event generation
+	\item Each node has the possiblity of have positive, negative or neutral outcomes of aquire resources phase.
+	\item Each node should not deadlock the character with a negative outcome that makes them lose the game.
+	\item Nodes will not cross eachother's paths.
+	\item Each node has a cost of supplies in that the player needs to get to the specific node.
+	%Editable characters
+	\item Each chraceter is given a class type and base stats values.
+	%Individual turns
+	\item During the combat phase, the individual character and enemy turns are listed at the bottom of the screen.
+	\item The character and enemy turns orders are randomly mixed up and are kept in the same order for the duration of the combat phase.
+	\item If an enemy or character dies, they're turns are removed from the combat phase.
+	%Health
+	\item Characters and Enemies have default health and Armour.
+	\item The player and the AI can decide weither to attack the health values or the armour values of their repected enemies.
+	\item When the Armour value reaches 0, that selection cannot be made.
+	\item The Armour value must provide a reduced damage value that is of somesort of inverse exponetial or logmarithic value to promote the insentive to remove armour.
+	%Tool Tips
+	\item Each statistical value has a tooltip area that will display a tooltip menu when the player has hovered over the value for a given period of time.
+	\item The tool tip displays how the value is derived.
+	\item The tool tip will show different ways on how the value is changed.
+	\item The tool tip will always fit on screen, never trailing off screen.
+	\item The toop tip disappers if the mouse is hovered away.
+\end{enumerate}
 \subsection{Primary Gameplay Mode}
 %In gameplay element doing the fighting 
 \quad This section will cover requirements that are related to the primaru gameplay of the project, which is the fighting portion of the game. The scope of the fighting gameplay will include it's setup, duration and outcome of combat. The requirements of the figthing gameplay is:
 \begin{enumerate}[{PGR}1. ]
+	%%%%%%% COMBAT REQUIREMENTS %%%%%%%%
+	%Win/loose condition
 	\item The player is always has the first turn.
-	\item The player's turn is followed by the AI's turn.
-	\item The AI's turn is followed by the player's turn.
-	\item Either turn will not be interupted.
+	\item The combat phase's turns happen on individual character basis.
+	\item The player's or AI's turn shall not be interupted
 	\item The player wins if all objectives are completed.
 	\item The player loses if all character die or an objective is failed.
-	\item If the player wins, then the system updates the file with the success while having a GUI output to player the outcome of the fight.
+	\item If the player wins, then the system updates the file with the success while having a GUI output to player the outcome of the fight. The player is then returned to the Overhead map view.
+	\item If the player loses, then the player is shown a closing dialouge sequence and is returned to the main menu. The file is deemed unplayable.
+	%Turn requirements.
 	\item While a character is performing an action or the AI's turn is being conducted, the player shall be able to enter the menus, pausing the game.
 	\item If the player is in the menus while a character is performing an action or the AI's turn is being conducted, the player is not able to save or load a game.
-	%add what the player can do during their turn.
+	\item When it is the player's turn, the player shall be able to move the chosen character.
+	\item When it is the player's movement phase, the player will not be able to move the chosen character on an obstical on the map.
+	\item When the player has moved the chosen character, they maybe be able to select one of the four actions.
+	\item When the player is in the action phase of a chosen character, they will not be able to choose an actions that does not meet the subsiquient criteria.
+	\item When it is the AI's turn, the AI shall be able to move the chosen character.
+	\item When it is the AI's movement phase, the AI will not be able to move the chosen character on an obstical on the map.
+	\item When the AI has moved the chosen character, they maybe be able to select one of the four actions.
+	\item When the AI is in the action phase of a chosen character, they will not be able to choose an actions that does not meet the subsiquient criteria.
+	\item When the AI is in the action phase of a chosen character, they will not be able to attack their friendly characters.
+	\item The player shall be able to view character stats and enemy stats at anytime.
+	%Death requirements.
+	\item If a character dies, then they are removed from play.
+	\item If an enemy dies, then they are removed from play.
+	\item If a character dies and there remains only one final character, the imediate turn after the current phase is the remaining character.
+	%%%%%%%% OVERVIEW WORLD REQUIREMENTS %%%%%%%%%%
+	%general player rules
+	\item When a new game is initiated, the player is given base character, resources, and equipment.
+	\item A player may travel to any node that is connected to the current node if they have the correct amout of resources.
+	\item A node consists of Dialogue phase, an Aquire resources phase, a possible action phase and a possible merchant phase.
+	\item Each region has a terminating node that has a boss battle.
+	\item Once the boss has been defeated, the player will proceed to the next region.
+	%Win/ Lose conditions
+	\item The game is won if the player defeates the final boss in the final region.
+	\item The game is lost of the player runs out of the supply resource, unable to move.
+	\item If the player losses the game, they are given a graphic indication and are returned to the main menu. The file is deemed as unplayable.
+	\item If the player wins the game, they are given a graphic indication and are returned to the main menu. The file is deemed as unplayable.
+	%Merchant
+	\item If the merchant phase is triggered, the merchant menu is opened.
+	\item While the merchant menu is open, the player is able to view their resources, the rest of the map, and is able to exchange resources and equipment with the merchant for fixed prices.
+	\item Once the merchant menu is close, it can not be opened again on the same node.
+	%Action
+	\item If the combat phase is triggered, the player is moved to the Combat phase with current equipment layouts and resources.
+	\item If the player returns from combat phase, the rest of the node shalt progress as expected.
 \end{enumerate}
 \subsection{Alternate Game Modes}
 %Character modification menus and map menus
+\quad The following section will cover the management game mode of the game, they are still important to the game but no active strategy is being conducted.
+\begin{enumerate}[{AGR}1. ]
+	%%%%%%%%%% MANAGEMENT MENUS %%%%%%%%%%%%%%%
+	\item If the edit character layout button is pressed, then the repected menu is opened, listing all available characters.
+	\item While in the edit character layout menu, if a character is selected, then the character menu is opened displaying character stats and current equipment layout. The equipment menu is also opened which has all unequiped items.
+	\item While in the character menu, the player can equip and unequip items to the character if they meet the subsiquent requirements.
+	\item If the player hovers over the stat values, a tooltip will indicate where those values are derived from.
+	\item If the player hovers over the equipment, a tooltip will indicate a description of the weapon and it's stat bonuses. The character's stats will also be temporaly updated to show which stats are better or worse compaired to the current equipment.
+	\item If the player selects the back button in the character menus, they will be returned to the list of characters.
+	\item  If the player selects the back button in the edit character layout menus, they will be returned to the overhead world view.
+\end{enumerate}
 \subsection{Menus and other Systems}
 \quad This section will cover requirements that are related to the different menus of the game. There are a list of menus in the game, but the two main menus are the Main menu that is shown when the game is first initailized and the In Game menus which is the menu that will be displayed while the game is being played. The requirements of both these menus are:
 \begin{enumerate}[{MR}1. ]
@@ -278,10 +360,13 @@ PUC & PUC Name & Actors & Input/Output \\
 \end{enumerate}
 \subsection{Requisite Assests}
 %include any 3rd party assests here
+turn based strategy asset pack
 \subsection{Audio}
 %inlcude any audio used here, the number of pieces in the song, and rational
+%menu song, overworld song and battle song
 \subsection{Visual}
 %include any visual assests here in alphabetical order, link to pics folder
+%title image, 2 character, one enemy, rock, default texture, button
 \section{Usability and Humanity Requirements}
 \subsection{Ease of Use Requirements}
 \begin{enumerate}[{EUR}1. ]
@@ -308,7 +393,7 @@ PUC & PUC Name & Actors & Input/Output \\
 \section{Performance Requirements}
 %below has included all functions
 \subsection{Speed and Latency Requirements}
-\begin{enumerate}[{PAR}1. ]
+\begin{enumerate}[{SLR}1. ]
 	\item The program should not hang or freeze for more than 5 seconds during runtime.
 	\item Loading and saving periods should take no more than 10 seconds during runtime.
 	\item Loading and saving periods should take no more than 10 seconds during runtime.
@@ -325,7 +410,7 @@ PUC & PUC Name & Actors & Input/Output \\
 	\item The tutorial and tooltips should be easy to understand and the provide unqiue insite to the player.
 \end{enumerate}
 \subsection{Robustness or Fault Tolerance Requirements}
-\begin{enumerate}[{SER}1. ]
+\begin{enumerate}[{RFR}1. ]
 	\item The program should not crash during save or loading periods.
 	\item The program should make frequent autosaves during runtime to help reduce the loss of data.
 \end{enumerate}
@@ -356,7 +441,7 @@ PUC & PUC Name & Actors & Input/Output \\
 	\item The application's documentation shall be relevant and up to date, being updated within one week of any major changes made
 \end{enumerate}
 \subsection{Supportability Requirements}
-\begin{enumerate}[{SR}1. ]
+\begin{enumerate}[{SUPR}1. ]
 	\item There shall be adequate supporting documents of the project after every major release.
 	\item There will be a supporting manual to be added to the final release of the project.
 \end{enumerate}
@@ -393,6 +478,28 @@ PUC & PUC Name & Actors & Input/Output \\
 \quad N/A %touch upon
 \section{Project Schedule}
 % Include an image or table of the development process of the schedule for the coming year.
+\quad The following section has a table of the what will be covered in the coming months. Currently with the early stages of development, the list of things needed to be completed is subject to change and should be taken with an approximation of what is to be completed.
+\begin{center}
+\begin{tabular}{ | m{5em} | m{10cm}|} 
+\hline
+Month & List of things to be completed \\ 
+\hline
+October & Finalize first Project demo, Develop art assets, Develop Random Map Generator, Develop Node Generator \\ 
+\hline
+Novemeber & Test Map Generator, Test Node Generator, Fully Develop Combat Phase,  \\ 
+\hline
+December & Finalize Implementation Design Document first draft,  \\ 
+\hline
+January &  Finalize V\&V Document first draft,\\ 
+\hline
+Febuary & Finalize Conept and Requierments Document. \\ 
+\hline
+March & Finalize Implmentation Document\\ 
+\hline
+April & Finalize Project Demo, Create standalone verision, Finalize V\&V Document \\ 
+\hline
+\end{tabular}
+\end{center}
 \section{Risks}
 \quad The following are risks that may be assoiciated with the project
 \begin{enumerate}[{R}1. ]
@@ -414,11 +521,29 @@ PUC & PUC Name & Actors & Input/Output \\
 \end{enumerate}
 \section{Waiting Room}
 %display here the functions that will not be included this week during presenting, inlcude the letters infront for clear referencing.
+\quad The following requirements will not be ready for the next installment of the game, which is on October 17th, 2017.
+\begin{enumerate}
+	\item FR1. If the player selects the exe file, a new build of the game is created and the game is initialized.
+	%Core mechanics, primary, alternate, menus
+	\item All AGR will not be ready for next installment
+	\item All MR will not be ready for next installment
+	\item APPR 3. Buttons, Menus and item backrounds should be a truncated square. 
+	\item EUR 2. The player should be able to use an xbox 360 controller if desired.
+	\item SLR 4. The application shall load on most standard computers running Windows 10 or IOS and should take no more than 15 seconds to initalize the project.
+	\item PAR 1. The mouse clicks should be accurate with ray casts up to error of 2 pixels.
+	\item PAR 2. Seed generations should give near perfect maps and outcomes if the same seed was to be used again.
+	\item RAR 1. The tutorial and tooltips should be easy to understand and the provide unqiue insite to the player.
+	\item RFR 1. The program should not crash during save or loading periods.
+	\item RFR 2. The program should make frequent autosaves during runtime to help reduce the loss of data.
+	\item All RR will not be ready for the next installment.
+	\item AR 1. The program is expected to run on Windows, IOS and Linux machines.
+\end{enumerate}
 \section{Ideas for Solutions}
 \quad The following ideas for solutions to problems that we may face during the course of the project:
 \begin{enumerate}
 	\item To solve our graphic layering problem, we will look to many bird eye view games such as Don't Starve or Roller Coaster Tycoon to see how the developers seemlessly layered their graphics in an orthotic manner.
 	\item To solve our problem of finding atleast one continous pathway, we will reference Graph Theory to ensure that all maps can be dermined as continous. 
 	\item To ensure our game is fair to the player we will look into games that have similar mechanics and try to see which game made their mechanic more fair and less dependant on chance. A few contrasts that we will make will be looking at XCOM vs Mario + Rabbits Kindom battle, FTL and The Binding of Isaac. % More references.
+	\item To ensure that our art style is simple and understandable, we will reference Dustforce's art style and take note to what makes it simple and how to maximize the limited number of colours on our palette.
 \end{enumerate}
 \end{document}
