@@ -7,11 +7,16 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: Assets/TBS Framework/Scenes/Example Scene 1.unity
+    guid: df2c32013eb9453479cb1ed3ab78d53e
   - enabled: 0
     path: Assets/TBS Framework/Scenes/Example Scene 4.unity
+    guid: c865608e9685b414b9365bc9545c32f2
   - enabled: 0
-    path: Assets/TBS Framework/Scenes/Example Scene 5.unity
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/TBS Framework/Scenes/Example Scene 4.unity
-  - enabled: 1
-    path: Assets/TBS Framework/Scenes/Example Scene 5.unity
+    guid: c865608e9685b414b9365bc9545c32f2
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
