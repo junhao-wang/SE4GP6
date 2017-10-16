@@ -10,7 +10,7 @@ public class GenericUnit : Unit
     public override void Initialize()
     {
         base.Initialize();
-        transform.position += new Vector3(0, 0, -0.1f);
+        transform.position += new Vector3(0, 0, -0.001f);
     }
 
     public override void OnUnitDeselected()
@@ -34,7 +34,7 @@ public class GenericUnit : Unit
 
     private IEnumerator Jerk(Unit other)
     {
-        GetComponent<SpriteRenderer>().sortingOrder = 6;
+        transform.Find("Sprite").GetComponent<SpriteRenderer>().sortingOrder = 6;
         var heading = other.transform.position - transform.position;
         var direction = heading / heading.magnitude;
         float startTime = Time.time;
@@ -50,8 +50,8 @@ public class GenericUnit : Unit
             transform.position = Vector3.Lerp(transform.position, transform.position - (direction / 50f), ((startTime + 0.25f) - Time.time));
             yield return 0;
         }
-        transform.position = Cell.transform.position + new Vector3(0, 0, -0.1f);
-        GetComponent<SpriteRenderer>().sortingOrder = 4;
+        transform.position = Cell.transform.position + new Vector3(0, 0, -0.001f);
+        transform.Find("Sprite").GetComponent<SpriteRenderer>().sortingOrder = 4;
     }
     private IEnumerator Glow(Color color, float cooloutTime)
     {
@@ -113,7 +113,7 @@ public class GenericUnit : Unit
 
     private void SetColor(Color color)
     {
-        var _renderer = GetComponent<SpriteRenderer>();
+        var _renderer = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         if (_renderer != null)
         {
             _renderer.color = color;

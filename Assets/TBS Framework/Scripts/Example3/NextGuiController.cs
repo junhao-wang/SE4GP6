@@ -16,6 +16,7 @@ public class NextGuiController : MonoBehaviour
     private GameObject _infoPanel;
     private GameObject _gameOverPanel;
 
+
     void Start()
     {
         CellGrid.GameStarted += OnGameStarted;
