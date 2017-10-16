@@ -107,7 +107,7 @@ MonoBehaviour:
   MovementSpeed: 1
   ActionPoints: 1
   PlayerNumber: 1
-  UnitName: Soldier
+  UnitName: R1
 --- !u!212 &21249198
 SpriteRenderer:
   m_ObjectHideFlags: 1
