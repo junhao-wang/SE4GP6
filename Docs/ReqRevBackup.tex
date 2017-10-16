@@ -158,6 +158,10 @@ PUC & PUC Name & Actors & Input/Output \\
 \hline
  8  & GUI Modification  & System & Player Input, Appropriate GUI modification \\
 \hline
+ 9  & Merchant Interaction  & System & Player Input, Appropriate GUI modification, Resource update modification \\
+\hline
+ 10 & Overhead world movement  & System & Player Input, Appropriate GUI modification, Map update modification \\
+\hline
 \end{tabu}
 \subsection{Individual Product Use Cases}
 \quad This Section will cover the Product Use Cases in detail. They will include their trigger conditions, preconditions, procedures, outcomes and any use cases that are related.
@@ -223,6 +227,20 @@ PUC & PUC Name & Actors & Input/Output \\
 \textbf{Preconditions Conditions: }The player is in the graphics or audio menus. \par
 \textbf{Procedures: }The system poses to the player if they want to reset to default options. If they say no, then they are returned to respected menu. If the player says yes, then the system resets the values to the default settings. \par
 \textbf{Outcomes: }Returns the Graphical representation of values being reset to default. \par
+\textbf{Related Use Cases: }N/A \par
+	
+	\item \textbf{Merchant Interaction -} The user wants to buy or sell things from the merchant. \par
+\textbf{Trigger Conditions: }Player presses the buy or sell button \par
+\textbf{Preconditions Conditions: }The player is in the merchant menu. The user has the appropriate resources to trade for the desired item.\par
+\textbf{Procedures: }The system removes the required resources from the player's resource pile and adds the desired item to the player's equipment list or resources. \par
+\textbf{Outcomes: }Returns the Graphical representation of values being changed. The change is applied to the character's resources. \par
+\textbf{Related Use Cases: }N/A \par
+
+	\item \textbf{Overhead World Movement -} The user wants to move the character party to an adjacent node. \par
+\textbf{Trigger Conditions: }Player presses selection on a adjacent node. \par
+\textbf{Preconditions Conditions: }The player is in the overhead world view. The player has enough resources to proceed.\par
+\textbf{Procedures: }The system graphically moves the characters to the desired node. \par
+\textbf{Outcomes: }The system shows initalizes the new node phase initiation. The party posistion is updated in the coressponding file. \par
 \textbf{Related Use Cases: }N/A \par
 \end{enumerate}
 \section{Functional Requirements}
@@ -370,7 +388,8 @@ PUC & PUC Name & Actors & Input/Output \\
 Asset Type & Number Required & Rationale\\ 
 \hline
 Winter Biome Background & 2 & We felt that this music was appropriate for the winter levels of our games and represent the bioms correctly\\
-Main Menu & 1 & We felt that this is the appropriate music that can be used for the overall theme of the game, it matches the main menu title well.
+\hline
+Main Menu & 1 & We felt that this is the appropriate music that can be used for the overall theme of the game, it matches the main menu title well.\\
 \hline
 \end{tabular}
 \end{center}
