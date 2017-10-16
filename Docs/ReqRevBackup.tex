@@ -239,7 +239,7 @@ PUC & PUC Name & Actors & Input/Output \\
 \begin{enumerate}[{CMR}1. ]
 	%Random map generation
 	\item The system generates a map that has unqiue regions, each with their repective node maps using the generated file seed.
-	\item Each Region has more than 10 nodes, each node being connected to atleast one other node and no more than 4 nodes.
+	\item Each Region has more than 10 nodes, each node being connected to atleast 4 other node and no more than 8 nodes.
 	\item Nodes will not cross eachother's paths.
 	\item Each node has a cost of supplies in that the player needs to get to the specific node.
 	%Random event generation
@@ -360,13 +360,39 @@ PUC & PUC Name & Actors & Input/Output \\
 \end{enumerate}
 \subsection{Requisite Assests}
 %include any 3rd party assests here
-turn based strategy asset pack
+\quad We used the turn based strategy framework (TBS Framework) from the Unity Asset store because it suited the nature of the combate phase of our game very well. It handled turn taking, calculating and appling damage, the stacking of certain combos and victory conditions.
 \subsection{Audio}
 %inlcude any audio used here, the number of pieces in the song, and rational
 %menu song, overworld song and battle song
+\begin{center}
+\begin{tabular}{ | m{5cm} | m{5cm}|m{5cm}|} 
+\hline
+Asset Type & Number Required & Rationale\\ 
+\hline
+Winter Biome Background & 2 & We felt that this music was appropriate for the winter levels of our games and represent the bioms correctly\\
+Main Menu & 1 & We felt that this is the appropriate music that can be used for the overall theme of the game, it matches the main menu title well.
+\hline
+\end{tabular}
+\end{center}
 \subsection{Visual}
 %include any visual assests here in alphabetical order, link to pics folder
 %title image, 2 character, one enemy, rock, default texture, button
+\quad All items listed below will be referenced in the their repected directory to reduce clutter on this document, it is encourage that the reader view the photos in the Assests folder while reviewing the sections below.
+\begin{enumerate}[{Sprite}1.]
+	\item Kroner - One of the main characters. Matching file name is KronderProto.png
+	\item Lee - One of the main characters. Matching file name is LeeProto.png
+	\item Robot - One of the main enemies. Matching file name is  Robot1.png
+\end{enumerate}
+\begin{enumerate}[{Texture}1.]
+	\item Snow - The main title texture for the winter biome. %need matching file
+\end{enumerate}
+\begin{enumerate}[{UI}1.]
+	\item Blue Menu Button - The main image that will be used for the buttons in the menu. Matching file is BluePanel.png
+	\item Title Page - The main menu image that the player first sees when the game is loaded. Matching file is TempTitle.png
+\end{enumerate}
+\begin{enumerate}[{Enviroment}1.]
+	\item Rock - The defualt rock used in the winter biome. % need matching file
+\end{enumerate}
 \section{Usability and Humanity Requirements}
 \subsection{Ease of Use Requirements}
 \begin{enumerate}[{EUR}1. ]
@@ -482,21 +508,21 @@ turn based strategy asset pack
 \begin{center}
 \begin{tabular}{ | m{5em} | m{10cm}|} 
 \hline
-Month & List of things to be completed \\ 
+Month & List of tasks to be completed \\ 
 \hline
-October & Finalize first Project demo, Develop art assets, Develop Random Map Generator, Develop Node Generator \\ 
+October & Finalize first Project demo, Develop character art assests, Develop Random Map Generator, Develop Node Generator \\ 
 \hline
-Novemeber & Test Map Generator, Test Node Generator, Fully Develop Combat Phase,  \\ 
+Novemeber & Test Map Generator, Test Node Generator, Develop Combat Phase Setup, Develop terrain art assests, Develop map textures \\ 
 \hline
-December & Finalize Implementation Design Document first draft,  \\ 
+December & Finalize Implementation Design Document first draft, Develop Story dialouge, Develop event dialouge, Develop Tooltip format. \\ 
 \hline
-January &  Finalize V\&V Document first draft,\\ 
+January &  Finalize V\&V Document first draft, Fully Develop Combat Phase, Develop remaing character assests, Develop secial effects assests. \\ 
 \hline
-Febuary & Finalize Conept and Requierments Document. \\ 
+Febuary & Finalize Conept and Requierments Document, Develop event list, Develop event assests, Develop Tooltip mechanics, Redevelop Map Generation for current needs. \\ 
 \hline
-March & Finalize Implmentation Document\\ 
+March & Finalize Implentation Document, Develop audio recordings, Test Tool Tip mechanics, Perform system testing, Perform game testing.\\ 
 \hline
-April & Finalize Project Demo, Create standalone verision, Finalize V\&V Document \\ 
+April & Finalize Project Demo, Create standalone verision, Finalize V\&V Document, Finalize testing, Finalize assests. \\ 
 \hline
 \end{tabular}
 \end{center}
