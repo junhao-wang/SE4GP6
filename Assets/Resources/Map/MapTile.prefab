@@ -21,8 +21,6 @@ GameObject:
   - component: {fileID: 4984738961609688}
   - component: {fileID: 212642587420049374}
   - component: {fileID: 114674457858081270}
-  - component: {fileID: 60075517432299780}
-  - component: {fileID: 114185699752655734}
   m_Layer: 0
   m_Name: MapTile
   m_TagString: Untagged
@@ -38,82 +36,11 @@ Transform:
   m_GameObject: {fileID: 1314773542535046}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -4.888, y: -2.821, z: 0}
-  m_LocalScale: {x: 1, y: 1.15, z: 1}
+  m_LocalScale: {x: 1, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!60 &60075517432299780
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1314773542535046}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.865}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.35999998, y: -0.2625}
-      - {x: 0.39749998, y: -0.19749999}
-      - {x: 0.445, y: -0.114999995}
-      - {x: 0.465, y: -0.08}
-      - {x: 0.4825, y: -0.049999997}
-      - {x: 0.5, y: -0.0175}
-      - {x: 0.5, y: 0.0175}
-      - {x: 0.45999998, y: 0.0875}
-      - {x: 0.39249998, y: 0.205}
-      - {x: 0.3575, y: 0.265}
-      - {x: 0.32999998, y: 0.3125}
-      - {x: 0.29999998, y: 0.36499998}
-      - {x: 0.2625, y: 0.42999998}
-      - {x: 0.2575, y: 0.4325}
-      - {x: -0.26, y: 0.4325}
-      - {x: -0.28, y: 0.39749998}
-      - {x: -0.315, y: 0.3375}
-      - {x: -0.3425, y: 0.29}
-      - {x: -0.36249998, y: 0.255}
-      - {x: -0.41, y: 0.1725}
-      - {x: -0.42749998, y: 0.1425}
-      - {x: -0.4475, y: 0.107499994}
-      - {x: -0.475, y: 0.06}
-      - {x: -0.5, y: 0.015}
-      - {x: -0.5, y: -0.015}
-      - {x: -0.49499997, y: -0.0275}
-      - {x: -0.45999998, y: -0.0875}
-      - {x: -0.4325, y: -0.13499999}
-      - {x: -0.2825, y: -0.39499998}
-      - {x: -0.2625, y: -0.42999998}
-      - {x: -0.2575, y: -0.4325}
-      - {x: 0.26, y: -0.4325}
-      - {x: 0.2775, y: -0.405}
-      - {x: 0.3125, y: -0.345}
-      - {x: 0.3425, y: -0.2925}
---- !u!114 &114185699752655734
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1314773542535046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a41b61c90406f84b9cabad3880ba824, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TileColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114674457858081270
 MonoBehaviour:
   m_ObjectHideFlags: 1

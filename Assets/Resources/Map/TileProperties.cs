@@ -6,10 +6,10 @@ public class TileProperties : MonoBehaviour {
     public GameObject NodePrefab;
     public GameObject NodeChild;
 
+
 	// Use this for initialization
 	void Start () {
-        NodeChild = Instantiate(NodePrefab);
-        NodeChild.GetComponent<Transform>().position = calcRandNodeLocation();
+  
 	}
 	
 	// Update is called once per frame
@@ -23,6 +23,17 @@ public class TileProperties : MonoBehaviour {
         Vector3 offset = Random.insideUnitCircle *0.5f *0.8f;
         offset += new Vector3(0, 0, -0.1f);
         return inipos+ offset;
+    }
+
+    public void GenNode()
+    {
+        NodeChild = Instantiate(NodePrefab);
+        NodeChild.GetComponent<Transform>().position = calcRandNodeLocation();
+    }
+
+    public void DestroyNode()
+    {
+        Destroy(NodeChild);
     }
 
 }

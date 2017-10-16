@@ -188,8 +188,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1727869553}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -205,6 +204,7 @@ GameObject:
   - component: {fileID: 1727869556}
   - component: {fileID: 1727869555}
   - component: {fileID: 1727869554}
+  - component: {fileID: 1727869558}
   m_Layer: 0
   m_Name: MapController
   m_TagString: Untagged
@@ -218,12 +218,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1727869552}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.82, y: 1.45, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.46, y: 2.09, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 107231441}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1727869554
 MonoBehaviour:
@@ -240,8 +240,9 @@ MonoBehaviour:
   VerticleTilingOffset: 0.744518
   HorizontleTilingOffset: 1
   HorizontalRowOffset: 0.5
-  Rows: 5
-  Cols: 8
+  Rows: 8
+  Cols: 14
+  PruneChance: 0.5
 --- !u!23 &1727869555
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -295,3 +296,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1727869552}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1727869558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1727869552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21cf18ff16bec3d459e3ca1c0ef79f99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Nodes: []
