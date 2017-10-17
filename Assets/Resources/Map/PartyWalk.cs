@@ -42,7 +42,9 @@ public class PartyWalk : MonoBehaviour {
         startNode = start;
         endNode = end;
         walkflag = true;
-    }
+        startTime = Time.time;
+        journeyLength = Vector3.Magnitude(end.position - start.position);
+}
 
 
 }
