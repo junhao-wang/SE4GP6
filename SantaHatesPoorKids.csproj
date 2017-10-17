@@ -295,6 +295,7 @@
     <Compile Include="Assets\TBS Framework\Scripts\Tutorial\GUIController.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Tutorial\SampleSquare.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Tutorial\SampleUnit.cs" />
+    <Compile Include="Assets\UI\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Utility\Scripts\AssetList.cs" />
   </ItemGroup>
   <ItemGroup>

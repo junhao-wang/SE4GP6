@@ -39,13 +39,18 @@ public class NodeProperties : MonoBehaviour {
         Vector3 unitVec = NodeB.GetComponent<Transform>().position - gameObject.GetComponent<Transform>().position;
         float length = unitVec.magnitude;
         unitVec = unitVec.normalized;
-        float angle = Vector3.Angle(new Vector3(1, 0), unitVec);
+        float angle = Vector3.SignedAngle(new Vector3(1, 0,0), unitVec, new Vector3(1, 0, 0));
+        if (unitVec[1] < 0)
+        {
+            angle *= -1;
+        }
+        print(angle);
         for (float f = 0.03f;f < length - 0.03f; f+= 0.06f)
         {
             GameObject path = Instantiate(PathPrefab);
             Vector3 offset = f * unitVec;
             path.GetComponent<Transform>().position = gameObject.GetComponent<Transform>().position + offset;
-            path.GetComponent<Transform>().rotation = Quaternion.AngleAxis(-1*angle, Vector3.forward);
+            path.GetComponent<Transform>().rotation = Quaternion.Euler(0,0, angle);
             if (walkpath==null)
             {
                 Pathing.Add(path);

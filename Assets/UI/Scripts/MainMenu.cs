@@ -15,12 +15,12 @@ public class MainMenu : MonoBehaviour {
 		
 	}
 
-    void StartGame()
+    public void StartGame()
     {
-
+        SceneManager.LoadScene("Map");
     }
 
-    void ExitGame()
+    public void ExitGame()
     {
         Application.Quit();
     }
