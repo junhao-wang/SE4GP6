@@ -22,7 +22,7 @@ public class NodeProperties : MonoBehaviour {
     {
         foreach(GameObject Node in Neighbors)
         {
-            connect(Node);
+            Connect(Node);
         }
     }
     public void clearPaths()
@@ -34,7 +34,7 @@ public class NodeProperties : MonoBehaviour {
         }
     }
 
-    void connect(GameObject NodeB)
+    void Connect(GameObject NodeB, List<GameObject> walkpath = null)
     {
         Vector3 unitVec = NodeB.GetComponent<Transform>().position - gameObject.GetComponent<Transform>().position;
         float length = unitVec.magnitude;
@@ -45,8 +45,16 @@ public class NodeProperties : MonoBehaviour {
             GameObject path = Instantiate(PathPrefab);
             Vector3 offset = f * unitVec;
             path.GetComponent<Transform>().position = gameObject.GetComponent<Transform>().position + offset;
-            path.GetComponent<Transform>().rotation *= Quaternion.AngleAxis(-1*angle, Vector3.forward);
-            Pathing.Add(path);
+            path.GetComponent<Transform>().rotation = Quaternion.AngleAxis(-1*angle, Vector3.forward);
+            if (walkpath==null)
+            {
+                Pathing.Add(path);
+            }
+            else
+            {
+                walkpath.Add(path);
+            }
+
         }
 
     }

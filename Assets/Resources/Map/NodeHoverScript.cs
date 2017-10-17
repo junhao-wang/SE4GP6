@@ -35,20 +35,18 @@ public class NodeHoverScript : MonoBehaviour {
 
     void OnMouseUpAsButton()
     {
-        /*
-        if (!Clickable)
-        {
-            return;
-        }
-        */
-        if (clickToggle)
-        {
-            gameObject.GetComponent<SpriteRenderer>().material.color = TileColor;
-        }
-        else
-        {
-            gameObject.GetComponent<SpriteRenderer>().material.color = Color.green;
-        }
-        clickToggle = !clickToggle;
+
+       
     }
+    public void ReturnNaturalColor()
+    {
+        gameObject.GetComponent<SpriteRenderer>().material.color = TileColor;
+        clickToggle = false;
+    }
+    public void SetActiveColor()
+    {
+        gameObject.GetComponent<SpriteRenderer>().material.color = Color.green;
+        clickToggle = true;
+    }
+
 }

@@ -114,16 +114,83 @@ public class MapGenerator : MonoBehaviour {
             }
         }
         //Prim's Algorithm
-        List<int> remaining = new List<int>();
-        List<int> visited = new List<int>();
-        List<Edge> Queue = new List<Edge>();
-
-        visited.Add(0);
-        for(int i = 1; i < l; i++)
+        
+        int[] bestI = new int[l];
+        int[] flags = new int[l];
+        for (int i = 0; i < l; i++)
         {
-            remaining.Add(i);
+            bestI[i] = -1;
+            flags[i] = -1;
+        }
+        float[,] adjacencyMatrix = (float[,])distance.Clone();
+        bool notDone = true;
+        int pivot = 0;
+        flags[0] = 1;
+        while (notDone)
+        {
+            
+            //delete row from choosen vortex
+            for(int i = 0; i < l; i++)
+            {
+                adjacencyMatrix[pivot, i] = float.MaxValue;
+            }
+
+            //find lowest value in column
+            float min = float.MaxValue;
+            int newPivot = -1;
+            for (int i = 0; i < l; i++)
+            {
+                if(flags[i] > 0)
+                {
+                    for (int j = 0; j < l; j++)
+                    {
+                       
+                       if (adjacencyMatrix[j,i] < min)
+                        {
+                            print(adjacencyMatrix[j, i]);
+                            min = adjacencyMatrix[j, i];
+                            newPivot = j;
+                        } 
+                    }
+                }
+            }
+            if(newPivot != -1)
+            {
+                bestI[pivot] = newPivot;
+                pivot = newPivot;
+                flags[pivot] = 1;
+            }
+            else
+            {
+                print("Error with minimum spanning tree");
+                return;
+            }
+
+            //check if all columns have been visited
+            int counter = 0;
+            for(int i = 0; i < l; i++)
+            {
+                if(bestI[i] >= 0)
+                {
+                    counter++;
+                }
+            }
+
+            notDone = (counter == l-1);
+            print(bestI.ToString());
         }
 
+        //connect the nodes
+        int index = 0;
+        while (bestI[index] != -1)
+        {
+            connectNode(gameObject.GetComponent<MapProperties>().Nodes[index], gameObject.GetComponent<MapProperties>().Nodes[bestI[index]]);
+            index = bestI[index];
+            print(string.Format("connecting %i to %i", index, bestI[index]));
+        }
+        
+        
+        
 
 
         //calculate and connect 3 closest node for each node

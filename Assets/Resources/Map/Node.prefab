@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114365883768735930}
   - component: {fileID: 114371206943442108}
   - component: {fileID: 58362939887743640}
+  - component: {fileID: 114938754554531102}
   m_Layer: 0
   m_Name: Node
   m_TagString: Untagged
@@ -87,6 +88,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TileColor: {r: 0, g: 0, b: 0, a: 0}
   Clickable: 0
+--- !u!114 &114938754554531102
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1257008272669818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd7d29fb2bae684c8bb89132dc1328e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212625170917879312
 SpriteRenderer:
   m_ObjectHideFlags: 1
