@@ -250,30 +250,29 @@ PUC & PUC Name & Actors & Input/Output \\
 	%INIT
 	\item If the player selects the exe file, a new build of the game is created and the game is initialized.
 	\item If this is the player's first time running the game, the save folder is built to store save files.
-	\item If the player its the close window button, the game terminates.
+	\item If the player hits the close window button, the game terminates.
 \end{enumerate}
 \subsection{Core Mechanics}
 %List each mechanic and create some requirements that the mechanic needs to follow
 \begin{enumerate}[{CMR}1. ]
 	%Random map generation
-	\item The system generates a map that has unqiue regions, each with their repective node maps using the generated file seed.
-	\item Each Region has more than 10 nodes, each node being connected to atleast 4 other node and no more than 8 nodes.
-	\item Nodes will not cross eachother's paths.
+	\item The system generates a map that has unique regions, each with their respective node maps using the generated file seed.
+	\item Each Region has more than 10 nodes, each node being connected to atleast 3 other node and no more than 8 nodes.
+	\item Nodes will not overlap with each other.
 	\item Each node has a cost of supplies in that the player needs to get to the specific node.
 	%Random event generation
-	\item Each node has the possiblity of have positive, negative or neutral outcomes of aquire resources phase.
+	\item Each node has the possibility of have positive, negative or neutral outcomes for the party's resource pool.
 	\item Each node should not deadlock the character with a negative outcome that makes them lose the game.
-	\item Nodes will not cross eachother's paths.
 	\item Each node has a cost of supplies in that the player needs to get to the specific node.
 	%Editable characters
-	\item Each chraceter is given a class type and base stats values.
+	\item Each character is given a class type and base stats values.
 	%Individual turns
 	\item During the combat phase, the individual character and enemy turns are listed at the bottom of the screen.
 	\item The character and enemy turns orders are randomly mixed up and are kept in the same order for the duration of the combat phase.
 	\item If an enemy or character dies, they're turns are removed from the combat phase.
 	%Health
 	\item Characters and Enemies have default health and Armour.
-	\item The player and the AI can decide weither to attack the health values or the armour values of their repected enemies.
+	\item The player and the AI can decide whether to attack the health values or the armour values of their respective enemies.
 	\item When the Armour value reaches 0, that selection cannot be made.
 	\item The Armour value must provide a reduced damage value that is of somesort of inverse exponetial or logmarithic value to promote the insentive to remove armour.
 	%Tool Tips
