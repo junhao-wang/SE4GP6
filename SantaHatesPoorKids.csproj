@@ -235,6 +235,7 @@
     <Compile Include="Assets\Resources\Map\Scripts\PartyWalk.cs" />
     <Compile Include="Assets\Resources\Map\Scripts\TileProperties.cs" />
     <Compile Include="Assets\Resources\Map\Tests\MapTests.cs" />
+    <Compile Include="Assets\Resources\Map\Tests\SystemTest.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Core\AStarPathfinding.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Core\BreadthFirstSearch.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Core\Buff.cs" />
