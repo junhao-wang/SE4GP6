@@ -8,6 +8,9 @@ public class NodeProperties : MonoBehaviour {
     public List<GameObject> Neighbors;
     public bool visited = false;
     public List<GameObject> Pathing;
+    public enum Region{A,B,C,D,E,NULL};
+    public Region nodeRegion = Region.NULL;
+
     // Use this for initialization
     void Start () {
 		
@@ -62,6 +65,11 @@ public class NodeProperties : MonoBehaviour {
 
         }
 
+    }
+
+    public float costTo(GameObject NodeB)
+    {
+        return -1.0f;
     }
 
 }

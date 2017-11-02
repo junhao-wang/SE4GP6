@@ -147,7 +147,7 @@ public class MapGenerator : MonoBehaviour {
                        
                        if (adjacencyMatrix[j,i] < min)
                         {
-                            print(adjacencyMatrix[j, i]);
+                            //print(adjacencyMatrix[j, i]);
                             min = adjacencyMatrix[j, i];
                             newPivot = j;
                         } 
@@ -177,7 +177,7 @@ public class MapGenerator : MonoBehaviour {
             }
 
             notDone = (counter == l-1);
-            print(bestI.ToString());
+            //print(bestI.ToString());
         }
 
         //connect the nodes
@@ -186,7 +186,7 @@ public class MapGenerator : MonoBehaviour {
         {
             connectNode(gameObject.GetComponent<MapProperties>().Nodes[index], gameObject.GetComponent<MapProperties>().Nodes[bestI[index]]);
             index = bestI[index];
-            print(string.Format("connecting %i to %i", index, bestI[index]));
+            //print(string.Format("connecting %i to %i", index, bestI[index]));
         }
         
         

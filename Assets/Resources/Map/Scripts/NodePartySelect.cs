@@ -55,4 +55,9 @@ public class NodePartySelect : MonoBehaviour {
  
 
     }
+
+    public void DebugClick()
+    {
+        OnMouseUpAsButton();
+    }
 }
