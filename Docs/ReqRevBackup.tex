@@ -240,8 +240,16 @@ PUC & PUC Name & Actors & Input/Output \\
 \textbf{Trigger Conditions: }Player presses selection on a adjacent node. \par
 \textbf{Preconditions Conditions: }The player is in the overhead world view. The player has enough resources to proceed.\par
 \textbf{Procedures: }The system graphically moves the characters to the desired node. \par
-\textbf{Outcomes: }The system shows initalizes the new node phase initiation. The party posistion is updated in the coressponding file. \par
+\textbf{Outcomes: }The system shows initializes the new node phase initiation. The party position is updated in the corresponding file. \par
 \textbf{Related Use Cases: }N/A \par
+
+	\item \textbf{World Movement To Trigger Events} The user wants to engage in combat on a combat node. \par
+\textbf{Trigger Conditions: }Player presses selection on a adjacent node that is a combat node. \par
+\textbf{Preconditions Conditions: }The player is in the overhead world view. A combat triggering node is adjacent.\par
+\textbf{Procedures: }The system graphically moves the characters to the desired node.The system then transitions to the combat scene. \par
+\textbf{Outcomes: }The System moves the party to their new location. The System recognizes a combat node has been reached and transitions to the combat scene. \par
+\textbf{Related Use Cases: }PUC11 \par
+
 \end{enumerate}
 \section{Functional Requirements}
 %Based off of use cases
@@ -256,7 +264,7 @@ PUC & PUC Name & Actors & Input/Output \\
 %List each mechanic and create some requirements that the mechanic needs to follow
 \begin{enumerate}[{CMR}1. ]
 	%Random map generation
-	\item The system generates a map that has unique regions, each with their respective node maps using the generated file seed.
+	\item The system generates a map that has unique regions, each with their respective node maps using the generated file seed.All nodes should be connected on the map.
 	\item Each Region has more than 10 nodes, each node being connected to atleast 3 other node and no more than 8 nodes.
 	\item Nodes will not overlap with each other.
 	\item Each node has a cost of supplies in that the player needs to get to the specific node.

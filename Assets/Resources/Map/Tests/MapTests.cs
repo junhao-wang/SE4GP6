@@ -41,6 +41,19 @@ public class MapTest : IPrebuildSetup
         }
         yield return null;
     }
+    public IEnumerator EachNodeLessThanEightNeighbours()
+    {
+        Setup();
+        yield return new WaitForSeconds(2);
+        MCont = GameObject.Find("MapController");
+        List<GameObject> nodes = MCont.GetComponent<MapProperties>().Nodes;
+        Debug.Log("Testing 3 Neighbours");
+        for (int i = 0; i < nodes.Count; i++)
+        {
+            Assert.IsTrue(nodes[i].GetComponent<NodeProperties>().Neighbors.Count <=8);
+        }
+        yield return null;
+    }
     [UnityTest]
     public IEnumerator EachNodeReachable()
     {
