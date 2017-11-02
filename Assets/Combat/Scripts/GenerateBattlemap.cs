@@ -5,10 +5,10 @@ using UnityEngine;
 public class GenerateBattlemap : MonoBehaviour {
 
     private RectangularSquareGridGenerator gridGen = new RectangularSquareGridGenerator();
+    private Transform cellsParent;
     public GameObject squarePrefab;
-    public Transform cellsParent;
-    public int height;
-    public int width;
+    public int height = 1;
+    public int width = 1;
     private string mapName = "default";
     private Maps currentMap;
     private List<Obstacles> obs = new List<Obstacles>();
@@ -23,6 +23,8 @@ public class GenerateBattlemap : MonoBehaviour {
 
     private void Awake()
     {
+        cellsParent = transform;
+        squarePrefab = Resources.Load("Prefabs/SquareTile", typeof(GameObject)) as GameObject;
         LoadMap();
         GenerateGrid();
         PopulateGrid();
@@ -41,7 +43,7 @@ public class GenerateBattlemap : MonoBehaviour {
 		
 	}
 
-    void GenerateGrid()
+    public void GenerateGrid()
     {
         gridGen.Height = height;
         gridGen.Width = width;
@@ -49,6 +51,8 @@ public class GenerateBattlemap : MonoBehaviour {
         gridGen.CellsParent = cellsParent;
         gridGen.GenerateGrid();
     }
+
+    
 
     void PopulateGrid()
     {

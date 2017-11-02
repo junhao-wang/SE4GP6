@@ -99,16 +99,20 @@ public class GenericUnit : Unit
     }
     public override void MarkAsSelected()
     {
+        isSelected = true;
         PulseCoroutine = StartCoroutine(Pulse(1.0f, 0.5f, 1.25f));
         SetColor(new Color(0.8f, 0.8f, 1));
+
     }
     public override void MarkAsFinished()
     {
         SetColor(Color.gray);
+        isSelected = false;
     }
     public override void UnMark()
     {
         SetColor(Color.white);
+        isSelected = false;
     }
 
     private void SetColor(Color color)

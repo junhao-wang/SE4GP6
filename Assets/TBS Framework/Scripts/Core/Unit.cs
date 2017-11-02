@@ -9,6 +9,8 @@ using System.Collections;
 /// </summary>
 public abstract class Unit : MonoBehaviour
 {
+    public bool isSelected = false;
+    public bool canAttack = false;
     public Vector3 Offset;
     /// <summary>
     /// UnitClicked event is invoked when user clicks the unit. It requires a collider on the unit game object to work.
@@ -128,7 +130,7 @@ public abstract class Unit : MonoBehaviour
     /// <summary>
     /// Method is called when units HP drops below 1.
     /// </summary>
-    protected virtual void OnDestroyed()
+    public virtual void OnDestroyed()
     {
         Cell.IsTaken = false;
         MarkAsDestroyed();
@@ -185,6 +187,17 @@ public abstract class Unit : MonoBehaviour
             SetState(new UnitStateMarkedAsFinished(this));
             MovementPoints = 0;
         }  
+    }
+
+    public virtual void TakeDamage(int amount)
+    {
+        HitPoints -= amount;
+        if (HitPoints <= 0)
+        {
+            if (UnitDestroyed != null)
+                UnitDestroyed.Invoke(this, new AttackEventArgs(this, this, amount));
+            OnDestroyed();
+        }
     }
     /// <summary>
     /// Attacking unit calls Defend method on defending unit. 

@@ -86,10 +86,19 @@
   <ItemGroup>
     <Compile Include="Assets\Combat\Scripts\Adjustment.cs" />
     <Compile Include="Assets\Combat\Scripts\GenerateBattlemap.cs" />
+    <Compile Include="Assets\Combat\Scripts\GridTests.cs" />
     <Compile Include="Assets\Combat\Scripts\JsonHelper.cs" />
     <Compile Include="Assets\Combat\Scripts\MapList.cs" />
     <Compile Include="Assets\Combat\Scripts\ObstacleList.cs" />
     <Compile Include="Assets\Combat\Scripts\TileList.cs" />
+    <Compile Include="Assets\Resources\Map\MapGenerator.cs" />
+    <Compile Include="Assets\Resources\Map\MapProperties.cs" />
+    <Compile Include="Assets\Resources\Map\NodeHoverScript.cs" />
+    <Compile Include="Assets\Resources\Map\NodePartySelect.cs" />
+    <Compile Include="Assets\Resources\Map\NodeProperties.cs" />
+    <Compile Include="Assets\Resources\Map\PartyProperties.cs" />
+    <Compile Include="Assets\Resources\Map\PartyWalk.cs" />
+    <Compile Include="Assets\Resources\Map\TileProperties.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Core\AStarPathfinding.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Core\BreadthFirstSearch.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Core\Buff.cs" />

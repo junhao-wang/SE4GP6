@@ -2,7 +2,8 @@
 
 public abstract class Player : MonoBehaviour
 {
-    public int PlayerNumber;  
+    public int PlayerNumber;
+    public bool isPlaying;
     /// <summary>
     /// Method is called every turn. Allows player to interact with his units.
     /// </summary>         
