@@ -137,10 +137,31 @@ public class MapTest : IPrebuildSetup
         yield return new WaitForSeconds(2);
         MCont = GameObject.Find("MapController");
         List<GameObject> nodes = MCont.GetComponent<MapProperties>().Nodes;
+        //float maxCost = 0f;
         for (int i = 0; i < nodes.Count; i++)
         {
+            float cost = nodes[i].GetComponent<NodeProperties>().costTo(nodes[0]);
+            Assert.IsTrue(cost > 0f );
+            //maxCost = Mathf.Max(maxCost, cost);
 
-            Assert.IsTrue(nodes[i].GetComponent<NodeProperties>().costTo(nodes[0]) > 0 );
+        }
+
+        yield return null;
+    }
+    [UnityTest]
+    public IEnumerator NodeNoOverLap()
+    {
+        Setup();
+        yield return new WaitForSeconds(2);
+        MCont = GameObject.Find("MapController");
+        List<GameObject> nodes = MCont.GetComponent<MapProperties>().Nodes;
+        //float maxCost = 0f;
+        for (int i = 0; i < nodes.Count; i++)
+        {
+            for(int j = 0; j < nodes.Count; j++)
+            {
+               Assert.IsTrue( Vector3.Distance(nodes[i].GetComponent<Transform>().position, nodes[j].GetComponent<Transform>().position)>=0.1 || i==j);
+            }
 
         }
 

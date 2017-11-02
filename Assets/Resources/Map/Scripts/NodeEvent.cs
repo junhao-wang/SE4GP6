@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NodeEvent : MonoBehaviour {
     public string eventType;
+    public float[] eventMod;
 	// Use this for initialization
 	void Start () {
 		
