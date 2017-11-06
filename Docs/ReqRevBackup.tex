@@ -34,6 +34,7 @@ Software Engineering 4GP6 \par
 Oct 15 & 1.0 & Create Document\\
 Oct 16 & 1.1 & Finalized first Draft.\\
 November 1 & 1.2 & Fixing TA Feedback part1\\
+November 5 & 1.3 &Added Requirements for V\&V\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -307,6 +308,7 @@ PUC & PUC Name & Actors & Input/Output \\
 	%Turn requirements.
 	\item While a character is performing an action or the AI's turn is being conducted, the player shall be able to enter the menus, pausing the game.
 	\item If the player is in the menus while a character is performing an action or the AI's turn is being conducted, the player is not able to save or load a game.
+	\item The Player may not be able to interrupt the AI's turn while the AI is still performing it's turn.
 	\item When it is the player's turn, the player shall be able to move the chosen character.
 	\item When it is the player's movement phase, the player will not be able to move the chosen character on an obstacle on the map.
 	\item When the player has moved the chosen character, they maybe be able to select one of the four actions.
@@ -350,10 +352,21 @@ PUC & PUC Name & Actors & Input/Output \\
 	\item If the player hovers over the equipment, a tool tip will indicate a description of the weapon and it's stat bonuses. The character's stats will also be temporally updated to show which stats are better or worse compared to the current equipment.
 	\item If the player selects the back button in the character menus, they will be returned to the list of characters.
 	\item  If the player selects the back button in the edit character layout menus, they will be returned to the overhead world view.
+	%%%%%%%%%% ITEM SYSTEM %%%%%%%%%%%%%%%
+	\item Items will be listed in a grid system with respected image and border colour to indicate item type.
+	\item When items are selected, their information will be displayed to the screen.
+	\item If items are of the consumable type, the use of this item will remove the item from play and the player's item list.
+	\item If items are of the expendable type, the use of this item will decremented until they reach 0, where they will be refilled when the combat phase ends.
+	\item If items are of the rechargeable type, the use of the item will not allow the player to use the item again until the number of cooldown turns been completed.
+	\item If items are of the passive type, the item applies it's ability every turn for the course of the combat phase. These items are not "used" like other items.
+	\item If items are of the instant type, the item can be used for every turn of the assigned character.
+	\item If an item is equipped to character, no other characters are able to equip that same instance of the item.
+	\item If the mouse is hovering over a desired item and the item changes the stats of a character, those stats will be updated on the selected character with incremented values being coloured in blue, decremented stats being coloured in red and unchanged values being coloured in white.
 \end{enumerate}
 \subsection{Menus and other Systems}
 \quad This section will cover requirements that are related to the different menus of the game. There are a list of menus in the game, but the two main menus are the Main menu that is shown when the game is first initialized and the In Game menus which is the menu that will be displayed while the game is being played. The requirements of both these menus are:
 \begin{enumerate}[{MR}1. ]
+	%%%%%%%%%%% Main Menu, Game menus, Options rules %%%%%%%%%%%%
 	\item The Main Menu is opened when the game is first initialized or when the player exits the current game session.
 	\item The Main Menu is closed when the player exits the game or enters a game session.
 	\item The Game Menu is opened when the esc key is pressed or the menu button is pressed.
@@ -365,6 +378,8 @@ PUC & PUC Name & Actors & Input/Output \\
 	\item A Load game menu is created if the player presses the Load Game button from the Main Menu.
 	\item A Save game menu is created if the player presses the Save Game button from the Main Menu.
 	\item All sub menus can be closed if the player presses the esc key or the corresponding close menu key.	
+	%%%%%%%%%%%%% Item menus %%%%%%%%%%%%%%%%%%%%%
+	\item The player should  be able to access the the Item's menu from the Overworld menu by clicking the respected button or the respected hotkey.
 	%Not sure if to include player modification menus or tooltips.
 \end{enumerate}
 \section{Look and Feel Requirements}
