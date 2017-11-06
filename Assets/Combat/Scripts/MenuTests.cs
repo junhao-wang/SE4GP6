@@ -9,86 +9,97 @@ public class MenuTests : IPrebuildSetup{
 	GenerateBattlemap map;
 
 	GameObject Units;
+    public void Setup()
+    {
 
-
-	public void Setup()
-	{
-
-	}
-
+    }
 	void SetScene()
 	{
 		SceneManager.LoadScene("Map");
-	}
-
-	void SetUpWithScene()
-	{
-
 	}
 	// A UnityTest behaves like a coroutine in PlayMode
 	// and allows you to yield null to skip a frame in EditMode
 	[UnityTest]
 	public IEnumerator MainMenuOpened()
 	{
-		
-		Assert.AreEqual(SceneManager.GetActiveScene, "Map");
+        SceneManager.LoadScene("Menu");
+        yield return new WaitForFixedUpdate();
+        //open up map
+        Assert.AreEqual(SceneManager.GetActiveScene().name, "Map");
 	}
 
 	[UnityTest]
 	public IEnumerator MainMenuClosed()
 	{
-		Application.Quit;
-		Assert.AreEqual(SceneManager.GetActiveScene, null);
+        SceneManager.LoadScene("Menu");
+        yield return new WaitForFixedUpdate();
+        //simulate quit
+		Assert.AreEqual(SceneManager.GetActiveScene(), null);
 	}
 
 	[UnityTest]
 	public IEnumerator GameMenuOpenClose()
 	{
-		SceneManager.LoadScene("TestBattle");
-		Input.GetKey (KeyCode.Escape);
-		Assert.False();
-	}
+        SceneManager.LoadScene("TestBattle");
+        yield return new WaitForFixedUpdate();
+        //open game menu
+        Assert.True(false);
+        //close game menu
+        Assert.True(false);
+    }
 
 	[UnityTest]
 	public IEnumerator AudioMenuOpenClose()
 	{
 		SceneManager.LoadScene("TestBattle");
-		Input.GetKey (KeyCode.Escape);
-		Assert.False();
-	}
+        yield return new WaitForFixedUpdate();
+        //open audio menu
+        Assert.True(false);
+        //close audio menu
+        Assert.True(false);
+    }
 	[UnityTest]
 	public IEnumerator GraphicMenuOpenClose()
 	{
 		SceneManager.LoadScene("TestBattle");
-		Input.GetKey (KeyCode.Escape);
-		Assert.False();
-	}
+        yield return new WaitForFixedUpdate();
+        //open graphics menu
+        Assert.True(false);
+        //close graphics menu
+        Assert.True(false);
+    }
 	[UnityTest]
 	public IEnumerator LoadGameMenuOpenClose()
 	{
 		SceneManager.LoadScene("TestBattle");
-		Input.GetKey (KeyCode.Escape);
-		Assert.False();
-	}
+        yield return new WaitForFixedUpdate();
+        //open game menu
+        Assert.True(false);
+        //close game menu
+        Assert.True(false);
+    }
 	[UnityTest]
 	public IEnumerator SaveGameMenuOpenClose()
 	{
 		SceneManager.LoadScene("TestBattle");
-		Input.GetKey (KeyCode.Escape);
-		Assert.False();
+        yield return new WaitForFixedUpdate();
+        //simulate key press
+		Assert.True(false);
 	}
 	[UnityTest]
 	public IEnumerator NewGameMenuOpenClose()
 	{
-		Input.GetKey (KeyCode.N);
-		SceneManager.LoadScene("TestBattle");
-		Assert.AreEquals(SceneManager.GetActiveScene,"TestBattle");
+        SceneManager.LoadScene("Map");
+        //load Testbattle from Map
+        yield return new WaitForFixedUpdate();
+        Assert.AreEqual(SceneManager.GetActiveScene().name, "TestBattle");
 	}
 	public IEnumerator ItemMenuOpenClose()
 	{
-		Input.GetKey (KeyCode.I);
-		SceneManager.LoadScene("Items");
-		Assert.AreEquals(SceneManager.GetActiveScene,"Items");
+        SceneManager.LoadScene("Map");
+        //load items
+        yield return new WaitForFixedUpdate();
+        Assert.AreEqual(SceneManager.GetActiveScene().name, "Items");
 	}
 
 
