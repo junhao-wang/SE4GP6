@@ -258,7 +258,7 @@ PUC & PUC Name & Actors & Input/Output \\
 \quad This section will cover functional requirements that do not include main game functionality. It will primarily consist of back end workings.
 \begin{enumerate}[{FR}1. ]
 	%INIT
-	\item If the player selects the exe file, a new build of the game is created and the game is initialized.
+	\item If the player selects the exe file, the game is initialized from it’s previous build.
 	\item If this is the player's first time running the game, the save folder is built to store save files.
 	\item If the player its the close window button, the game terminates.
 \end{enumerate}
@@ -339,6 +339,9 @@ PUC & PUC Name & Actors & Input/Output \\
 	%Action
 	\item If the combat phase is triggered, the player is moved to the Combat phase with current equipment layouts and resources.
 	\item If the player returns from combat phase, the rest of the node shalt progress as expected.
+%%%%%%%%%%% misclanious added from the V%V doc, integrate into document %%%%%%%%%%%%
+	\item The Combat map will be created with the correct N by N size.
+	\item The player and the AI can decide either to attack the health values or the armour values of their respective enemies.
 \end{enumerate}
 \subsection{Alternate Game Modes}
 %Character modification menus and map menus
