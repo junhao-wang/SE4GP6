@@ -12,6 +12,8 @@ public class CellGrid : MonoBehaviour
     public event EventHandler GameStarted;
     public event EventHandler GameEnded;
     public event EventHandler TurnEnded;
+
+    public bool isGameOver = false;
     
     private CellGridState _cellGridState;//The grid delegates some of its behaviours to cellGridState object.
     public CellGridState CellGridState
@@ -56,6 +58,7 @@ public class CellGrid : MonoBehaviour
         }
         NumberOfPlayers = Players.Count;
         CurrentPlayerNumber = Players.Min(p => p.PlayerNumber);
+        
 
         Cells = new List<Cell>();
         for (int i = 0; i < transform.childCount; i++)
@@ -86,7 +89,14 @@ public class CellGrid : MonoBehaviour
         }
         else
             Debug.LogError("No IUnitGenerator script attached to cell grid");
-        
+        if(Players.Count <=1)
+        {
+            isGameOver = true;
+        }
+        print("Player Count: " + Players.Count);
+        print("Unit 1: " + Units[0].name);
+        print("Unit 2: " + Units[1].name);
+        print("Unit Count: " + Units.Count);
         StartGame();
     }
 
@@ -114,7 +124,11 @@ public class CellGrid : MonoBehaviour
         if (totalPlayersAlive.Count == 1)
         {
             if(GameEnded != null)
+            {
                 GameEnded.Invoke(this, new EventArgs());
+                isGameOver = true;
+            }
+                
         }
     }
     
@@ -128,6 +142,7 @@ public class CellGrid : MonoBehaviour
 
         Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).ForEach(u => { u.OnTurnStart(); });
         Players.Find(p => p.PlayerNumber.Equals(CurrentPlayerNumber)).Play(this);
+        CurrentPlayer.isPlaying = true;
     }
     /// <summary>
     /// Method makes turn transitions. It is called by player at the end of his turn.
@@ -147,11 +162,12 @@ public class CellGrid : MonoBehaviour
         {
             CurrentPlayerNumber = (CurrentPlayerNumber + 1)%NumberOfPlayers;
         }//Skipping players that are defeated.
-
+        CurrentPlayer.isPlaying = false;
         if (TurnEnded != null)
             TurnEnded.Invoke(this, new EventArgs());
-
+        
         Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).ForEach(u => { u.OnTurnStart(); });
         Players.Find(p => p.PlayerNumber.Equals(CurrentPlayerNumber)).Play(this);     
+        CurrentPlayer.isPlaying = true;
     }
 }

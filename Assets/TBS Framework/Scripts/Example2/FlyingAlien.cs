@@ -29,7 +29,7 @@ public class FlyingAlien : Alien
         GetComponent<SpriteRenderer>().sortingOrder = 3;
     }
 
-    protected override void OnDestroyed()
+    public override void OnDestroyed()
     {
         (Cell as MyOtherHexagon).IsSkyTaken = false;
         base.OnDestroyed();
