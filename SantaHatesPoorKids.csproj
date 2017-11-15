@@ -225,6 +225,8 @@
     <Compile Include="Assets\Combat\Scripts\MapList.cs" />
     <Compile Include="Assets\Combat\Scripts\ObstacleList.cs" />
     <Compile Include="Assets\Combat\Scripts\TileList.cs" />
+    <Compile Include="Assets\Resources\AssetDemo\MusicLoader.cs" />
+    <Compile Include="Assets\Resources\AssetDemo\PanelSwap.cs" />
     <Compile Include="Assets\Resources\Map\Scripts\MapGenerator.cs" />
     <Compile Include="Assets\Resources\Map\Scripts\MapProperties.cs" />
     <Compile Include="Assets\Resources\Map\Scripts\NodeEvent.cs" />
