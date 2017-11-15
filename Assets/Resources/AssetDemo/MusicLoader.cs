@@ -55,7 +55,7 @@ public class MusicLoader : MonoBehaviour {
     }
     public void LoadA5Music()
     {
-        gameObject.GetComponent<AudioSource>().clip = A4;
+        gameObject.GetComponent<AudioSource>().clip = A5;
         gameObject.GetComponent<AudioSource>().Play();
     }
 
