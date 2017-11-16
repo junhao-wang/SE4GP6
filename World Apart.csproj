@@ -92,6 +92,8 @@
     <Compile Include="Assets\Combat\Scripts\MenuTests.cs" />
     <Compile Include="Assets\Combat\Scripts\ObstacleList.cs" />
     <Compile Include="Assets\Combat\Scripts\TileList.cs" />
+    <Compile Include="Assets\Resources\AssetDemo\MusicLoader.cs" />
+    <Compile Include="Assets\Resources\AssetDemo\PanelSwap.cs" />
     <Compile Include="Assets\Resources\Map\Scripts\MapGenerator.cs" />
     <Compile Include="Assets\Resources\Map\Scripts\MapProperties.cs" />
     <Compile Include="Assets\Resources\Map\Scripts\NodeEvent.cs" />
@@ -166,6 +168,7 @@
     <Compile Include="Assets\TBS Framework\Scripts\Tutorial\SampleSquare.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Tutorial\SampleUnit.cs" />
     <Compile Include="Assets\UI\Scripts\MainMenu.cs" />
+    <Compile Include="Assets\UI\Scripts\NextImage.cs" />
     <Compile Include="Assets\Utility\Scripts\AssetList.cs" />
   </ItemGroup>
   <ItemGroup>
