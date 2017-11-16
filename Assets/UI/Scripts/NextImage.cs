@@ -42,7 +42,7 @@ public class NextImage : MonoBehaviour {
         _t = Resources.LoadAll("MapLayovers", typeof(Sprite));
         _h = Resources.LoadAll("Map/Icons", typeof(Sprite));
         _i = Resources.LoadAll("Icons", typeof(Sprite));
-        _s = Resources.LoadAll("Rural", typeof(Sprite));
+        _s = Resources.LoadAll("BattleTiles", typeof(Sprite));
     }
 	
 	// Update is called once per frame
