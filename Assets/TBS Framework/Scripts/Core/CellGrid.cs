@@ -170,4 +170,7 @@ public class CellGrid : MonoBehaviour
         Players.Find(p => p.PlayerNumber.Equals(CurrentPlayerNumber)).Play(this);     
         CurrentPlayer.isPlaying = true;
     }
+
+    //Transform cameraMove = Camera.main.gameObject.transform;
+
 }
