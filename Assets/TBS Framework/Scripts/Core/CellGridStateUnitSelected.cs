@@ -1,8 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
+
 class CellGridStateUnitSelected : CellGridState
 {
+
+
+
+    
     private Unit _unit;
     private List<Cell> _pathsInRange;
     private List<Unit> _unitsInRange;
@@ -22,13 +27,13 @@ class CellGridStateUnitSelected : CellGridState
             return;
         if(cell.IsTaken)
         {
-            _cellGrid.CellGridState = new CellGridStateWaitingForInput(_cellGrid);
+            //_cellGrid.CellGridState = new CellGridStateWaitingForInput(_cellGrid);
             return;
         }
             
         if(!_pathsInRange.Contains(cell))
         {
-            _cellGrid.CellGridState = new CellGridStateWaitingForInput(_cellGrid);
+            //_cellGrid.CellGridState = new CellGridStateWaitingForInput(_cellGrid);
         }
         else
         {
@@ -113,7 +118,13 @@ class CellGridStateUnitSelected : CellGridState
         
         if (_unitCell.GetNeighbours(_cellGrid.Cells).FindAll(c => c.MovementCost <= _unit.MovementPoints).Count == 0 
             && _unitsInRange.Count == 0)
+        {
             _unit.SetState(new UnitStateMarkedAsFinished(_unit));
+
+        }
+            
+
+
     }
     public override void OnStateExit()
     {

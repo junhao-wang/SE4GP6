@@ -51,6 +51,7 @@ public abstract class Unit : MonoBehaviour
     public int AttackRange;
     public int AttackFactor;
     public int DefenceFactor;
+    public int Speed;
     /// <summary>
     /// Determines how far on the grid the unit can move.
     /// </summary>

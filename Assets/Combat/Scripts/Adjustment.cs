@@ -8,6 +8,7 @@ public class Adjustment : MonoBehaviour {
     private Vector3 newPos;
     bool isDone = false;
 
+  
 	// Use this for initialization
 	void Start () {
         newPos = new Vector3(transform.position.x + adjustment.x, transform.position.y + adjustment.y, transform.position.z + adjustment.z);
@@ -17,6 +18,7 @@ public class Adjustment : MonoBehaviour {
 	void Update () {
         if (!isDone)
         {
+            //newPos.z += 0.6f;
             transform.position = newPos;
             isDone = true;
         }

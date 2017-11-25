@@ -64,12 +64,20 @@ public class GenerateBattlemap : MonoBehaviour {
             if (gridIndex < currentMap.tileLayout.Length)
             {
                 newSpriteSheet = Resources.LoadAll<Sprite>(tiles[currentMap.tileLayout[gridIndex]].spriteSheet);
-                sr.sprite = newSpriteSheet[tiles[currentMap.tileLayout[gridIndex]].sprite];
+                try
+                {
+                    sr.sprite = newSpriteSheet[tiles[currentMap.tileLayout[gridIndex]].sprite];
+                }
+                catch { }
             }
             else
             {
                 newSpriteSheet = Resources.LoadAll<Sprite>(tiles[0].spriteSheet);
-                sr.sprite = newSpriteSheet[tiles[0].sprite];
+                try
+                {
+                    sr.sprite = newSpriteSheet[tiles[0].sprite];
+                }
+                catch { }
             }
             
             gridIndex++;

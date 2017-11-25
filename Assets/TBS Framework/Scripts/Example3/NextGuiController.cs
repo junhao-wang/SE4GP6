@@ -12,10 +12,13 @@ public class NextGuiController : MonoBehaviour
     public GameObject InfoPanel;
     public GameObject GameOverPanel;
     public Canvas Canvas;
+    public GameObject ActionPanel;
 
     private GameObject _infoPanel;
     private GameObject _gameOverPanel;
+    public GameObject _actionPanel;
 
+    //Button Item
 
     void Start()
     {
@@ -32,6 +35,7 @@ public class NextGuiController : MonoBehaviour
             unit.GetComponent<Unit>().UnitDehighlighted += OnUnitDehighlighted;
             unit.GetComponent<Unit>().UnitDestroyed += OnUnitDestroyed;
             unit.GetComponent<Unit>().UnitAttacked += OnUnitAttacked;
+            //unit.GetComponent<Unit>().UnitSelected += OnUnitSelected;
         }
     }
 
@@ -82,6 +86,21 @@ public class NextGuiController : MonoBehaviour
 
         _infoPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(),false);
     }
+
+    /*private void OnUnitSelected(object sender, EventArgs e)
+    {
+        var unit = sender as GenericUnit;
+        _actionPanel = Instantiate(ActionPanel);
+        //var button = Instantiate() as Button;
+
+        //_actionPanel.transform.Find("Attack").Find("Image").transform.localScale = new Vector3((float)unit.DefenceFactor / 10.0f, 1, 1);
+        //_actionPanel.transform.Find("Item").GetComponent<Button>();
+        //_actionPanel.transform.Find("Defend").Find("Image").transform.localScale = new Vector3(hpScale, 1, 1);
+        //_actionPanel.transform.Find("Special").Find("Image").transform.localScale = new Vector3((float)unit.AttackFactor / 10.0f, 1, 1);
+
+
+        _actionPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(), false);
+    }*/
 
     public void DismissPanel()
     {
