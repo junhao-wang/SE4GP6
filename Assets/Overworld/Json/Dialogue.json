@@ -1,0 +1,202 @@
+﻿[
+    {
+      "id": 1,
+      "Dialogue": [
+        {
+          "name": "Kroner",
+          "image": "N",
+          "side":  "L",
+          "Lines": [
+            "ugh...",
+            "Shit...",
+            "Hello?",
+            "Anyone breathing?"
+          ]
+        },
+        {
+          "name": "Lee",
+          "image": "N",
+          "side":  "R",
+          "Lines": [
+            "Yeah.",
+            "I've got Alexi here.",
+            "He's unconscious."
+          ]
+        },
+        {
+          "name": "Kroner",
+          "image": "N",
+          "side":  "L",
+          "Lines": [
+            "Get him up."
+          ]
+        },
+        {
+          "name": "Alexei",
+          "image": "N",
+          "side":  "R",
+          "Lines": [
+            "ugh..."
+          ]
+        },
+        {
+          "name": "Kroner",
+          "image": "N",
+          "Lines": [
+            "Morning Sunshine!",
+            "Hey bud, do me a favour and let me know how many fingers the Major is holding up."
+          ]
+        },
+        {
+          "name": "Alexei",
+          "image": "N",
+          "side":  "R",
+          "Lines": [
+            "ummm...",
+            "None?"
+          ]
+        },
+        {
+          "name": "Kroner",
+          "image": "N",
+          "side":  "L",
+          "Lines": [
+            "Oh, that can't be right...",
+            "Sound to me like a concussion."
+          ]
+        },
+        {
+          "name": "Lee",
+          "image": "N",
+          "side":  "R",
+          "Lines": [
+            "He's right, I'm not holding up anything",
+            "Alexei looks fine."
+          ]
+        },
+        {
+          "name": "Kroner",
+          "image": "N",
+          "side":  "L",
+          "Lines": [
+            "Now Major, it is my expert opinion, as Head Chief Doctor Extrodinaire, MD. PHD. esquire, that you should hold up some fingers"
+          ]
+        },
+        {
+          "name": "Alexei",
+          "image": "N",
+          "side":  "R",
+          "Lines": [
+            "She's holding up one in particular."
+          ]
+        },
+        {
+          "name": "Kroner",
+          "image": "N",
+          "side":  "L",
+          "Lines": [
+            "Much Appreciated!"
+          ]
+        },
+        {
+          "name": "Lee",
+          "image": "N",
+          "side":  "R",
+          "Lines": [
+            "Where is the captain?"
+          ]
+        },
+        {
+          "name": "Kroner",
+          "image": "N",
+          "side":  "L",
+          "Lines": [
+            "Well...",
+            "The thing is...",
+            "Looks like you're in charge now, Major."
+          ]
+        },
+        {
+          "name": "Lee",
+          "image": "N",
+          "side":  "R",
+          "Lines": [
+            "..."
+          ]
+        },
+        {
+          "name": "Alexei",
+          "image": "N",
+          "side":  "R",
+          "Lines": [
+            "..."
+          ]
+        },
+        {
+          "name": "Kroner",
+          "image": "N",
+          "Lines": [
+            "..."
+          ]
+        },
+        {
+          "name": "Blank",
+          "image": "Black",
+          "side":  "R",
+          "Lines": [
+            ""
+          ]
+        },
+        {
+          "name": "Alexei",
+          "image": "N",
+          "side":  "R",
+          "Lines": [
+            "...So What now?"
+          ]
+        },
+        {
+          "name": "Kroner",
+          "image": "N",
+          "side":  "L",
+          "Lines": [
+            "I think I saw a hill not far from here,",
+            "We might get a better signal for the comms."
+          ]
+        },
+        {
+          "name": "Alexei",
+          "image": "N",
+          "side":  "R",
+          "Lines": [
+            "You think the others are still alive?"
+          ]
+        },
+        {
+          "name": "Kroner",
+          "image": "N",
+          "side":  "L",
+          "Lines": [
+            "I'm sure they are."
+          ]
+        },
+        {
+          "name": "Lee",
+          "image": "N",
+          "side":  "R",
+          "Lines": [
+            "Okay, looks like we have a good ammount of supplies, and the rover's still intact.",
+            "Let's go."
+          ]
+        },
+        {
+          "name": "Kroner",
+          "image": "N",
+          "side":  "L",
+          "Lines": [
+            "Sir Major Sir!"
+          ]
+        }
+      ]
+    }
+ ]
