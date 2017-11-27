@@ -103,7 +103,7 @@ public class CellGrid : MonoBehaviour
             foreach (var unit in Units)
             {
                 spd[stemp] = unit.Speed;
-                //unit.UnitClicked += OnUnitClicked;
+                unit.UnitClicked += OnUnitClicked;
                 unit.UnitDestroyed += OnUnitDestroyed;
                 stemp++;
             }
@@ -157,10 +157,17 @@ public class CellGrid : MonoBehaviour
         CellGridState.OnCellClicked(sender as Cell);
     }
 
-    /*private void OnUnitClicked(object sender, EventArgs e)
+    private void OnUnitClicked(object sender, EventArgs e)
     {
-        CellGridState.OnUnitClicked(sender as Unit);
-    }*/
+        print("onunitclicked");
+        GenericUnit unit = sender as GenericUnit;
+        if (unit.PlayerNumber == 0)
+        {
+        }
+        else { CellGridState.OnUnitClicked(sender as Unit); }
+          
+
+    }
     private void OnUnitDestroyed(object sender, AttackEventArgs e)
     {
         int k = 0; //which unit index is dead
@@ -258,20 +265,20 @@ public class CellGrid : MonoBehaviour
     public void TurnCycle(object sender, System.EventArgs e)//code for 1 turn
     {
         turnIndex = turnIndex % turnOrder.Length;
+        Units[turnOrder[turnIndex]].OnTurnStart();
         print("turnIndex " + turnIndex.ToString());
         print("turnOrderPlayerNumber " + turnOrderPlayerNumbers[turnIndex].ToString());
         print("Selected unit " + Units[turnOrder[turnIndex]].name);
 
         if (turnOrderPlayerNumbers[turnIndex] == 0) //check if player or ai's turn
             {
-                Units[turnOrder[turnIndex]].OnTurnStart();
+                
                 CellGridState.OnUnitClicked(Units[turnOrder[turnIndex]]);
                 turnIndex++;
                 
             }
        else
             {
-                Units[turnOrder[turnIndex]].OnTurnStart();
                 Players[1].GetComponent<NaiveAiPlayer>().SinglePlay(this, Units[turnOrder[turnIndex]]);
                 turnIndex++;
             }

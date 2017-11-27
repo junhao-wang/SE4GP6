@@ -12,14 +12,13 @@ public class NextGuiController : MonoBehaviour
     public GameObject InfoPanel;
     public GameObject GameOverPanel;
     public Canvas Canvas;
-    public GameObject ActionPanel;
+    //public GameObject ActionPanel;
 
     private GameObject _infoPanel;
     private GameObject _gameOverPanel;
-    public GameObject _actionPanel;
+    //private GameObject _actionPanel;
 
-    //Button Item
-
+    private GenericUnit currentUnit = new GenericUnit();
     void Start()
     {
         CellGrid.GameStarted += OnGameStarted;
@@ -35,7 +34,8 @@ public class NextGuiController : MonoBehaviour
             unit.GetComponent<Unit>().UnitDehighlighted += OnUnitDehighlighted;
             unit.GetComponent<Unit>().UnitDestroyed += OnUnitDestroyed;
             unit.GetComponent<Unit>().UnitAttacked += OnUnitAttacked;
-            //unit.GetComponent<Unit>().UnitSelected += OnUnitSelected;
+            unit.GetComponent<Unit>().UnitSelected += OnUnitSelected;
+            CellGrid.TurnEnded += OnNextTurn;
         }
     }
 
@@ -66,42 +66,84 @@ public class NextGuiController : MonoBehaviour
     }
     private void OnUnitDestroyed(object sender, AttackEventArgs e)
     {
+
         Destroy(_infoPanel);
+        print("unitdestroyed");
+        //Destroy(_infoPanel);
+
+
     }
     private void OnUnitDehighlighted(object sender, EventArgs e)
     {
         Destroy(_infoPanel);
+        print("unitdehighlighted");
+        //Destroy(_infoPanel);
+        LoadInfoPanel(currentUnit);
     }
     private void OnUnitHighlighted(object sender, EventArgs e)
     {
+        print("unithighlighted");
         var unit = sender as GenericUnit;
+        if (unit.UnitName == currentUnit.UnitName)
+        {
+
+        }
+        else
+        {
+            Destroy(_infoPanel);
+            //Destroy(_infoPanel);
+            LoadInfoPanel(unit);
+        }
+
+    }
+
+    private void OnNextTurn(object sender, EventArgs e)
+    {
+        print("nextturn");
+        Destroy(_infoPanel);
+        //Destroy(_actionPanel);
+
+    }
+    private void OnUnitSelected(object sender, EventArgs e)
+    {
+        print("unitselected");
+        var unit = sender as GenericUnit;
+        if (unit.UnitName != currentUnit.UnitName)
+        {
+            currentUnit = unit;
+            LoadInfoPanel(unit);
+            //LoadActionPanel(unit);
+        }
+        else
+        {
+
+        }
+
+
+    }
+
+
+    private void LoadInfoPanel(GenericUnit unit)
+    {
         _infoPanel = Instantiate(InfoPanel);
 
         float hpScale = (float)((float)(unit).HitPoints / (float)(unit).TotalHitPoints);
 
         _infoPanel.transform.Find("Name").GetComponent<Text>().text = unit.UnitName;
-        _infoPanel.transform.Find("HitPoints").Find("Image").transform.localScale = new Vector3(hpScale,1,1);
-        _infoPanel.transform.Find("Attack").Find("Image").transform.localScale = new Vector3((float)unit.AttackFactor/10.0f,1,1);
+        _infoPanel.transform.Find("HitPoints").Find("Image").transform.localScale = new Vector3(hpScale, 1, 1);
+        _infoPanel.transform.Find("Attack").Find("Image").transform.localScale = new Vector3((float)unit.AttackFactor / 10.0f, 1, 1);
         _infoPanel.transform.Find("Defence").Find("Image").transform.localScale = new Vector3((float)unit.DefenceFactor / 10.0f, 1, 1);
 
-        _infoPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(),false);
+        _infoPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(), false);
     }
 
-    /*private void OnUnitSelected(object sender, EventArgs e)
+    /*private void LoadActionPanel(GenericUnit unit)
     {
-        var unit = sender as GenericUnit;
         _actionPanel = Instantiate(ActionPanel);
-        //var button = Instantiate() as Button;
-
-        //_actionPanel.transform.Find("Attack").Find("Image").transform.localScale = new Vector3((float)unit.DefenceFactor / 10.0f, 1, 1);
-        //_actionPanel.transform.Find("Item").GetComponent<Button>();
-        //_actionPanel.transform.Find("Defend").Find("Image").transform.localScale = new Vector3(hpScale, 1, 1);
-        //_actionPanel.transform.Find("Special").Find("Image").transform.localScale = new Vector3((float)unit.AttackFactor / 10.0f, 1, 1);
-
+        _actionPanel.transform.Find("Item").GetComponent<Text>().text = "Attack";
 
         _actionPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(), false);
     }*/
-
     public void DismissPanel()
     {
         Destroy(_gameOverPanel);
