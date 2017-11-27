@@ -51,6 +51,7 @@ public abstract class Unit : MonoBehaviour
     public int AttackRange;
     public int AttackFactor;
     public int DefenceFactor;
+    public int Speed;
     /// <summary>
     /// Determines how far on the grid the unit can move.
     /// </summary>
@@ -171,17 +172,29 @@ public abstract class Unit : MonoBehaviour
     /// </summary>
     public virtual void DealDamage(Unit other)
     {
+        print("deal Damage branch: ");
         if (isMoving)
+        {
+            print("isMoving");
             return;
+        }
         if (ActionPoints == 0)
+        {
+            print("no action points");
             return;
+        }
         if (!IsUnitAttackable(other, Cell))
+        {
+            print("not attackable");
             return;
+        }
+           
 
+        print("attacked");
         MarkAsAttacking(other);
         ActionPoints--;
         other.Defend(this, AttackFactor);
-
+        print("actionpoints after attack:" + ActionPoints.ToString());
         if (ActionPoints == 0)
         {
             SetState(new UnitStateMarkedAsFinished(this));

@@ -16,6 +16,7 @@ public class RandomObstacleGenerator : MonoBehaviour
 
     public void Start()
     {
+        print("random ex1 spawn");
         StartCoroutine(SpawnObstacles());
     }
 
@@ -40,7 +41,7 @@ public class RandomObstacleGenerator : MonoBehaviour
                 if (!cell.IsTaken)
                 {
                     cell.IsTaken = true;
-                    obstacle.position = cell.transform.position + new Vector3(0, 0, -1f);
+                    obstacle.position = cell.transform.position + new Vector3(0, 0, 0);
                 }
                 else
                 {
@@ -58,7 +59,7 @@ public class RandomObstacleGenerator : MonoBehaviour
             cell.GetComponent<Cell>().IsTaken = true;
 
             var obstacle = Instantiate(ObstaclePrefab);
-            obstacle.transform.position = cell.transform.position + new Vector3(0, 0, -0.5f);
+            obstacle.transform.position = cell.transform.position + new Vector3(0, 0, 0.1f);
             obstacle.transform.parent = ObstaclesParent.transform;
             ret.Add(obstacle);   
         }
