@@ -657,6 +657,12 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114405892555938982, guid: f1161f878f9d89141b0411f265587f2e,
+        type: 2}
+      propertyPath: ActionPanel
+      value: 
+      objectReference: {fileID: 1410545538995722, guid: b5fb40aa286a2294db9d670946194f44,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f1161f878f9d89141b0411f265587f2e, type: 2}
   m_IsPrefabParent: 0

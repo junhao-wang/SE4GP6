@@ -12,11 +12,11 @@ public class NextGuiController : MonoBehaviour
     public GameObject InfoPanel;
     public GameObject GameOverPanel;
     public Canvas Canvas;
-    //public GameObject ActionPanel;
+    public GameObject ActionPanel;
 
     private GameObject _infoPanel;
     private GameObject _gameOverPanel;
-    //private GameObject _actionPanel;
+    private GameObject _actionPanel;
 
     private GenericUnit currentUnit = new GenericUnit();
     void Start()
@@ -35,8 +35,9 @@ public class NextGuiController : MonoBehaviour
             unit.GetComponent<Unit>().UnitDestroyed += OnUnitDestroyed;
             unit.GetComponent<Unit>().UnitAttacked += OnUnitAttacked;
             unit.GetComponent<Unit>().UnitSelected += OnUnitSelected;
-            CellGrid.TurnEnded += OnNextTurn;
+
         }
+        CellGrid.TurnEnded += OnNextTurn;
     }
 
     private void OnTurnEnded(object sender, EventArgs e)
@@ -69,7 +70,7 @@ public class NextGuiController : MonoBehaviour
 
         Destroy(_infoPanel);
         print("unitdestroyed");
-        //Destroy(_infoPanel);
+
 
 
     }
@@ -77,7 +78,7 @@ public class NextGuiController : MonoBehaviour
     {
         Destroy(_infoPanel);
         print("unitdehighlighted");
-        //Destroy(_infoPanel);
+
         LoadInfoPanel(currentUnit);
     }
     private void OnUnitHighlighted(object sender, EventArgs e)
@@ -91,7 +92,7 @@ public class NextGuiController : MonoBehaviour
         else
         {
             Destroy(_infoPanel);
-            //Destroy(_infoPanel);
+
             LoadInfoPanel(unit);
         }
 
@@ -101,7 +102,7 @@ public class NextGuiController : MonoBehaviour
     {
         print("nextturn");
         Destroy(_infoPanel);
-        //Destroy(_actionPanel);
+
 
     }
     private void OnUnitSelected(object sender, EventArgs e)
@@ -112,11 +113,17 @@ public class NextGuiController : MonoBehaviour
         {
             currentUnit = unit;
             LoadInfoPanel(unit);
-            //LoadActionPanel(unit);
-        }
-        else
-        {
 
+
+            if (currentUnit.PlayerNumber == 1)
+            {
+                Destroy(_actionPanel);
+            }
+            else
+            {
+                Destroy(_actionPanel);
+                LoadActionPanel();
+            }
         }
 
 
@@ -137,13 +144,12 @@ public class NextGuiController : MonoBehaviour
         _infoPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(), false);
     }
 
-    /*private void LoadActionPanel(GenericUnit unit)
+    private void LoadActionPanel()
     {
         _actionPanel = Instantiate(ActionPanel);
-        _actionPanel.transform.Find("Item").GetComponent<Text>().text = "Attack";
 
         _actionPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(), false);
-    }*/
+    }
     public void DismissPanel()
     {
         Destroy(_gameOverPanel);
