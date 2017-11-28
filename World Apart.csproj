@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CameraController.cs" />
     <Compile Include="Assets\Combat\Scripts\Adjustment.cs" />
     <Compile Include="Assets\Combat\Scripts\GenerateBattlemap.cs" />
     <Compile Include="Assets\Combat\Scripts\GridTests.cs" />
@@ -92,6 +93,9 @@
     <Compile Include="Assets\Combat\Scripts\MenuTests.cs" />
     <Compile Include="Assets\Combat\Scripts\ObstacleList.cs" />
     <Compile Include="Assets\Combat\Scripts\TileList.cs" />
+    <Compile Include="Assets\Overworld\Scripts\Dialogue.cs" />
+    <Compile Include="Assets\Overworld\Scripts\DialogueControl.cs" />
+    <Compile Include="Assets\Overworld\Scripts\DialogueSet.cs" />
     <Compile Include="Assets\Resources\AssetDemo\MusicLoader.cs" />
     <Compile Include="Assets\Resources\AssetDemo\PanelSwap.cs" />
     <Compile Include="Assets\Resources\Map\Scripts\MapGenerator.cs" />
@@ -172,6 +176,7 @@
     <Compile Include="Assets\Utility\Scripts\AssetList.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Resources\Map\Icons\tile order.txt" />
     <None Include="Assets\TBS Framework\ReleaseNotes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

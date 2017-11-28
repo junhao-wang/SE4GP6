@@ -11,10 +11,12 @@ public class CustomObstacleGenerator : MonoBehaviour
 
     public void Start()
     {
+        print("custom spawn");
         StartCoroutine(SpawnObstacles());
     }
     public IEnumerator SpawnObstacles()
     {
+        
         while (CellGrid.Cells == null)
         {
             yield return 0;
