@@ -30,7 +30,7 @@ public class LevelInfo : MonoBehaviour {
 		//levelRenderer.sprite = levels[level];
 	}
 
-	int getlevel(){
+	public int getlevel(){
 		return levelnum;
 	}
 

@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 222225181595110202}
   - component: {fileID: 114940940863114116}
   - component: {fileID: 114783057529250492}
+  - component: {fileID: 114417434844823278}
   m_Layer: 5
   m_Name: InventoryItem
   m_TagString: Untagged
@@ -102,7 +103,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78bd7140bbfab714a9282795d38fdaec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelnum: 0
+--- !u!114 &114417434844823278
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1468566122776144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a522502ec2791cc42808bf8321bd8422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Armour UP
+  type: 2
+  StatChange: 20
+  cooldown: 0
+  amount: 0
 --- !u!114 &114618969359895026
 MonoBehaviour:
   m_ObjectHideFlags: 1
