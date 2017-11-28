@@ -24,12 +24,50 @@ public class MapGenerator : MonoBehaviour {
     void Start () {
         gameObject.GetComponent<MapProperties>().initList();
         GenerateTiles(Rows, Cols);
+        gameObject.GetComponent<MapProperties>().Nodes[0].GetComponent<NodePartySelect>().SpawnParty();
+        GenerateEvents();
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    void GenerateEvents()
+    {
+        GameObject cNode = gameObject.GetComponent<MapProperties>().Nodes[0];
+        //selecting the narrative node
+        for (int i = 0; i < 4; i++)
+        {
+            cNode = cNode.GetComponent<NodeProperties>().Neighbors[Random.Range(0,2)];
+        }
+        if(cNode == gameObject.GetComponent<MapProperties>().Nodes[0])
+        {
+            cNode = cNode.GetComponent<NodeProperties>().Neighbors[1];
+        }
+        gameObject.GetComponent<MapProperties>().Nodes[0].GetComponent<NodeProperties>().NodeEvent = NodeProperties.EventType.NONE;
+        gameObject.GetComponent<MapProperties>().Nodes[0].GetComponent<NodeProperties>().SetColor();
+        cNode.GetComponent<NodeProperties>().NodeEvent = NodeProperties.EventType.DIALOGUE;
+
+        //final node is combat node for now
+        cNode = gameObject.GetComponent<MapProperties>().Nodes[gameObject.GetComponent<MapProperties>().Nodes.Count-1];
+        cNode.GetComponent<NodeProperties>().NodeEvent = NodeProperties.EventType.COMBAT;
+
+        //set reset of nodes to resource
+        for (int i = 1; i < gameObject.GetComponent<MapProperties>().Nodes.Count; i++)
+        {
+            
+            if (gameObject.GetComponent<MapProperties>().Nodes[i].GetComponent<NodeProperties>().NodeEvent == NodeProperties.EventType.NONE)
+            {
+                gameObject.GetComponent<MapProperties>().Nodes[i].GetComponent<NodeProperties>().NodeEvent = NodeProperties.EventType.RESOURCE;
+                for(int j = 0; j < gameObject.GetComponent<MapProperties>().Nodes[i].GetComponent<NodeProperties>().ResourceMod.Length; j++)
+                {
+                    gameObject.GetComponent<MapProperties>().Nodes[i].GetComponent<NodeProperties>().ResourceMod[j] += (float) Random.Range(0,50);
+                }
+            }
+            gameObject.GetComponent<MapProperties>().Nodes[i].GetComponent<NodeProperties>().SetColor();
+        }
+    }
 
     void GenerateTiles(int numOfRows,int numOfCols)
     {

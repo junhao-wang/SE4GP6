@@ -18,9 +18,9 @@ public class DialogueControl : MonoBehaviour {
     Image dialogueImageRight;
 
     bool isLastPortraitLeft = true;
-    // Use this for initialization
+    // Use this for initialization 
     void Start () {
-        dialogueParent = transform.Find("Dialogue").gameObject;
+        dialogueParent = transform.Find("DialogueUI").gameObject;
         dText = dialogueParent.transform.Find("DialogueBox").Find("dText").GetComponent<Text>();
         nameText = dialogueParent.transform.Find("DialogueBox").Find("Name").GetComponent<Text>();
         dialogueImageLeft = dialogueParent.transform.Find("LeftDialogue").GetComponent<Image>();
@@ -30,10 +30,10 @@ public class DialogueControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode. Space)) 
         {
             if (lineIndex < currentDialogue.Dialogue[dialogueIndex].Lines.Count - 1)
-            {
+            { 
                 lineIndex++;
                 dText.text = currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex];
             }
@@ -54,14 +54,14 @@ public class DialogueControl : MonoBehaviour {
         }
 	}
 
-    void loadDialogue(int id)
+   void loadDialogue(int id)
     {
         string dialogue = System.IO.File.ReadAllText("Assets/Overworld/Json/Dialogue.json");
         DialogueSet[] allDialogue = JsonHelper.getJsonArray<DialogueSet>(dialogue);
         currentDialogue = allDialogue[id - 1];
     }
 
-    void startDialogue(int id)
+    public void startDialogue(int id)
     {
         loadDialogue(1);
         lineIndex = 0;

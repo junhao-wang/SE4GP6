@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,8 +17,10 @@ public class NodeHoverScript : MonoBehaviour {
 	}
     void OnMouseEnter()
     {
-        gameObject.GetComponent<SpriteRenderer>().material.color = Color.blue;
+        gameObject.GetComponent<SpriteRenderer>().material.color = Color.blue ;
         gameObject.GetComponent<NodeProperties>().drawPaths();
+        GameObject Canvas = GameObject.FindWithTag("Overworld Canvas");
+        Canvas.GetComponent<OverlayUIScripts>().UpdateNodePopUp(gameObject.GetComponent<NodeProperties>());
     }
     void OnMouseExit()
     {
@@ -31,6 +33,8 @@ public class NodeHoverScript : MonoBehaviour {
         {
             gameObject.GetComponent<SpriteRenderer>().material.color = TileColor;
         }
+        GameObject Canvas = GameObject.FindWithTag("Overworld Canvas");
+        Canvas.GetComponent<OverlayUIScripts>().ClearNodePopUp();
     }
 
     void OnMouseUpAsButton()

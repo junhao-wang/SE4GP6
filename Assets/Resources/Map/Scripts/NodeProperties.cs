@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NodeProperties : MonoBehaviour {
     public GameObject ParentTile;
     public GameObject PathPrefab;
+    public Color ResourceEvent, DialogueEvent, CombatEvent, NoEvent;
     public List<GameObject> Neighbors;
     public bool visited = false;
     public List<GameObject> Pathing;
+    public EventType NodeEvent =EventType.NONE ;
+    public int dialogueID = 0;
     public enum Region{A,B,C,D,E,NULL};
+    public float[] ResourceMod = new float[(int)PartyProperties.ResourceType.SIZE];
+    public enum EventType { COMBAT,DIALOGUE,RESOURCE,NONE};
     public Region nodeRegion = Region.NULL;
 
     // Use this for initialization
@@ -47,7 +53,7 @@ public class NodeProperties : MonoBehaviour {
         {
             angle *= -1;
         }
-        print(angle);
+        //print(angle);
         for (float f = 0.03f;f < length - 0.03f; f+= 0.06f)
         {
             GameObject path = Instantiate(PathPrefab);
@@ -70,6 +76,54 @@ public class NodeProperties : MonoBehaviour {
     public float costTo(GameObject NodeB)
     {
         return -1.0f;
+    }
+    public void PopEvent()
+    {
+        if (NodeEvent == EventType.NONE)
+        {
+            return;
+        } else if (NodeEvent == EventType.DIALOGUE)
+        {
+            GameObject Canvas = GameObject.FindWithTag("Overworld Canvas");
+            Canvas.transform.Find("DialogueUI").gameObject.SetActive(true);
+            Canvas.GetComponent<DialogueControl>().startDialogue(dialogueID);
+            NodeEvent = EventType.NONE;
+
+        } else if (NodeEvent == EventType.COMBAT)
+        {
+            NodeEvent = EventType.NONE;
+            SceneManager.LoadScene("TestBattle");
+
+        }
+        else if (NodeEvent == EventType.RESOURCE)
+        {
+            NodeEvent = EventType.NONE;
+            GameObject Party = GameObject.FindWithTag("Overworld Party");
+            Party.GetComponent<PartyProperties>().ProccessResourceEvent(gameObject.GetComponent<NodeProperties>().ResourceMod);
+
+
+        }
+        SetColor();
+    }
+
+    public void SetColor()
+    {
+
+        switch (NodeEvent)
+        {
+            case (EventType.NONE):
+                gameObject.GetComponent<SpriteRenderer>().color = NoEvent;
+                break;
+            case (EventType.COMBAT):
+                gameObject.GetComponent<SpriteRenderer>().color = CombatEvent;
+                break;
+            case (EventType.DIALOGUE):
+                gameObject.GetComponent<SpriteRenderer>().color = DialogueEvent;
+                break;
+            case (EventType.RESOURCE):
+                gameObject.GetComponent<SpriteRenderer>().color = ResourceEvent;
+                break;
+        }
     }
 
 }

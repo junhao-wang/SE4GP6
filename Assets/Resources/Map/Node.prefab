@@ -72,6 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventType: 
+  eventMod: []
 --- !u!114 &114365883768735930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -85,9 +86,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ParentTile: {fileID: 0}
   PathPrefab: {fileID: 1151274207412390, guid: cceb5488517da2d41a018d72d2df7db8, type: 2}
+  ResourceEvent: {r: 0.26217037, g: 0.8088235, b: 0, a: 1}
+  DialogueEvent: {r: 0.9852941, g: 0.6397417, b: 0.02173445, a: 1}
+  CombatEvent: {r: 1, g: 0, b: 0, a: 1}
+  NoEvent: {r: 0, g: 0, b: 0, a: 1}
   Neighbors: []
   visited: 0
   Pathing: []
+  NodeEvent: 3
+  dialogueID: 0
+  ResourceMod:
+  - 0
+  - 0
+  nodeRegion: 5
 --- !u!114 &114371206943442108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -147,7 +158,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7fffed7fb6182cd4d9784e2eb073c14d, type: 3}
-  m_Color: {r: 0.5973724, g: 0.75283605, b: 0.9338235, a: 1}
+  m_Color: {r: 0.9852941, g: 0.6397417, b: 0.02173445, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

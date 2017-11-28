@@ -5,13 +5,21 @@ using UnityEngine;
 public class NodePartySelect : MonoBehaviour {
     public static GameObject PartyIcon;
     public static GameObject SourceNode;
-    public static bool spawned = false;
+    public static bool spawned = true;
     public static bool walk = false;
    
     // Use this for initialization
     void Start()
     {
         NodePartySelect.PartyIcon = GameObject.FindWithTag("Overworld Party");
+    }
+
+    public void SpawnParty()
+    {
+        NodePartySelect.PartyIcon = GameObject.FindWithTag("Overworld Party");
+        PartyIcon.GetComponent<SpriteRenderer>().enabled = true;
+        PartyIcon.GetComponent<Transform>().position = gameObject.GetComponent<Transform>().position + new Vector3(0, 0.12f, -0.01f);
+        PartyIcon.GetComponent<PartyProperties>().OccupiedNode = gameObject;
     }
 
     // Update is called once per frame
@@ -23,6 +31,7 @@ public class NodePartySelect : MonoBehaviour {
     private void OnMouseUpAsButton()
     {
 
+        /*
         if (!spawned)
         {
             spawned = true;
@@ -31,6 +40,7 @@ public class NodePartySelect : MonoBehaviour {
             PartyIcon.GetComponent<PartyProperties>().OccupiedNode = gameObject;
             return;
         }
+        */
         if (walk)
         {
             return;
@@ -49,7 +59,7 @@ public class NodePartySelect : MonoBehaviour {
             walk = true;
             PartyIcon.GetComponent<PartyWalk>().startWalk(SourceNode.GetComponent<Transform>(), gameObject.GetComponent<Transform>());
             PartyIcon.GetComponent<PartyProperties>().OccupiedNode = gameObject;
-            SourceNode = null;
+            SourceNode = gameObject;
 
         }
  
