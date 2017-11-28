@@ -28,20 +28,20 @@ public class GenerateBattlemap : MonoBehaviour {
         LoadMap();
         GenerateGrid();
         PopulateGrid();
-        
+
     }
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-		
-	}
+
+    }
 
     public void GenerateGrid()
     {
@@ -50,31 +50,6 @@ public class GenerateBattlemap : MonoBehaviour {
         gridGen.SquarePrefab = squarePrefab;
         gridGen.CellsParent = cellsParent;
         gridGen.GenerateGrid();
-    }
-
-    
-
-    void PopulateGrid()
-    {
-        int gridIndex = 0;
-        foreach (Transform child in cellsParent)
-        {
-            SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
-            Sprite[] newSpriteSheet;
-            if (gridIndex < currentMap.tileLayout.Length)
-            {
-                newSpriteSheet = Resources.LoadAll<Sprite>(tiles[currentMap.tileLayout[gridIndex]].spriteSheet);
-                sr.sprite = newSpriteSheet[tiles[currentMap.tileLayout[gridIndex]].sprite];
-            }
-            else
-            {
-                newSpriteSheet = Resources.LoadAll<Sprite>(tiles[0].spriteSheet);
-                sr.sprite = newSpriteSheet[tiles[0].sprite];
-            }
-            
-            gridIndex++;
-        }
-
     }
 
     void LoadMap()
@@ -89,7 +64,6 @@ public class GenerateBattlemap : MonoBehaviour {
         loadList<Tiles>(currentMap.tiles, tiles, tileList);
         loadList<Obstacles>(currentMap.obstacles, obs, obsList);
     }
-
     Obstacles[] FindObstacles()
     {
         string obs = System.IO.File.ReadAllText("Assets/Combat/obstacles.json");
@@ -111,10 +85,10 @@ public class GenerateBattlemap : MonoBehaviour {
         return mapList;
     }
 
-    int findElementOfName<T>(string name, T[] array) where T: Assets 
+    int findElementOfName<T>(string name, T[] array) where T : Assets
     {
         int index = 0;
-        foreach(T elem in array)
+        foreach (T elem in array)
         {
             if (elem.name == name)
             {
@@ -135,5 +109,38 @@ public class GenerateBattlemap : MonoBehaviour {
         }
     }
 
+    void PopulateGrid()
+    {
+        int gridIndex = 0;
+        foreach (Transform child in cellsParent)
+        {
+            SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
+            Sprite[] newSpriteSheet;
+            if (gridIndex < currentMap.tileLayout.Length)
+            {
+                newSpriteSheet = Resources.LoadAll<Sprite>(tiles[currentMap.tileLayout[gridIndex]].spriteSheet);
+                try
+                {
+                    sr.sprite = newSpriteSheet[tiles[currentMap.tileLayout[gridIndex]].sprite];
+                }
+                catch { }
+            }
+            else
+            {
+                newSpriteSheet = Resources.LoadAll<Sprite>(tiles[0].spriteSheet);
+                try
+                {
+                    sr.sprite = newSpriteSheet[tiles[0].sprite];
+                }
+                catch
+                {//print("tiles[0 }
+                }
 
+                gridIndex++;
+            }
+
+        }
+        
+
+    }
 }

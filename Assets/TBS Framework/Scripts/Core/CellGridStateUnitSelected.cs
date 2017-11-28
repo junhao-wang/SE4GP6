@@ -1,8 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
+
 
 class CellGridStateUnitSelected : CellGridState
 {
+
+
+
+    
     private Unit _unit;
     private List<Cell> _pathsInRange;
     private List<Unit> _unitsInRange;
@@ -22,13 +30,13 @@ class CellGridStateUnitSelected : CellGridState
             return;
         if(cell.IsTaken)
         {
-            _cellGrid.CellGridState = new CellGridStateWaitingForInput(_cellGrid);
+            //_cellGrid.CellGridState = new CellGridStateWaitingForInput(_cellGrid);
             return;
         }
             
         if(!_pathsInRange.Contains(cell))
         {
-            _cellGrid.CellGridState = new CellGridStateWaitingForInput(_cellGrid);
+            //_cellGrid.CellGridState = new CellGridStateWaitingForInput(_cellGrid);
         }
         else
         {
@@ -39,10 +47,15 @@ class CellGridStateUnitSelected : CellGridState
     }
     public override void OnUnitClicked(Unit unit)
     {
+        Debug.Log("onUnitClicked branch: ");
         if (unit.Equals(_unit) || unit.isMoving)
+        {
+            Debug.Log("self attack?");
             return;
-
-        if (_unitsInRange.Contains(unit) && _unit.ActionPoints > 0)
+        }
+        Debug.Log("_unit name " + _unit.name);
+        Debug.Log("attacked name " + unit.name);
+        if (_unitsInRange.Contains(unit) && (_unit.ActionPoints > 0))
         {
             _unit.DealDamage(unit);
             _cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, _unit);
@@ -113,7 +126,13 @@ class CellGridStateUnitSelected : CellGridState
         
         if (_unitCell.GetNeighbours(_cellGrid.Cells).FindAll(c => c.MovementCost <= _unit.MovementPoints).Count == 0 
             && _unitsInRange.Count == 0)
+        {
             _unit.SetState(new UnitStateMarkedAsFinished(_unit));
+
+        }
+            
+
+
     }
     public override void OnStateExit()
     {

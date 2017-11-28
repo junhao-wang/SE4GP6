@@ -1,5 +1,6 @@
 ﻿using UnityEngine.UI;
 
+
 public class Hero : MyUnit
 {
     private BuffSpawner _buffSpawner;
@@ -26,6 +27,7 @@ public class Hero : MyUnit
         if (!_abilityUsed)
         {
             Invoke("EnableSpecialAbilityButton",0.1f);
+
         }       
     }
     public override void OnUnitDeselected()

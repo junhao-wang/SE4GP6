@@ -10,16 +10,23 @@ public class Adjustment : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        newPos = new Vector3(transform.position.x + adjustment.x, transform.position.y + adjustment.y, transform.position.z + adjustment.z);
+        //newPos = new Vector3(transform.position.x + adjustment.x, transform.position.y + adjustment.y, transform.position.z + adjustment.z);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	/*void Update () {
         if (!isDone)
         {
-            transform.position = newPos;
-            isDone = true;
+            StartCoroutine(Update2());
+            isDone = true; 
         }
         
 	}
+
+    private IEnumerator Update2()
+    {
+        System.Threading.Thread.Sleep(2000);
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 0.6f);
+        yield return 0;
+    }*/
 }
