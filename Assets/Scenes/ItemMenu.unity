@@ -2808,11 +2808,41 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2067475271}
+--- !u!1 &2074349033 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1468566122776144, guid: 6f9c15ebc7b6a7e4fb9aa04b8f0c3837,
+    type: 2}
+  m_PrefabInternal: {fileID: 175002628}
 --- !u!224 &2074349034 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224135629504208712, guid: 6f9c15ebc7b6a7e4fb9aa04b8f0c3837,
     type: 2}
   m_PrefabInternal: {fileID: 175002628}
+--- !u!114 &2074349039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2074349033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2a5dd90c0886784ab4885aeac95d229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!61 &2074349040
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2074349033}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!1001 &2093947833
 Prefab:
   m_ObjectHideFlags: 0
