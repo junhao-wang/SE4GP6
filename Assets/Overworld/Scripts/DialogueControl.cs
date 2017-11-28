@@ -63,7 +63,8 @@ public class DialogueControl : MonoBehaviour {
 
     public void startDialogue(int id)
     {
-        loadDialogue(1);
+        dialogueParent.SetActive(true);
+        loadDialogue(id);
         lineIndex = 0;
         dialogueIndex = 0;
         dText.text = currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex];
