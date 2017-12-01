@@ -1,0 +1,133 @@
+\documentclass[12pt, titlepage]{article}
+
+\usepackage{fullpage}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{float}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=red,
+    urlcolor=blue
+}
+\usepackage[round]{natbib}
+
+\newcounter{acnum}
+\newcommand{\actheacnum}{AC\theacnum}
+\newcommand{\acref}[1]{AC\ref{#1}}
+
+\newcounter{ucnum}
+\newcommand{\uctheucnum}{UC\theucnum}
+\newcommand{\uref}[1]{UC\ref{#1}}
+
+\newcounter{mnum}
+\newcommand{\mthemnum}{M\themnum}
+\newcommand{\mref}[1]{M\ref{#1}}
+
+\title{SE 4GP6B: Design Document\\A World Apart}
+
+\author{Team 4, SantaHatesPoorKids
+		\\ Jim Wu, 001409055
+		\\ Ian Yang, 001217664
+		\\ Gabriel Castagner, 001412885
+		\\ Junhao Wang, 001215428
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\pagenumbering{roman}
+\tableofcontents
+\listoftables
+\listoffigures
+
+\begin{table}[bp]
+\caption{\bf Revision History}
+\begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
+\toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
+\midrule
+November 28 & 1.0 & Created document\\
+Nov 30 & 1.1 & Formatted document with section one added\\
+
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Introduction}
+\subsection{Purpose of Document}
+The purpose of this document is to provide answers to the design questions that the Daniel Szymczak posed for our group, to add more insight to modules of the project that have already been implemented, and to trace these questions back to the code of the project for December 4th.
+Our project, "A World Apart", is a Sci-fi, rogue like strategy game that has multiple components and different types of game mechanisms that this document will cover in detail. As the project progresses, the modules may be subject to change and will be reflected in the revision history of the document.
+\subsection{Terminology and Abbreviations}
+
+\subsection{Customized Group Question Explanations}
+\quad Below are the questions that were specifically tailored to our group, each question contains an answer and a reference to the code that is found in References.
+\begin{enumerate}[{\textbf{Question}}1. ]
+	\item \textbf{Keep your requirements in mind while addressing how you're going to implement your game. How are you going to implement specific features? And what decisions have you made regarding that implementation? You can point me to code/comments as necessary, but make sure it's clear why you've made that choice.}
+
+	\item \textbf{Examples of the kinds of things you should be thinking about follow:}
+
+	\item \textbf{Can you save/load the game? Where does it save? Can it be customized? How does loading work? Are there limited save slots? Does the game autosave? Are there checkpoints and how do they work?}
+
+	\item \textbf{Is there a map? Can the player see the whole thing from the beginning or is it obscured? How do they reveal more of it? How do they look at it? Does the game pause while they look at it? What is shown on the map?}
+
+	\item \textbf{How is your map generated? What algorithms are you using for generation? pathfinding? AI? etc. If you're using your own algorithms, explain them. If you're using existing algorithms, name them and provide a source.}
+
+	\item \textbf{Can the player soft-lock the game and be forced to restart? How? Can you guarantee this won't happen? How?}
+
+	\item \textbf{What do your menus look like? What options are available to the player? How many menus are there? Is there a level-select screen?}
+
+	\item \textbf{What do your combat levels look like? What are the puzzles/obstacles/enemies in each? What is the goal of each level? Are they all the same or different? How does the story progress between levels?}
+
+	\item \textbf{How does your combat system work? What options are available to the players? How is damage calculated?}
+	The combat system works as a standard turn based strategy combat system would work with a few modifications. Turns happen instead at an individual level, meaning player and AI turns may happen at after each other in a random order. Each unit is given turn index of when they are allowed to have their turn and the order of the turns is randomly generated at the beginning of the combat scene. If a unit is incapacitated, then they are removed from the turn pool and the next unit in the turn pool gets to go. The only exception to this is when the second last player character is incapacitated. If this case happens, then the final player character turn index is moved to the next player unit.
+	
+	The player has a wide variety of actions to perform when it is their turn. The player's turn can  be broken down into three components:
+	\begin{enumerate}
+	\item Movement Phase - This phase allows the character to move no a new location on the map given their movement speed value. The player will not be able to move into grid positions that have terrain objects or other units on them. They will be forced to move around it those grid positions. 
+	\item Action Phase - This phase allows the player to select actions that are able to be performed by their inventory or character abilities. The inventory actions may be able to apply buffs to the character, a unique attack that can be performed by the character or a buff to another character. 
+	\item Attack Phase - This phase allows the player to attack enemies in the combat scene either through the use of close combat or weapons combat. Close combat is only able to be performed upon a unit that is one grid cell away, this includes diagonal cells. Weapons combat can happen from a specific length away of grid cells and uses the bullet resource if the equipped weapon uses bullets. 
+	\end{enumerate}
+	Any of the above phases can be performed in any order with the exception of the Attack Phase. If the unit performs it's attack phase before any other phase, then they are unable to move or perform and action.
+	The damage is calculated as the following:
+	When a Unit makes an Attack or a similar action, the Attacked unit will lose Health equal to Attacker’s Attack - Defender’s Current Armor, with a minimum 1. When a Unit’s Health is half or below, its Attack is halved (rounded up). Any items that are equipped to the character are added to the unit's statistics ontop of their base statistics.
+	\item\textbf{ What constitutes your player's status? What stats will be shown? How will they be shown (where are they located on screen)? Are they always visible or can they be hidden? How?}
+
+	\item \textbf{When does a player's turn end? Must they press a button or will it automatically end when they no longer have actions available? Will they ever run out of actions to perform? How many different actions can a player choose from? What do they all do? Does performing one action prevent the player from taking a different action on the same turn or subsequent turns?}
+
+	\item \textbf{How does a player "die"/fail a level? Is it from health=0, falling off screen, getting stuck, etc? What happens when they do? How do they continue?}
+	Health determines how close a Unit is to being Incapacitated. Once a Unit’s health drops to 0 or below, that Unit is Incapacitated. An Incapacitated Unit does not have an place in the Turn order, and therefore cannot Move or perform Actions. If all player characters have been Incapacitated, then the player has failed the level and is redirected to the end game scene. Once the game review has been viewed, the player is redirected to the main menu and the save file is set as unplayable.
+	\item \textbf{When changing game settings, will the changes apply immediately or will they require the game to be restarted? Are the changes persistent? How? What settings can be changed?}
+
+	\item \textbf{How do players interact with other objects/enemies? How far away should they be? Do they need to press a specific button or is it automatic once within a given range? What are the specific types of interactions possible and how do they work?}
+
+	\item \textbf{What does "pausing" the game do? What will the player see when it's paused? What do your menus look like? Will the game continue playing in the background (ex. GoldenEye 64 watch system), or will it freeze?}
+
+	\item \textbf{What are your different enemy types (including sprites/models)? How do they work? Do they follow predictable patterns? AI? Some combination? Be specific with which enemy does what. How do they react to the player? etc.}
+
+	\item \textbf{For items, can item attributes stack? How many items can a player use simultaneously? What categories of items do you have (ex. damage boosting, healing)? What items belong to each category? How does each item work (list them all and describe them)? How does a player pick up an item (do they need to be within a certain range? Do they need to press a button)?}
+
+	\item \textbf{How does the item shop work? What items are available? How much should they cost? Are all types of items available at all times or are there only specific items/item types available at a given instant?}
+
+	\item \textbf{How does the camera system work? Is it perspective or orthogonal? Are there multiple cameras? Does the camera follow the player? How does it do that (algorithm)? Can the player control the camera? If so, how?}
+\end{enumerate}
+
+\section{Additional Module Explanations}
+
+
+
+
+\section{Code References}
+
+\end{document}
