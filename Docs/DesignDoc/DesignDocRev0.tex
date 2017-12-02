@@ -79,8 +79,19 @@ Our project, "A World Apart", is a Sci-fi, rogue like strategy game that has mul
 \begin{enumerate}[{\textbf{Question}}1. ]
 %%%%%%Question
 	\item \textbf{Keep your requirements in mind while addressing how you're going to implement your game. How are you going to implement specific features? And what decisions have you made regarding that implementation? You can point me to code/comments as necessary, but make sure it's clear why you've made that choice.}
-%%%%%%Question
+%%%%%%Questionn NOT DONE!!!!!!!!!!!!!!!
 	\item \textbf{Can you save/load the game? Where does it save? Can it be customized? How does loading work? Are there limited save slots? Does the game autosave? Are there checkpoints and how do they work?}
+	You can load and save the game at certain sections of the game. With the game being a roguelike, we really want to ensure that we can minimize the number of quick loads without corrupting the file so that the player can have an ironman experience. The game will be saved at every decision that the character makes, as we will model the way Crusader Kings 2 and FTL perform their autosaves. The times that the game will be saved will be during the following scenarios:
+	\begin{enumerate}
+	\item When the player moves to a new node, the save function will be called in parallel and save the part position at the new node.
+	\item When the player closes the merchant menu.
+	\item When the player selects end turn for their character.
+	\item When the enemies have finished their turn.
+	\item When a character is incapacitated after an enemy attack.
+	\item When an enemy is destroyed after a player attack.
+	\item When the player wins the boss battle and moves to the next region. 
+	\end{enumerate}
+	The player will also be able to save at any moment outside of these save points
 %%%%%%Question
 	\item \textbf{Is there a map? Can the player see the whole thing from the beginning or is it obscured? How do they reveal more of it? How do they look at it? Does the game pause while they look at it? What is shown on the map?}
 %%%%%%Question
@@ -106,6 +117,19 @@ Our project, "A World Apart", is a Sci-fi, rogue like strategy game that has mul
 	When a Unit makes an Attack or a similar action, the Attacked unit will lose Health equal to Attacker’s Attack - Defender’s Current Armor, with a minimum 1. When a Unit’s Health is half or below, its Attack is halved (rounded up). Any items that are equipped to the character are added to the unit's statistics ontop of their base statistics.
 %%%%%%Question
 	\item\textbf{ What constitutes your player's status? What stats will be shown? How will they be shown (where are they located on screen)? Are they always visible or can they be hidden? How?}
+	The player characters will have 6 statistics that they will level up and can buff with items. These items are:
+	\begin{enumerate}
+	\item Max Health - determines how much health a unit has. Health dictates how close a Unit is to being Incapacitated. Once a Unit’s health drops to 0 or below, that Unit is Incapacitated. When a Unit makes an Attack or a similar action, the Attacked unit will lose Health equal to Attacker’s Attack - Defender’s Current Armor, minimum 1. When a Unit’s Health is half or below, its Attack is halved (rounded up).
+	\item Max Armour- determines how much Armour a unit has. The armour value determines how much Health damage is taken when an attack is made to Health. Armor is its own value,and can be attacked. Damage to Armor is equal to the Attacker’s Attack.
+	\item Power - determines how much damage is done to another Unit when an Attack Action is made
+	\item Speed - decides the Unit’s place in the Turn order. Units with higher Speed will have a Turn before units with lower Speed.
+	\item Movement - determines how many Squares a Unit can move from its current position. The Squares that are possible for the Unit to move through is determined with a pathfinding algorithm.
+	\item Range - determines how many Squares away from the current Square the Unit can attack. Squares in range are determined with the same algorithm as movement, with the exception that Obstacles do not factor into the pathfinding.
+	\end{enumerate}
+	These stats can all be viewed by the player in the respected menus.
+	There are two locations where you can view the character's stats, these are in the item/merchant menu and in the combat scene.
+	For the Item/Merchant menu, you will be able to view your character's stats by selecting the desired character. The stats will then be present along with the character and if the player hovers over the stat, a tooltip will show the breakdown of the statistic. 
+	For the Combat scene, you will be able to view your character's stats by selecting the desired character. The stats will then be presented in the top left hand side of the screen. The only difference is that health and amour modifiers start to be addressed when taking damage from enemies and will be updated when certain thresholds are met. Breakdowns of the stat will still be shown if the player hovers the mouse over the stat value in a tool tip format.
 %%%%%%Question
 	\item \textbf{When does a player's turn end? Must they press a button or will it automatically end when they no longer have actions available? Will they ever run out of actions to perform? How many different actions can a player choose from? What do they all do? Does performing one action prevent the player from taking a different action on the same turn or subsequent turns?}
 	
@@ -143,6 +167,7 @@ Our project, "A World Apart", is a Sci-fi, rogue like strategy game that has mul
 	\end{enumerate}
 %%%%%%Question
 	\item \textbf{What does "pausing" the game do? What will the player see when it's paused? What do your menus look like? Will the game continue playing in the background (ex. GoldenEye 64 watch system), or will it freeze?}
+	
 	Our game will only have a pausing feature during the combat scene. If the player hits the escape key, main process will hang and the player will only be able to view the menu options. If the player returns to the combat scene, the game will progress as normal. If the player is in the Overworld view, pausing the game will not be paused and a selection that is still be traversed will still occur if the player hits the menu button. The player will be able to view the menu they have selected in both scenes with an alpha layer applied to the background of the scene so they can still see the game. 
 	There are a few menus in the game, but with the exception of the overworld main menu, will send the current game session into a hanging position until the menu has been closed. The list of menus proceeds as:
 	\begin{enumerate}
