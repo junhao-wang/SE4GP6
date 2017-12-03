@@ -92,17 +92,17 @@ Our project, "A World Apart", is a Sci-fi, rogue like strategy game that has mul
 	\item When the player wins the boss battle and moves to the next region. 
 	\end{enumerate}
 	The player will also be able to save at any moment outside of these save points
-%%%%%%Question
+%%%%%%Question junhao done
 	\item \textbf{Is there a map? Can the player see the whole thing from the beginning or is it obscured? How do they reveal more of it? How do they look at it? Does the game pause while they look at it? What is shown on the map?}
-%%%%%%Question
+%%%%%%Question junhao done
 	\item \textbf{How is your map generated? What algorithms are you using for generation? pathfinding? AI? etc. If you're using your own algorithms, explain them. If you're using existing algorithms, name them and provide a source.}
-%%%%%%Question
+%%%%%%Question 
 	\item \textbf{Can the player soft-lock the game and be forced to restart? How? Can you guarantee this won't happen? How?}
-%%%%%%Question
+%%%%%%Question done covered in another question
 	\item \textbf{What do your menus look like? What options are available to the player? How many menus are there? Is there a level-select screen?}
 %%%%%%Question
 	\item \textbf{What do your combat levels look like? What are the puzzles/obstacles/enemies in each? What is the goal of each level? Are they all the same or different? How does the story progress between levels?}
-%%%%%%Question
+%%%%%%Question done
 	\item \textbf{How does your combat system work? What options are available to the players? How is damage calculated?}
 	The combat system works as a standard turn based strategy combat system would work with a few modifications. Turns happen instead at an individual level, meaning player and AI turns may happen at after each other in a random order. Each unit is given turn index of when they are allowed to have their turn and the order of the turns is randomly generated at the beginning of the combat scene. If a unit is incapacitated, then they are removed from the turn pool and the next unit in the turn pool gets to go. The only exception to this is when the second last player character is incapacitated. If this case happens, then the final player character turn index is moved to the next player unit.
 	
@@ -115,7 +115,7 @@ Our project, "A World Apart", is a Sci-fi, rogue like strategy game that has mul
 	Any of the above phases can be performed in any order with the exception of the Attack Phase. If the unit performs it's attack phase before any other phase, then they are unable to move or perform and action.
 	The damage is calculated as the following:
 	When a Unit makes an Attack or a similar action, the Attacked unit will lose Health equal to Attacker’s Attack - Defender’s Current Armor, with a minimum 1. When a Unit’s Health is half or below, its Attack is halved (rounded up). Any items that are equipped to the character are added to the unit's statistics ontop of their base statistics.
-%%%%%%Question
+%%%%%%Question done
 	\item\textbf{ What constitutes your player's status? What stats will be shown? How will they be shown (where are they located on screen)? Are they always visible or can they be hidden? How?}
 	The player characters will have 6 statistics that they will level up and can buff with items. These items are:
 	\begin{enumerate}
@@ -130,7 +130,7 @@ Our project, "A World Apart", is a Sci-fi, rogue like strategy game that has mul
 	There are two locations where you can view the character's stats, these are in the item/merchant menu and in the combat scene.
 	For the Item/Merchant menu, you will be able to view your character's stats by selecting the desired character. The stats will then be present along with the character and if the player hovers over the stat, a tooltip will show the breakdown of the statistic. 
 	For the Combat scene, you will be able to view your character's stats by selecting the desired character. The stats will then be presented in the top left hand side of the screen. The only difference is that health and amour modifiers start to be addressed when taking damage from enemies and will be updated when certain thresholds are met. Breakdowns of the stat will still be shown if the player hovers the mouse over the stat value in a tool tip format.
-%%%%%%Question
+%%%%%%Question done
 	\item \textbf{When does a player's turn end? Must they press a button or will it automatically end when they no longer have actions available? Will they ever run out of actions to perform? How many different actions can a player choose from? What do they all do? Does performing one action prevent the player from taking a different action on the same turn or subsequent turns?}
 	
 	A player's turn ends when they select the end turn button. This gives the player time to reflect on the actions they just performed and plan for their next steps by going at their own pace. For enemies, they will simply iterate through their turn and complete it when they are finished with their turn.
@@ -142,13 +142,13 @@ Our project, "A World Apart", is a Sci-fi, rogue like strategy game that has mul
 	\end{enumerate}
 	
 	There are only two cases of where the player's phases would terminate to the end of the turn and these are when the player attacks an enemy and when the player uses the action or attack phase when they have not expended all of their movement tiles. Otherwise the phases can occur in any order.
-%%%%%%Question
+%%%%%%Question done
 	\item \textbf{How does a player "die"/fail a level? Is it from health=0, falling off screen, getting stuck, etc? What happens when they do? How do they continue?}
 	Health determines how close a Unit is to being Incapacitated. Once a Unit’s health drops to 0 or below, that Unit is Incapacitated. An Incapacitated Unit does not have an place in the Turn order, and therefore cannot Move or perform Actions. If all player characters have been Incapacitated, then the player has failed the level and is redirected to the end game scene. Once the game review has been viewed, the player is redirected to the main menu and the save file is set as unplayable.
-%%%%%%Question	
+%%%%%%Question done
 	\item \textbf{When changing game settings, will the changes apply immediately or will they require the game to be restarted? Are the changes persistent? How? What settings can be changed?}
 	A major of game settings will apply immediately when the game is running and only a few settings will be needed to restart the game. Our group is still unsure of how Unity determines it's resolution or Anti Aliasing settings but we can determine that only those two setting will be needed to restart the game if changed. If any other graphical, UI or audio changes are made to the game, they will be saved on the user's computer. We can ensure this by reading the information from a file that has all of the default settings for the game and then save the changes to that file if changes are made. The number of settings that can be changed are the system's resolution, Anti Aliasing, texture quality, windowed mode, UI size and offeset, master volume, music volume and sound effect volume.
-%%%%%%Question
+%%%%%%Question done
 	\item \textbf{How do players interact with other objects/enemies? How far away should they be? Do they need to press a specific button or is it automatic once within a given range? What are the specific types of interactions possible and how do they work?}
 	Inside of the combat scene, the player will only be able to interact with a handful of other items. These include the other character players, scenery, regular enemies and bosses. The player should never be able to move through or ontop of any other items in the scene. 
 	\begin{enumerate}
@@ -165,7 +165,7 @@ Our project, "A World Apart", is a Sci-fi, rogue like strategy game that has mul
 	\item Ranged Attack - This attack is chosen when a character wants to perform an attack that far away from an enemy, but is still within range. The player has the option to select the enemy's armour or health values, but the action can only be performed if the player has enough bullets to use against the enemies.
 	\item Item Buff/Debuff- This action is performed when the character wants to buff another player character or debuff an enemy. This action is usually performed from a given range and must ensure that the desired entity is within range to be performed. The corresponding buff or debuff is applied for the listed number of turns to the desired enemy if all the conditions are met.
 	\end{enumerate}
-%%%%%%Question
+%%%%%%Question done
 	\item \textbf{What does "pausing" the game do? What will the player see when it's paused? What do your menus look like? Will the game continue playing in the background (ex. GoldenEye 64 watch system), or will it freeze?}
 	
 	Our game will only have a pausing feature during the combat scene. If the player hits the escape key, main process will hang and the player will only be able to view the menu options. If the player returns to the combat scene, the game will progress as normal. If the player is in the Overworld view, pausing the game will not be paused and a selection that is still be traversed will still occur if the player hits the menu button. The player will be able to view the menu they have selected in both scenes with an alpha layer applied to the background of the scene so they can still see the game. 
@@ -181,7 +181,7 @@ Our project, "A World Apart", is a Sci-fi, rogue like strategy game that has mul
 	\end{enumerate}
 %%%%%%Question
 	\item \textbf{What are your different enemy types (including sprites/models)? How do they work? Do they follow predictable patterns? AI? Some combination? Be specific with which enemy does what. How do they react to the player? etc.}
-%%%%%%Question NOT DONE!!!!!!!!!!!!!!!
+%%%%%%Question NOT DONE!!!!!!!!!!!!!!! but in doc
 	\item \textbf{For items, can item attributes stack? How many items can a player use simultaneously? What categories of items do you have (ex. damage boosting, healing)? What items belong to each category? How does each item work (list them all and describe them)? How does a player pick up an item (do they need to be within a certain range? Do they need to press a button)?}
 	Items will have the ability to stack on the player's base stats, current modifiers in the combat session, and other item stacks. The breakdown of the stat will be given by scrolling over the character's statistic number and a tooltip will show how those values are derived by iterating through the same modifiers and items. Player's will not be told what items stack well with others as this will be kept as the idea of item combinations a dynamic practice.
 	For the current version, the player is able to equip themselves with a melee weapon, a ranged weapon, a armour buff, a tool, and two consumable items. This layout may be subject to change if we think the player needs more or fewer item slots and if item categories need to be redistributed. As of right now, the consumable item slot is able to be equipped passive (applies a constant stat change) and external consumable (stat change affects other player characters rather than the equipped character) items but this will be tested to find the best balance output that we wish to achieve.
@@ -201,13 +201,13 @@ Our project, "A World Apart", is a Sci-fi, rogue like strategy game that has mul
 	\end{enumerate}
 	More items will be added to the game, but each conceptualization will be categorized to the above categorizes. By constraining the items to the 4 categories, we can ensure that our game continues to be modular while having that creative flexibility to add cool or balanced items.
 	Items are activated by clicking on them in the combat scene in the action phase. Items that are are unable to be activated are are 'greyed' out indicated that they cannot be activated in the scene. These will include passive, equipment and rechargeable items that still in their cooldown. Rechargeable items will have number over the item icon showing how many turns are needed for the item to be used again.
-%%%%%%Question
+%%%%%%Question Done
 	\item \textbf{How does the item shop work? What items are available? How much should they cost? Are all types of items available at all times or are there only specific items/item types available at a given instant?}
 	There will be a node that is mapped with the Merchant and when the player arrives on the Merchant node, they will be able to open the Merchant menu. The menu will be made up of multiple panels that contain the Merchant's items, the player's items, the character equip load outs and finally party resources like bullets and supplies. The player will then be able to barter with the merchant by transferring items back and forth between the merchant and the player item pools. There will be a barter value at the bottom of the page that shows the player if the merchant will accept the offer from -100 to 100. Positive values will be accepted stating that the merchant will think he is getting a good deal, a negative will not be accepted stating that the merchant will think he is not getting a good deal and a 0 results in a fair deal that will be accepted. Because the game has no currency, selling or buying items/resources will result in the player needing to sell/buy items to the merchant. The merchant will probably have unlimited bullets and resources but a random pool of generated items. 
 	The items that will be available will be of all different kinds of randomly generated items. This system is better than generating item suggestions based on the lack of items that are useful to player as that may restrict a play style and suppress the rogue like element. 
 	The algorithm that will determine the cost of the items will be scalar of the item's level and it's purpose. Testing the project by using automated tests will allow us to see what items are easily able to be purchased and will allow us to balance the game. The item values will be changed in according to allow some items to me more rare than other, allowing important decisions to be made when selling and buying items.
 	Part of the rogue like aspect is having that idea that you never know what kind of items you are going to get when you come upon a random event node or merchant node, so having the experience of finding a rare item knowing the chance may never come again. This can put the player in a difficult position and is why we think that this is better than pre programming scripted drops as it can create a sort of repetition. So in that case, no the randomly generated items will only be created in that instance of the merchant, the user cannot go back to purchase them.
-%%%%%%Question
+%%%%%%Question Done
 	\item \textbf{How does the camera system work? Is it perspective or orthogonal? Are there multiple cameras? Does the camera follow the player? How does it do that (algorithm)? Can the player control the camera? If so, how?}
 	There are two main camera view for the game, the Overworld camera and the Combat Camera. The Overworld camera is set to a topdown, perpendicular view to the Overworld map. The Combat camera is set at an isometric view of the map (diamond) and is set a 45 degree angle from the x plane, it looks very similar to the Age of Empires two view. Both are orthogonal cameras that the player can manipulate by moving with the WASD, arrow keys or moving the mouse over to the edge of the screen.The Cameras move with unity's built in camera movement control and our scale for the speed will be subject to change for the final project.  The Camera is only ever set on the player party or first playable character when the scenes are initialized, otherwise the player is able to move the camera within the bounds of play. 
 \end{enumerate}
