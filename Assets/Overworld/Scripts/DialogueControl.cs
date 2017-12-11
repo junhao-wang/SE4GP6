@@ -11,14 +11,18 @@ public class DialogueControl : MonoBehaviour {
 
     GameObject dialogueParent;
 
+    //TextObject for the Dialogue
     Text dText;
+    //TextObject for the name of the current speaker
     Text nameText;
 
+    //the image on the left and right of the screen
     Image dialogueImageLeft;
     Image dialogueImageRight;
 
     bool isLastPortraitLeft = true;
-    // Use this for initialization 
+
+    // Initialize Dialogue 
     void Start () {
         dialogueParent = transform.Find("DialogueUI").gameObject;
         dText = dialogueParent.transform.Find("DialogueBox").Find("dText").GetComponent<Text>();
@@ -30,6 +34,7 @@ public class DialogueControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //move on to the next piece of dialogue
 		if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode. Space)) 
         {
             if (lineIndex < currentDialogue.Dialogue[dialogueIndex].Lines.Count - 1)

@@ -5,8 +5,8 @@ using UnityEngine;
 
 [Serializable]
 
+//Sets of Dialogue for each event
 public class DialogueSet {
-    //public string name;
     public int id;
     public Dialogue[] Dialogue;
 }

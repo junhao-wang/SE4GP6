@@ -65,7 +65,7 @@ public class CellGrid : MonoBehaviour
                 Debug.LogError("Invalid object in Players Parent game object");
         }
         NumberOfPlayers = Players.Count;
-        int[] spd; //list of speeds of each unit to be used later
+        int[] speed; //list of speeds of each unit to be used later
 
         CurrentPlayerNumber = Players.Min(p => p.PlayerNumber);
         
@@ -91,7 +91,7 @@ public class CellGrid : MonoBehaviour
         if (unitGenerator != null)
         {
             Units = unitGenerator.SpawnUnits(Cells);
-            spd = new int[Units.Count];
+            speed = new int[Units.Count];
 
             turnOrder = new int[Units.Count];
             for (int i = 0; i < Units.Count; i++)
@@ -102,7 +102,7 @@ public class CellGrid : MonoBehaviour
             int stemp = 0;
             foreach (var unit in Units)
             {
-                spd[stemp] = unit.Speed;
+                speed[stemp] = unit.Speed;
                 unit.UnitClicked += OnUnitClicked;
                 unit.UnitDestroyed += OnUnitDestroyed;
                 stemp++;
@@ -111,7 +111,7 @@ public class CellGrid : MonoBehaviour
         else
         {
             Debug.LogError("No IUnitGenerator script attached to cell grid");
-            spd= new int[] { 0 };
+            speed= new int[] { 0 };
         }
             
         if(Players.Count <=1)
@@ -123,14 +123,14 @@ public class CellGrid : MonoBehaviour
         while (ttemp) //sort turn orders
         {
             ttemp = false;
-            for (int i =1; i < spd.Length; i++)
+            for (int i =1; i < speed.Length; i++)
             {
-                if(spd[i] > spd[i - 1])
+                if(speed[i] > speed[i - 1])
                 {
                     ttemp = true;
-                    spd[i] += spd[i - 1];
-                    spd[i - 1] = spd[i] - spd[i - 1];
-                    spd[i] = spd[i] - spd[i - 1];
+                    speed[i] += speed[i - 1];
+                    speed[i - 1] = speed[i] - speed[i - 1];
+                    speed[i] = speed[i] - speed[i - 1];
 
                     turnOrder[i] += turnOrder[i - 1];
                     turnOrder[i - 1] = turnOrder[i] - turnOrder[i - 1];
