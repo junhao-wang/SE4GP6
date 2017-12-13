@@ -8,18 +8,14 @@ public class LevelInfo : MonoBehaviour {
 
 
 
-	private Sprite level;
-	private Image levelRenderer;
-	public int levelnum;
-	//private Object[] levelRenderer;
+	private Sprite level;				//	The sprite that is used for the level type
+	private Image levelRenderer;		//	The Image that is layered ontop of the image
+	public int levelnum;				//	The value of the level, being 1, 2, 3 or 4
 	// Use this for initialization
 	void Awake () {
 
-
-
-
-		Sprite[] levels = Resources.LoadAll <Sprite>("Icons/levels");
-		levelnum = Random.Range (0, 4);
+		Sprite[] levels = Resources.LoadAll <Sprite>("Icons/levels");			//Loads all levels, randomly assigns a level to the game object
+		levelnum = Random.Range (0, 4);	
 		level = levels[levelnum];
 		levelRenderer = gameObject.GetComponent <Image>();
 		levelRenderer.sprite = level;
@@ -29,7 +25,7 @@ public class LevelInfo : MonoBehaviour {
 	void Update () {
 		//levelRenderer.sprite = levels[level];
 	}
-
+	// Returns the value of the level, used for item calculation
 	public int getlevel(){
 		return levelnum;
 	}

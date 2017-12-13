@@ -4,27 +4,36 @@ using UnityEngine;
 
 
 
-//This script states the type of item and what values that it passes, will be used for item prefabs//
+//This script states the type of item and what values that it passes to the player, will be used for item prefabs//
 public class ItemInfo : MonoBehaviour {
 
 
-	public string name;
-	public int type;
-	public int level;
-	public float StatChange;
-	public int cooldown;
-	private int cdi;		//cooldown index
-	public int amount;
-	private LevelInfo ls;
-	private bool setLevelFlag;
+	public string name;									// Name of the item
+	public int type;									// What type the item is
+	public string description;							// A Description of the item, lore can be included
+	public int level;									// The level of the item, retrived from LevelInfo
+	public float HP;									// The change in the Hitpoint stat of the assigned character
+	public float AR;									// The change in the Attack Range stat of the assigned character
+	public float AF;									// The change in the Attack Factor stat of the assigned character
+	public float DF;									// The change in the Defence Factor stat of the assigned character
+	public float SP;									// The change in the Speed stat of the assigned character
+	public float MV;									// The change in the Movement Points stat of the assigned character
+	public int activePeriod;							// The time that the item is in effect
+	public int cooldown;								// The max cooldown of the specific item
+	private int cdi;									//	cooldown index
+	public int amount;									// The number of uses for the item
+	private LevelInfo ls;								//	The LevelInfo script used for or level value 
+	public Unit character;								//	The assigned unit
+	public List<Buff> buffs;							// The list of buffs applied from the item
 
 
-	// Use this for initialization
+	// Use this for initialization, it is the pipeline for the item creation.
 	void Start () {
 		//ls = Instantiate (gameObject).GetComponentInChildren <LevelInfo>();
 		ls = gameObject.GetComponentInChildren <LevelInfo>();
 		getLevel ();
 		setType ();
+		createBuff ();
 	}
 	
 	// Update is called once per frame
@@ -32,13 +41,14 @@ public class ItemInfo : MonoBehaviour {
 		
 	}
 
+	// Moved the cooldown index down by one, if it reaches zero, then the timer is reset
 	void cooldowntick(){
 		cdi--;
 		if (cdi == 0) {
 			cdi = cooldown;
 		}
 	}
-
+	// Automatically sets the type of the item if the developer accidentally added uneccisarry values
 	void setType(){
 		if (type == 0) {	//Item is a one time consumable that is removed
 			cooldown = 0;
@@ -54,10 +64,80 @@ public class ItemInfo : MonoBehaviour {
 			amount = 0;
 		}
 	}
+	// Retrieves the value of the item's assigned level
 	void getLevel(){
-		
 		level = ls.getlevel ();
-		StatChange = StatChange * ((float)level+1);
-	}
+		HP = HP * ((float)level+1);
+		AR = AR * ((float)level+1);						
+		AF = AF * ((float)level+1);							
+		DF = DF * ((float)level+1);							
+		SP = SP * ((float)level+1);								
+		MV = MV * ((float)level+1);
 
+	}
+	//Set character
+	// TODO have it so that if the item is not assigned to a character, it does not assign to anything
+	void setCharacter(){
+		//sets the new characte if the item is not applied to anything
+	}
+	//Applies the item changes to the assigned character
+	void applyBuff(){
+		foreach (Buff b in buffs) {
+			b.Apply (character);
+		}
+	}
+	//Removes the item properties to the assigned character.
+	void removeBuff(){
+		foreach(Buff b in buffs){
+			b.Undo (character);
+		}
+	}
+	//This takes the item values and translates them into a list of buffs.
+	void createBuff(){
+		List<Buff> temp;
+		//Passive item buff creations
+		if (type == 2) {
+			if (HP != 0) {
+				temp.Add (new HealingBuff (1, HP));
+			}
+			if (AR != 0) {
+				//TODO create an attack range buff to increase attack range;
+			}
+			if (AF != 0) {
+				temp.Add (new AttackBuff (-1, AF));
+			}
+			if (DF != 0) {
+				temp.Add (new DefenceBuff (-1, DF));
+			}
+			if (SP != 0) {
+				//TODO create an speed buff to increase attack range;
+			}
+			if (MV != 0) {
+				//TODO create an movementpoints buff to increase attack range;
+			}
+		}
+		//Consumable items
+		if (type < 2) {
+			if (HP != 0) {
+				temp.Add (new HealingBuff (activePeriod, HP));
+			}
+			if (AR != 0) {
+				//TODO create an attack range buff to increase attack range;
+			}
+			if (AF != 0) {
+				temp.Add (new AttackBuff (activePeriod, AF));
+			}
+			if (DF != 0) {
+				temp.Add (new DefenceBuff (activePeriod, DF));
+			}
+			if (SP != 0) {
+				//TODO create an speed buff to increase attack range;
+			}
+			if (MV != 0) {
+				//TODO create an movementpoints buff to increase attack range;
+			}
+		}
+		//return temp buffs to the buffs array to be applied
+		buffs = temp;
+	}
 }
