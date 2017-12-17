@@ -95,6 +95,7 @@ public class ItemInfo : MonoBehaviour {
 	//This takes the item values and translates them into a list of buffs.
 	void createBuff(){
 		List<Buff> temp;
+        /*
 		//Passive item buff creations
 		if (type == 2) {
 			if (HP != 0) {
@@ -139,5 +140,6 @@ public class ItemInfo : MonoBehaviour {
 		}
 		//return temp buffs to the buffs array to be applied
 		buffs = temp;
+        */
 	}
 }

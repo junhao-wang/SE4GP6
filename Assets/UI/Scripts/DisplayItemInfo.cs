@@ -25,9 +25,11 @@ public class DisplayItemInfo : MonoBehaviour {
 	//	The text is also displayed
 	//	TODO if the item is deselected, then clear the information in the panel
 	void displayItem(){
+        /*
 		RectTransform t = panel.GetComponent<RectTransform>();
 		GameObject clone = new GameObject ();
 		clone.Instantiate (item, t.transform.up);
-		ItemInfo s = item.GetComponents<ItemInfo> ();
+		ItemInfo s = item.GetComponents<ItemInfo>();
+        */
 	}
 }
