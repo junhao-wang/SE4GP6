@@ -236,7 +236,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2
+  orthographic size: 1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -278,9 +278,9 @@ MonoBehaviour:
   panDistance: 0.05
   mouseBorder: 10
   maxY: 3
-  minY: -5
-  maxX: 7
-  minX: -5
+  minY: -4
+  maxX: 2.5
+  minX: -6
 --- !u!1 &415093654
 GameObject:
   m_ObjectHideFlags: 0
@@ -926,7 +926,7 @@ Prefab:
     - target: {fileID: 224241817147851394, guid: 6c84277e08fb6b24eb6c500927031d69,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -365.15997
       objectReference: {fileID: 0}
     - target: {fileID: 224241817147851394, guid: 6c84277e08fb6b24eb6c500927031d69,
         type: 2}
@@ -1110,7 +1110,7 @@ Prefab:
     - target: {fileID: 114789462490175950, guid: caa4606087a38a44d842c1c9d84b68ea,
         type: 2}
       propertyPath: initialSupply
-      value: 1
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: caa4606087a38a44d842c1c9d84b68ea, type: 2}
@@ -1219,6 +1219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Nodes: []
+  PartyObject: {fileID: 1302914627}
 --- !u!114 &1679460860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1231,6 +1232,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TilePrefab: {fileID: 1314773542535046, guid: 10379df8308e69e4798c5b541500148f, type: 2}
+  ClutterPrefab: {fileID: 1742975585775968, guid: 6f76de006d993e94b8c3107eb901f1c1,
+    type: 2}
+  clutters:
+  - {fileID: 21300000, guid: 480be5a67da1832408d18bf177c20197, type: 3}
+  - {fileID: 21300000, guid: 740fb7f49e4c15b44aa16e7d15349458, type: 3}
+  - {fileID: 21300000, guid: 732706256f506cf428b3fc5f9c7cd394, type: 3}
+  - {fileID: 21300000, guid: fadaac3c53285b949934a98812d4e193, type: 3}
+  - {fileID: 21300000, guid: 9e82fc07255fc0d48be4089706dd1aa2, type: 3}
+  - {fileID: 21300000, guid: 303537230c8c58f49836007374e57d19, type: 3}
+  - {fileID: 21300000, guid: fe77a507ec720aa44aa2c48927632743, type: 3}
+  - {fileID: 21300000, guid: 78728a0a29daab24381ad31a60a04006, type: 3}
+  - {fileID: 21300000, guid: 69afd55f4f2505e41a14e63e2c9a132c, type: 3}
+  - {fileID: 21300000, guid: da663901f27a1334e9b6f47e330505f2, type: 3}
+  - {fileID: 21300000, guid: 903d78ab68020084783b09bd4629f7e5, type: 3}
+  - {fileID: 21300000, guid: d3ece11dc6207924d9360cab6c555d93, type: 3}
+  - {fileID: 21300000, guid: c8779e01bcc5ae347bc60e7ec27b1599, type: 3}
+  - {fileID: 21300000, guid: 34e4f544d11d44946addb1276271aa91, type: 3}
+  - {fileID: 21300000, guid: 9b90fee012abb4342ab5baffcb72e6c2, type: 3}
+  - {fileID: 21300000, guid: f500ab83d52a27e40ac2d0c789ae207d, type: 3}
+  - {fileID: 21300000, guid: ba11dc2236d21294692e72bbc023ba5d, type: 3}
+  - {fileID: 21300000, guid: 73ff19f18c8b4d84b9f1bfdc6ce47c50, type: 3}
+  xSpawnMax: 2.7
+  xSpawnMin: -7
+  ySpawnMax: 2.2
+  ySpawnMin: -3
   NumOfCoreNarration: 15
   MaxNarration: 40
   VerticleTilingOffset: 0.75

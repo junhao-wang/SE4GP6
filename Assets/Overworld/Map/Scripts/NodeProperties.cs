@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+[System.Serializable]
 public class NodeProperties : MonoBehaviour {
     public GameObject ParentTile;
     public GameObject PathPrefab;
     public GameObject Party;
+    public int ID; //node id used purely for saving/loading
     public Color ResourceEvent, DialogueEvent, CombatEvent, NoEvent;
     public List<GameObject> Neighbors;
     public bool visited = false;
@@ -21,7 +22,8 @@ public class NodeProperties : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Party = GameObject.Find("PartyPlaceholder");
-
+        DontDestroyOnLoad(transform.gameObject);
+        DontDestroyOnLoad(ParentTile);
     }
 	
 	// Update is called once per frame
@@ -111,6 +113,8 @@ public class NodeProperties : MonoBehaviour {
         } else if (NodeEvent == EventType.COMBAT)
         {
             NodeEvent = EventType.NONE;
+            GameObject MController = GameObject.Find("MapController");
+
             SceneManager.LoadScene("TestBattle");
 
         }

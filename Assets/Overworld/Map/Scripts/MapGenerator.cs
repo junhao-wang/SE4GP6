@@ -5,6 +5,9 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour {
 
     public GameObject TilePrefab;
+    public GameObject ClutterPrefab;
+    public Sprite[] clutters = new Sprite[20];
+    public float xSpawnMax=2.7f, xSpawnMin=-7f, ySpawnMax=2.2f, ySpawnMin=-3f;
     public int NumOfCoreNarration=15;
     public int MaxNarration=40;
     public float VerticleTilingOffset;
@@ -22,6 +25,11 @@ public class MapGenerator : MonoBehaviour {
         int to;
         float dist;
     }
+    struct IndexedDistance
+    {
+        int index;
+        float distance;
+    }
 
     // Use this for initialization
     void Start () {
@@ -29,13 +37,53 @@ public class MapGenerator : MonoBehaviour {
         GenerateTiles(Rows, Cols);
         gameObject.GetComponent<MapProperties>().Nodes[0].GetComponent<NodePartySelect>().SpawnParty();
         GenerateEvents();
+        GenerateClutter();
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+    void GenerateClutter()
+    {
+        foreach (GameObject Node in gameObject.GetComponent<MapProperties>().Nodes)
+        {
 
+            placeclutter(1.0f, 5.0f, clutters, 0, 4, Node,0.5f,0);
+            placeclutter(1.0f, 15.0f, clutters, 5, 6, Node, 0.6f,1);
+            placeclutter(1.0f, 15.0f, clutters, 7, 10, Node, 0.5f,4);
+            placeclutter(0.5f, 15.0f, clutters, 11, 17, Node, 0.5f,7);
+
+        }
+    }
+    void placeclutter(float inner, float outer, Sprite[] imgs,int begin,int end,GameObject Node,float chance,int clutteramt)
+    {
+        float roll = Random.value;
+        if (roll <= chance)
+        {
+            GameObject newclutter = GameObject.Instantiate(ClutterPrefab);
+            Vector3 inipos = Node.GetComponent<Transform>().position;
+            Vector3 offset = Random.insideUnitCircle * outer * 0.8f;
+            offset += new Vector3(0, 0, -0.1f);
+            newclutter.transform.position = inipos + offset;
+            newclutter.GetComponent<SpriteRenderer>().sprite = imgs[Random.Range(begin, end + 1)];
+            for (int i = 0; i < clutteramt; i++)
+            {
+                GameObject additionalclutter = GameObject.Instantiate(ClutterPrefab);
+                Vector3 initpos = Node.GetComponent<Transform>().position;
+                Vector3 offsetpos = Random.insideUnitCircle * inner * 0.8f;
+                offsetpos += new Vector3(0, 0, -0.1f);
+                additionalclutter.transform.position = initpos + offsetpos;
+                if (additionalclutter.transform.position.x >xSpawnMin && additionalclutter.transform.position.x <xSpawnMax && additionalclutter.transform.position.y <ySpawnMax && additionalclutter.transform.position.y > ySpawnMin)
+                {
+                    additionalclutter.GetComponent<SpriteRenderer>().sprite = imgs[Random.Range(begin, end + 1)];
+                }
+   
+               
+
+            }
+        }
+    }
     //assigns all nodes on the map to an event architype
     void GenerateEvents()
     {
@@ -89,6 +137,13 @@ public class MapGenerator : MonoBehaviour {
             {
                 templist[i].GetComponent<NodeProperties>().NodeEvent = NodeProperties.EventType.NARRATIVE;
                 templist[i].GetComponent<NodeProperties>().SetColor();
+
+                for (int j = 0; j < (int)PartyProperties.ResourceType.SIZE; j++)
+                {
+                    templist[i].GetComponent<NodeProperties>().ResourceMod[j] += (float)Random.Range(0,4);
+                }
+                
+
                 templist.RemoveAt(i);
             }
         }
@@ -200,6 +255,8 @@ public class MapGenerator : MonoBehaviour {
                 gameObject.GetComponent<MapProperties>().Nodes.RemoveAt(i);
             }
         }
+
+
         //calculate distance matrix
         int l = gameObject.GetComponent<MapProperties>().Nodes.Count;
         float[,] distance = new float[l, l];
@@ -297,6 +354,7 @@ public class MapGenerator : MonoBehaviour {
         {
             int[] minIndices = { 0, 1, 2 };
             float[] minDistances = { distance[i,0], distance[i,1], distance[i,2] };
+
             for (int j = 3;j < l; j++)
             {
                 if( distance[i, j] <= 0)
@@ -370,6 +428,7 @@ public class MapGenerator : MonoBehaviour {
         }
     }
     */
+
 
 
 

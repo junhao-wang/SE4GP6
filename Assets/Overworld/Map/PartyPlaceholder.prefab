@@ -69,7 +69,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OccupiedNode: {fileID: 0}
+  Canvas: {fileID: 0}
   path: []
+  inDialogue: 0
+  initialMoney: 15
+  initialSupply: 15
+  Resources:
+  - 0
+  - 0
 --- !u!212 &212210950559028660
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -101,8 +108,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1140445353
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3fde56ea9ad9d5c48b0fd088868ced00, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

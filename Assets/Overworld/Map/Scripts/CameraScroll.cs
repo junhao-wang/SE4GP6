@@ -9,8 +9,8 @@ public class CameraScroll : MonoBehaviour
     public float mouseBorder = 10f;
 
     public float maxY = 3f;
-    public float minY = -5f;
-    public float maxX = 7f;
+    public float minY = -4f;
+    public float maxX = 2.5f;
     public float minX = -5f;
 
     private void Start()

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class PartyProperties : MonoBehaviour {
     public GameObject OccupiedNode;
     public GameObject Canvas;
@@ -16,6 +17,7 @@ public class PartyProperties : MonoBehaviour {
     void Start () {
         Resources[(int)ResourceType.MONEY] = initialMoney;
         Resources[(int)ResourceType.SUPPLY] = initialSupply;
+        DontDestroyOnLoad(transform.gameObject);
     }
 	
 	// Update is called once per frame
