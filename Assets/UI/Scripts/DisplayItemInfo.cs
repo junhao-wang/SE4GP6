@@ -9,7 +9,8 @@ public class DisplayItemInfo : MonoBehaviour {
 	//public Text desc;									//This is the text section that is filled with item descriptions
 	// Use this for initialization	
 	void Start () {
-		
+		setItem (item);
+		displayItem ();
 	}
 	
 	// Update is called once per frame
@@ -25,11 +26,9 @@ public class DisplayItemInfo : MonoBehaviour {
 	//	The text is also displayed
 	//	TODO if the item is deselected, then clear the information in the panel
 	void displayItem(){
-        /*
 		RectTransform t = panel.GetComponent<RectTransform>();
 		GameObject clone = new GameObject ();
-		clone.Instantiate (item, t.transform.up);
-		ItemInfo s = item.GetComponents<ItemInfo>();
-        */
+		Instantiate<GameObject>(item, t.position, t.rotation);
+		//ItemInfo s = item.GetComponents<ItemInfo> ();
 	}
 }
