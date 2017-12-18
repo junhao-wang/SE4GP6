@@ -20,14 +20,14 @@ public class ItemLayout : MonoBehaviour {
 	}
 	// Retrived the total number of items and then formats them within the centre panel
 	//	TODO use relative values instead of hardcoded values, used for demo purposes
-	void formatItems(){
+	public void formatItems(){
 		RectTransform canvasRT = gameObject.GetComponent<RectTransform>();
 		RectTransform[] rt = gameObject.GetComponentsInChildren<RectTransform>();
 
 		float x = baseX;					//for scale -570
 		float y = spaceY + baseY;				//for scale -1050, far right boundary is 1800
 		int i = 0;					//item counter
-		print("The position of the canvas is " + canvasRT.offsetMin.x);
+		//print("The position of the canvas is " + canvasRT.offsetMin.x);
 		foreach (RectTransform t in rt){
 			if(t.gameObject.GetInstanceID() != gameObject.GetInstanceID()){
 				
