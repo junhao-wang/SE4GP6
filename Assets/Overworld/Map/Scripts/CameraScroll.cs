@@ -13,6 +13,10 @@ public class CameraScroll : MonoBehaviour
     public float maxX = 7f;
     public float minX = -5f;
 
+    private void Start()
+    {
+        transform.SetPositionAndRotation(new Vector3(minX, maxY, transform.position.z), transform.rotation);
+    }
     // Update is called once per frame
     void Update()
     {

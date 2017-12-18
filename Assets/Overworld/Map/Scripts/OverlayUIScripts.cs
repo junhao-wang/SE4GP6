@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class OverlayUIScripts : MonoBehaviour {
     public GameObject PartyStats,ChangePopUp;
     public PartyProperties pProp;
+    public GameObject LooseScreen;
 	// Use this for initialization
 	void Start () {
         GameObject Party = GameObject.FindWithTag("Overworld Party");
@@ -17,11 +19,14 @@ public class OverlayUIScripts : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    //update the displayed text to the actual current party statistic
     public void UpdatePartyStats()
     {
         PartyStats.GetComponent<Text>().text = string.Format("Party Resources:  Money: {0:0.00}  Supplies: {1:0}", pProp.Resources[(int)PartyProperties.ResourceType.MONEY], pProp.Resources[(int)PartyProperties.ResourceType.SUPPLY]);
     }
 
+    //Updates the bottom UI component to reflect target node properties
     public void UpdateNodePopUp(NodeProperties nProp)
     {
         string output = "";
@@ -43,6 +48,7 @@ public class OverlayUIScripts : MonoBehaviour {
 
     }
 
+    //Parses resource mod float array to a string output format
     string ResourceModToString(float[] ResourceMods)
     {
         string output = "This node contains a resource cache: ";
@@ -61,6 +67,11 @@ public class OverlayUIScripts : MonoBehaviour {
         }
         
         return output;
+    }
+
+    public void loadMainMenu()
+    {
+        SceneManager.LoadScene("menu");
     }
 
     public void ClearNodePopUp()

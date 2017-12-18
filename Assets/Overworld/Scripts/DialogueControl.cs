@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DialogueControl : MonoBehaviour {
     DialogueSet currentDialogue;
+    public GameObject Party;
 
     int dialogueIndex = 0;
     int lineIndex = 0;
@@ -54,7 +55,9 @@ public class DialogueControl : MonoBehaviour {
             {
                 lineIndex = 0;
                 dialogueIndex = 0;
+
                 dialogueParent.SetActive(false);
+                Party.GetComponent<PartyProperties>().inDialogue = false;
             }
         }
 	}

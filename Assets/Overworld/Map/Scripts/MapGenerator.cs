@@ -46,7 +46,9 @@ public class MapGenerator : MonoBehaviour {
         gameObject.GetComponent<MapProperties>().Nodes[count-1].GetComponent<NodeProperties>().NodeEvent = NodeProperties.EventType.COMBAT;
         gameObject.GetComponent<MapProperties>().Nodes[count - 1].GetComponent<NodeProperties>().SetColor();
         //populate temporary list for node event generation
-        for (int i = 0; i < count-1; i++)
+        
+        //0 not included due to it being the node the party starts on
+        for (int i = 1; i < count-1; i++)
         {
             templist.Add(gameObject.GetComponent<MapProperties>().Nodes[i]);
         }
@@ -67,7 +69,7 @@ public class MapGenerator : MonoBehaviour {
             //multiplication table probability distribution
             //higher chance closer to bottom right hand corner
             float prob = (GlobalCombatChanceMod*(float)((((float)(i+1))%root)*(((float)(i+1))/root))) / ((float)count);
-            print(prob);
+            //print(prob);
             if(Random.value < prob)
             {
                 templist[i].GetComponent<NodeProperties>().NodeEvent = NodeProperties.EventType.COMBAT;
@@ -127,6 +129,7 @@ public class MapGenerator : MonoBehaviour {
         */
     }
 
+    //generates the hexagon (invisible) tiles, and selectively prunes nodes
     void GenerateTiles(int numOfRows,int numOfCols)
     {
         //place all phase
@@ -333,6 +336,7 @@ public class MapGenerator : MonoBehaviour {
 
     }
 
+    //"Connects" nodes by updating the associated linked lists
     void connectNode(GameObject nodeA,GameObject nodeB)
     {
         if (!nodeA.GetComponent<NodeProperties>().Neighbors.Contains(nodeB))

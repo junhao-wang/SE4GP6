@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class NodeProperties : MonoBehaviour {
     public GameObject ParentTile;
     public GameObject PathPrefab;
+    public GameObject Party;
     public Color ResourceEvent, DialogueEvent, CombatEvent, NoEvent;
     public List<GameObject> Neighbors;
     public bool visited = false;
-    public List<GameObject> Pathing;
+    public List<GameObject> Pathing,OccupiedPathing;
     public EventType NodeEvent =EventType.NONE ;
     public int dialogueID = 0;
     public enum Region{A,B,C,D,E,NULL};
@@ -19,22 +20,38 @@ public class NodeProperties : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
-	}
+        Party = GameObject.Find("PartyPlaceholder");
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
     //pathing functions
-    public void drawPaths()
+    public void drawCurrentPaths()//draws paths available on occupied node
+    {
+        foreach (GameObject Node in Neighbors)
+        {
+            Connect(Node, OccupiedPathing);
+        }
+    }
+    public void clearCurrentPaths()//clears pathing when party moves
+    {
+        for (int i = OccupiedPathing.Count - 1; i >= 0; i--)
+        {
+            Destroy(OccupiedPathing[i]);
+            OccupiedPathing.RemoveAt(i);
+        }
+    }
+    public void drawPaths()//draws paths of highlighted node
     {
         foreach(GameObject Node in Neighbors)
         {
             Connect(Node);
         }
     }
-    public void clearPaths()
+    public void clearPaths()//clears pathing when party moves
     {
         for(int i = Pathing.Count-1; i >=0 ; i--)
         {
@@ -75,7 +92,7 @@ public class NodeProperties : MonoBehaviour {
 
     public float costTo(GameObject NodeB)
     {
-        return -1.0f;
+        return 1.0f;
     }
     public void PopEvent()
     {
@@ -86,7 +103,9 @@ public class NodeProperties : MonoBehaviour {
         {
             GameObject Canvas = GameObject.FindWithTag("Overworld Canvas");
             Canvas.transform.Find("DialogueUI").gameObject.SetActive(true);
-            Canvas.GetComponent<DialogueControl>().startDialogue(dialogueID);
+            //Canvas.GetComponent<DialogueControl>().startDialogue(dialogueID);
+            Canvas.GetComponent<DialogueControl>().startDialogue(1);
+            Party.GetComponent<PartyProperties>().inDialogue = true;
             NodeEvent = EventType.NONE;
 
         } else if (NodeEvent == EventType.COMBAT)

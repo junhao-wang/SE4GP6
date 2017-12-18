@@ -33,6 +33,8 @@ public class PartyWalk : MonoBehaviour {
                 endNode.GetComponent<NodeHoverScript>().ReturnNaturalColor();
                 NodePartySelect.walk = false;
                 endNode.GetComponent<NodeProperties>().PopEvent();
+                endNode.GetComponent<NodeProperties>().drawCurrentPaths();
+                startNode.GetComponent<NodeProperties>().clearCurrentPaths();
                 //SceneManager.LoadScene("TestBattle");
             }
         }
