@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class DialogueControl : MonoBehaviour {
     DialogueSet currentDialogue;
+    public GameObject Party;
 
     int dialogueIndex = 0;
     int lineIndex = 0;
@@ -29,13 +30,13 @@ public class DialogueControl : MonoBehaviour {
         nameText = dialogueParent.transform.Find("DialogueBox").Find("Name").GetComponent<Text>();
         dialogueImageLeft = dialogueParent.transform.Find("LeftDialogue").GetComponent<Image>();
         dialogueImageRight = dialogueParent.transform.Find("RightDialogue").GetComponent<Image>();
-        startDialogue(1);
+        //startDialogue(1);
     }
 	
 	// Update is called once per frame
 	void Update () {
         //move on to the next piece of dialogue
-		if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode. Space)) 
+		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode. Space) ) && dialogueParent.activeSelf) 
         {
             if (lineIndex < currentDialogue.Dialogue[dialogueIndex].Lines.Count - 1)
             { 
@@ -54,7 +55,9 @@ public class DialogueControl : MonoBehaviour {
             {
                 lineIndex = 0;
                 dialogueIndex = 0;
+
                 dialogueParent.SetActive(false);
+                Party.GetComponent<PartyProperties>().inDialogue = false;
             }
         }
 	}
