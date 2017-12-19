@@ -10,7 +10,7 @@ public class MouseHover : MonoBehaviour {
 		
 	}
 	
-	// Update is called once per frame
+	// Update is called once per frame, but this script sets this object as the display item
 	void Update () {
 		display.GetComponent<DisplayItemInfo> ();
 		display.item = gameObject;
