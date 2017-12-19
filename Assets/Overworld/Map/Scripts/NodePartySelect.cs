@@ -36,7 +36,7 @@ public class NodePartySelect : MonoBehaviour {
 
     private void OnMouseUpAsButton()
     {
-
+        //commented section only used during debugging
         /*
         if (!spawned)
         {
@@ -57,6 +57,7 @@ public class NodePartySelect : MonoBehaviour {
             gameObject.GetComponent<NodeHoverScript>().SetActiveColor();
         }else if(SourceNode == gameObject)
         {
+            //node deselection was swapped from "click to select" to "click to travel"
             /*
             SourceNode = null;
             gameObject.GetComponent<NodeHoverScript>().ReturnNaturalColor();
@@ -82,7 +83,7 @@ public class NodePartySelect : MonoBehaviour {
  
 
     }
-
+    //debug function used for testing
     public void DebugClick()
     {
         OnMouseUpAsButton();

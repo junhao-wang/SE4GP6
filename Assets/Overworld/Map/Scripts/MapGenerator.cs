@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
 
 public class MapGenerator : MonoBehaviour {
 
@@ -38,10 +41,16 @@ public class MapGenerator : MonoBehaviour {
         gameObject.GetComponent<MapProperties>().Nodes[0].GetComponent<NodePartySelect>().SpawnParty();
         GenerateEvents();
         GenerateClutter();
+        PopulateDialogue();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    private void PopulateDialogue()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
     void GenerateClutter()

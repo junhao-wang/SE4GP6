@@ -15,6 +15,7 @@ public class NodeHoverScript : MonoBehaviour {
 	void Update () {
 		
 	}
+    //These functions updates the info panel with information regarding the node when the cursor hovers over it
     void OnMouseEnter()
     {
         gameObject.GetComponent<SpriteRenderer>().material.color = Color.blue ;
@@ -39,14 +40,16 @@ public class NodeHoverScript : MonoBehaviour {
 
     void OnMouseUpAsButton()
     {
-
+        //blank for now
        
     }
+    //returns the node to its original color before it was highlighted
     public void ReturnNaturalColor()
     {
         gameObject.GetComponent<SpriteRenderer>().material.color = TileColor;
         clickToggle = false;
     }
+    //not used for now, sets node color to green
     public void SetActiveColor()
     {
         gameObject.GetComponent<SpriteRenderer>().material.color = Color.green;

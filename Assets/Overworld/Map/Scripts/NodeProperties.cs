@@ -18,12 +18,14 @@ public class NodeProperties : MonoBehaviour {
     public float[] ResourceMod = new float[(int)PartyProperties.ResourceType.SIZE];
     public enum EventType { COMBAT,NARRATIVECORE,NARRATIVE,NONE};
     public Region nodeRegion = Region.NULL;
+    public List<int> dialogueSet = new List<int>();
 
     // Use this for initialization
     void Start () {
         Party = GameObject.Find("PartyPlaceholder");
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(ParentTile);
+        dialogueSet.Add(0);
     }
 	
 	// Update is called once per frame
@@ -62,6 +64,8 @@ public class NodeProperties : MonoBehaviour {
         }
     }
 
+    //Connects this node to another node by updating both node's neighbour lists
+
     void Connect(GameObject NodeB, List<GameObject> walkpath = null)
     {
         Vector3 unitVec = NodeB.GetComponent<Transform>().position - gameObject.GetComponent<Transform>().position;
@@ -91,11 +95,13 @@ public class NodeProperties : MonoBehaviour {
         }
 
     }
-
+    //cost function
     public float costTo(GameObject NodeB)
     {
         return 1.0f;
     }
+
+    //processes the event associated with the node
     public void PopEvent()
     {
         if (NodeEvent == EventType.NONE)
@@ -108,7 +114,11 @@ public class NodeProperties : MonoBehaviour {
             //Canvas.GetComponent<DialogueControl>().startDialogue(dialogueID);
             Canvas.GetComponent<DialogueControl>().startDialogue(1);
             Party.GetComponent<PartyProperties>().inDialogue = true;
-            NodeEvent = EventType.NONE;
+            if (dialogueSet.Count == 1 && dialogueSet[0] == 0)
+            {
+                NodeEvent = EventType.NONE;
+            }
+            
 
         } else if (NodeEvent == EventType.COMBAT)
         {
@@ -129,6 +139,7 @@ public class NodeProperties : MonoBehaviour {
         SetColor();
     }
 
+    //sets the node color to the one appropriate for the event it contains
     public void SetColor()
     {
 
@@ -147,6 +158,80 @@ public class NodeProperties : MonoBehaviour {
                 gameObject.GetComponent<SpriteRenderer>().color = ResourceEvent;
                 break;
         }
+    }
+
+    public void loadDialogueSet(int SetID)
+    {
+       /*some code here to load the set of dialogues represented by SetID into the
+        dialogueSet list
+        */
+
+    }
+
+    public List<int> fetchRequirements(int dialogueID)
+    {
+        List<int> result = new List<int>();
+        /*code for loading dialogue requirements or
+         a function call that returns a list of requirements*/
+
+        return result;
+    }
+
+    public bool testDialogueReq(List<int> requirements)
+    {
+        if(requirements[0] == 0)
+        {
+            return true;
+        }
+
+        foreach(int dialogue in Party.GetComponent<PartyProperties>().CompletedDialogue)
+        {
+            bool cond1 = requirements.Contains(dialogue / 10 * 10);
+            bool cond2 = requirements.Contains(dialogue);
+            if(cond1 || cond2)
+            {
+                requirements.Remove(dialogue);
+            }
+        }
+
+
+
+        if(requirements.Count == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public void startDialogue()
+    {
+        int dialogueID = -1;
+        foreach (int dialogue in dialogueSet)
+        {
+            if (testDialogueReq(fetchRequirements(dialogue)))
+            {
+                dialogueID = dialogue;
+
+            }
+        }
+        if (dialogueID == -1)
+        {
+            return;
+        }
+        else
+        {
+            GameObject Canvas = GameObject.FindWithTag("Overworld Canvas");
+            Canvas.GetComponent<DialogueControl>().startDialogue(dialogueID);
+            if (!Party.GetComponent<PartyProperties>().CompletedDialogue.Contains(dialogueID))
+            {
+                Party.GetComponent<PartyProperties>().CompletedDialogue.Add(dialogueID);
+                dialogueSet.Remove(dialogueID);
+            }
+        }
+
+
     }
 
 }

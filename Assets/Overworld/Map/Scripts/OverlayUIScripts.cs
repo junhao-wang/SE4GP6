@@ -69,11 +69,13 @@ public class OverlayUIScripts : MonoBehaviour {
         return output;
     }
 
+    //loads the main menu, used after the defeat screen for running out of supplies is displayed
     public void loadMainMenu()
     {
         SceneManager.LoadScene("menu");
     }
 
+    //clears the text displayed in the info panel when called
     public void ClearNodePopUp()
     {
         ChangePopUp.GetComponent<Text>().text = "";
