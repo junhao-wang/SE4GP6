@@ -139,7 +139,6 @@ public class CellGrid : MonoBehaviour
                 }
             }
         }
-        
 
         StartGame();
     }
@@ -242,8 +241,6 @@ public class CellGrid : MonoBehaviour
         if(GameStarted != null)
             GameStarted.Invoke(this, new EventArgs());
 
-        //Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).ForEach(u => { u.OnTurnStart(); });
-        //Players.Find(p => p.PlayerNumber.Equals(CurrentPlayerNumber)).Play(this);
         CurrentPlayer.isPlaying = true;
 
         turnOrderPlayerNumbers = new int[turnOrder.Length];
@@ -292,36 +289,12 @@ public class CellGrid : MonoBehaviour
             TurnEnded(this, new EventArgs());
         }
     }
-    /*public void EndTurn()
-    {
-        if (Units.Select(u => u.PlayerNumber).Distinct().Count() == 1)
-        {
-            return;
-        }
-        CellGridState = new CellGridStateTurnChanging(this);
 
-        Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).ForEach(u => { u.OnTurnEnd(); });
-
-        CurrentPlayerNumber = (CurrentPlayerNumber + 1) % NumberOfPlayers;
-        while (Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).Count == 0)
-        {
-            CurrentPlayerNumber = (CurrentPlayerNumber + 1)%NumberOfPlayers;
-        }//Skipping players that are defeated.
-        CurrentPlayer.isPlaying = false;
-        if (TurnEnded != null)
-            TurnEnded.Invoke(this, new EventArgs());
-        
-        Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).ForEach(u => { u.OnTurnStart(); });
-        Players.Find(p => p.PlayerNumber.Equals(CurrentPlayerNumber)).Play(this);     
-        CurrentPlayer.isPlaying = true;
-    }*/
     public void EndTurn() //goes to next unit's turn.
     {
         int lastUnit = (turnIndex - 1) % turnOrder.Length;
-        //Units[turnOrder[turnIndex]].SetState(new UnitStateMarkedAsFinished(Units[turnOrder[turnIndex]]));
         Units[turnOrder[lastUnit]].OnTurnEnd();
-        /*if (CellDehighlighted != null)
-            CellDehighlighted.Invoke(this, new EventArgs());*/
+
         if (turnOrderPlayerNumbers[lastUnit] != lastPlayer)
         {
             Players[turnOrderPlayerNumbers[turnIndex%turnOrder.Length]].Play(this);

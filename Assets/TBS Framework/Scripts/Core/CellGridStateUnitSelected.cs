@@ -14,7 +14,7 @@ class CellGridStateUnitSelected : CellGridState
     private Unit _unit;
     private List<Cell> _pathsInRange;
     private List<Unit> _unitsInRange;
-
+    public Boolean firstTurn = true;
     private Cell _unitCell;
 
     public CellGridStateUnitSelected(CellGrid cellGrid, Unit unit) : base(cellGrid)
@@ -71,6 +71,12 @@ class CellGridStateUnitSelected : CellGridState
     {
         base.OnCellDeselected(cell);
 
+        if(firstTurn == true)
+        {
+            _pathsInRange = _unit.GetAvailableDestinations(_cellGrid.Cells);
+            var cellsNotInRange = _cellGrid.Cells.Except(_pathsInRange);
+            firstTurn = false;
+        }
         foreach (var _cell in _pathsInRange)
         {
             _cell.MarkAsReachable();
@@ -93,14 +99,14 @@ class CellGridStateUnitSelected : CellGridState
 
     public override void OnStateEnter()
     {
-        base.OnStateEnter();
 
+        base.OnStateEnter();
+        
         _unit.OnUnitSelected();
         _unitCell = _unit.Cell;
 
         _pathsInRange = _unit.GetAvailableDestinations(_cellGrid.Cells);
         var cellsNotInRange = _cellGrid.Cells.Except(_pathsInRange);
-
         foreach (var cell in cellsNotInRange)
         {
             cell.UnMark();
