@@ -9,6 +9,8 @@ public class BattleState{
 
 	public static BattleState current;
     public bool finalBattle = false;
+    public string mapName = "default";
+    public int enemyID = 5;
 	public HeroStats Kroner;
 	public HeroStats Lee;
 	public HeroStats Alexei;
