@@ -7,6 +7,7 @@ public class PartyProperties : MonoBehaviour {
     public GameObject OccupiedNode;
     public GameObject Canvas;
     public List<GameObject> path;
+    public List<int> CompletedDialogue = new List<int>();
     public bool inDialogue = false;
     public float initialMoney = 15, initialSupply = 15;
     public enum ResourceType {MONEY,SUPPLY ,SIZE};
