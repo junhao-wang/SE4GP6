@@ -95,20 +95,20 @@ public class ItemInfo : MonoBehaviour {
 	//This takes the item values and translates them into a list of buffs.
     /*
 	void createBuff(){
-		List<Buff> temp;
+		List<Buff> temp = new List<Buff>();
 		//Passive item buff creations
 		if (type == 2) {
 			if (HP != 0) {
-				temp.Add (new HealingBuff (1, HP));
+				temp.Add (new HealingBuff (1, (int)HP));
 			}
 			if (AR != 0) {
 				//TODO create an attack range buff to increase attack range;
 			}
 			if (AF != 0) {
-				temp.Add (new AttackBuff (-1, AF));
+				temp.Add (new AttackBuff (-1, (int)AF));
 			}
 			if (DF != 0) {
-				temp.Add (new DefenceBuff (-1, DF));
+				temp.Add (new DefenceBuff (-1, (int)DF));
 			}
 			if (SP != 0) {
 				//TODO create an speed buff to increase attack range;
@@ -120,15 +120,20 @@ public class ItemInfo : MonoBehaviour {
 		//Consumable items
 		if (type < 2) {
 			if (HP != 0) {
-				temp.Add (new HealingBuff (activePeriod, HP));
+				temp.Add (new HealingBuff (activePeriod, (int)HP));
 			}
 			if (AR != 0) {
 				//TODO create an attack range buff to increase attack range;
 			}
+<<<<<<< HEAD
 				temp.Add (new AttackBuff (activePeriod, AF));
+=======
+			if (AF != 0) {
+				temp.Add (new AttackBuff (activePeriod, (int)AF));
+>>>>>>> 381173cdf8c0b7cc6dfabeac94c326eef8d1ea55
 			}
 			if (DF != 0) {
-				temp.Add (new DefenceBuff (activePeriod, DF));
+				temp.Add (new DefenceBuff (activePeriod, (int)DF));
 			}
 			if (SP != 0) {
 				//TODO create an speed buff to increase attack range;

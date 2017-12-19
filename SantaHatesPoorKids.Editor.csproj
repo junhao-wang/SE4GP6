@@ -278,7 +278,7 @@
     <Compile Include="Assets\TBS Framework\Editor\GridGeneratorHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Resources\Map\Icons\tile order.txt" />
+    <None Include="Assets\Overworld\Map\Icons\tile order.txt" />
     <None Include="Assets\TBS Framework\ReleaseNotes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

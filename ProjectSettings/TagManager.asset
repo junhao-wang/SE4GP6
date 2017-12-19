@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Overworld Party
   - Overworld Canvas
+  - LSc
   layers:
   - Default
   - TransparentFX
@@ -42,4 +43,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 1140445353
+    locked: 0
+  - name: UI
+    uniqueID: 434261495
     locked: 0
