@@ -71,7 +71,14 @@ public class DialogueControl : MonoBehaviour {
     {
         string dialogue = System.IO.File.ReadAllText("Assets/Overworld/Json/Dialogue.json");
         DialogueSet[] allDialogue = JsonHelper.getJsonArray<DialogueSet>(dialogue);
-        currentDialogue = allDialogue[id - 1];
+        for(int i = 0; i < allDialogue.Length; i++)
+        {
+            if (allDialogue[i].id == id)
+            {
+                currentDialogue = allDialogue[i];
+                break;
+            }
+        }
     }
 
     //open the dialogue box with a dialogue id
