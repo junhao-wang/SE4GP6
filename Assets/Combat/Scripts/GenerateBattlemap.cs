@@ -9,19 +9,23 @@ public class GenerateBattlemap : MonoBehaviour {
     public Transform ObstaclesParent;
     public Transform UnitParent;
 
+    //templates for Tiles, Obstacles, and enemy units, respectively
     public GameObject squarePrefab;
     public GameObject obstaclePrefab;
     public GameObject enemyPrefab;
 
+    //Dimensions of the map to be generated, this will be taken from a json list
     public int height = 1;
     public int width = 1;
     private string mapName = "default";
     private int enemyLayoutID = 0;
 
+    //holds the layout of the map, obstacles, and enemies for use when intializing the map
     private Maps currentMap;
     private ObstacleLayout obstacleLayout;
     private EnemyLayout enemyLayout;
 
+    //holds the individual Obstacles, Tiles, and Enemies to be added to the map
     private List<Obstacles> obs = new List<Obstacles>();
     private List<Tiles> tiles = new List<Tiles>();
     private List<Enemy> enemies = new List<Enemy>();
@@ -34,7 +38,7 @@ public class GenerateBattlemap : MonoBehaviour {
     private Enemy[] enemyList;
     private EnemyLayout[] enemyLayoutList;
 
-    //obstacles and tiles used for the map
+    //names of the Tiles, Obstacles, and Enemy infoblocks used for the map
     private List<string> usedEnemies;
     private List<string> usedObstacles;
     private List<string> usedTiles;
@@ -44,8 +48,13 @@ public class GenerateBattlemap : MonoBehaviour {
     {
         cellsParent = transform;
         squarePrefab = Resources.Load("Prefabs/SquareTile", typeof(GameObject)) as GameObject;
+
+        //Load the map by name
         LoadMap();
+        //create the basic dimensions of the map with the tile template
         CreateGrid();
+
+        //populate the map
         PopulateTiles();
         PopulateObstacles();
         PopulateEnemies();
@@ -61,7 +70,10 @@ public class GenerateBattlemap : MonoBehaviour {
         gridGen.GenerateGrid();
     }
 
-    //Load map onto the existing grid
+    /* Load map onto the existing grid
+     * This function loads all the map-related json into arrays, so that they can be used to generate the map later
+     * It also loads the layouts in the json into their respective layout variables, and in general sets all variables
+     * into what they need to be in order for the map generation to commence */
     void LoadMap()
     {
         mapList = LoadMaps();
@@ -82,6 +94,7 @@ public class GenerateBattlemap : MonoBehaviour {
 
         height = currentMap.height;
         width = currentMap.width;
+
         loadList<Tiles>(currentMap.tiles, tiles, tileList);
         loadList<Obstacles>(obsLayoutList[obstacleID].types, obs, obsList);
         loadList<Enemy>(enemyLayoutList[enemyLayoutID].types, enemies, enemyList);
@@ -111,6 +124,7 @@ public class GenerateBattlemap : MonoBehaviour {
         return mapList;
     }
 
+    //load Obstacle Layout json
     ObstacleLayout[] LoadObstacleLayout()
     {
         string obsLayout = System.IO.File.ReadAllText("Assets/Combat/Json/ObstacleLayout.json");
@@ -118,6 +132,7 @@ public class GenerateBattlemap : MonoBehaviour {
         return layoutList;
     }
 
+    //load Enemy json
     Enemy[] LoadEnemies()
     {
         string enemies = System.IO.File.ReadAllText("Assets/Combat/Json/Enemies.json");
@@ -125,6 +140,7 @@ public class GenerateBattlemap : MonoBehaviour {
         return list;
     }
 
+    //load Enemy Layout json
     EnemyLayout[] LoadEnemyLayout()
     {
         string enemies = System.IO.File.ReadAllText("Assets/Combat/Json/EnemyLayout.json");
@@ -148,7 +164,7 @@ public class GenerateBattlemap : MonoBehaviour {
         return index;
     }
 
-    //load list of assets
+    //load list of asset information
     void loadList<T>(string[] names, List<T> list, T[] array) where T : Assets
     {
         foreach (string elem in names)
@@ -159,7 +175,11 @@ public class GenerateBattlemap : MonoBehaviour {
     }
 
 
-    //populate list with the tile layout
+    /* populate list with the tile layout
+     * This function is goes through every tile and switched the sprite with a sprite indicated in out maps json
+     * this allows for easy generation and alteration of maps to look more natural and random, but still keep
+     * a catered feel. This also means we can use one scene to generate every type of encounter
+     */
     void PopulateTiles()
     {
         print("Populating... ");
@@ -179,13 +199,16 @@ public class GenerateBattlemap : MonoBehaviour {
                 }
                 catch { }
             }
-            //if nothing is indicated, load the default tile
+            //if nothing is indicated, load the default tile, with random variation
             else
             {
                 newSpriteSheet = Resources.LoadAll<Sprite>(tiles[0].spriteSheet);
                 try
                 {
                     int insert = Random.Range(0, 9);
+                    //this will insert the default tile(which is the first specified in the list (so as to reduce work and clutter in the json)
+                    //for example, if there are 300 tiles and we fill in 100 in the json, this will fill the rest of them
+                    //the random tile is just for flavor, so it's not just a blank field
                     if (insert != 0)
                     {
                         sr.sprite = newSpriteSheet[tiles[0].sprite];
@@ -207,10 +230,19 @@ public class GenerateBattlemap : MonoBehaviour {
         }
     }
 
+    /* populate map with obstacles from the Obstacle layout
+     * This function places every obstacle (specfied by (x, y, type)) indicated in the obstacle layout json
+     * this layout is randomly picked from a preset list, indicated in the maps json
+     * This removes the bugs that may occur from truely random obstacles
+     * The function also replaces the sprites on the obstacle template so we can have different
+     * types of obstacles visually, that have the same mechanical effect
+     */
     void PopulateObstacles()
     {
         Sprite[] newSpriteSheet;
         List<Sprite> obsSprites = new List<Sprite>();
+
+        //populate a list of sprites to be used
         foreach (string name in obstacleLayout.types)
         {
             int obsIndex = findElementOfName<Obstacles>(name, obsList);
@@ -218,7 +250,8 @@ public class GenerateBattlemap : MonoBehaviour {
             print("Obstacle: " + newSpriteSheet[0]);
             obsSprites.Add(newSpriteSheet[obsList[obsIndex].sprite]);
         }
-        //print("Layout Length: " + obstacleLayout.layout);
+
+        //place the obstacles and replace thier sprites
         for (int i = 0; i< obstacleLayout.layout.Length; i+=3)
         {
             int x = obstacleLayout.layout[i];
@@ -235,32 +268,47 @@ public class GenerateBattlemap : MonoBehaviour {
         }
     }
 
+    /* populate map with a set of enemies, indicated in map json
+     * This function takes the id of the list of enemies specified in the map json, gets the list in
+     * the enemies layout json with the id, and populates the map with enemies. This allows for the 
+     * easy placement of enemies from a pregenerated list, which keeps things varied, but not too random
+     * The function will also load up the enemy's stats and sprite and place it into the prefab
+     */
     void PopulateEnemies()
     {
         Sprite[] newSpriteSheet;
         List<Sprite> enemySprites = new List<Sprite>();
+        List<Sprite> enemySpritesMasks = new List<Sprite>();
         List<Enemy> enemyStats = new List<Enemy>();
         
+        //populate types of enemies to be used into a list
         foreach (string name in enemyLayout.types)
         {
             int enemyIndex = findElementOfName<Enemy>(name, enemyList);
             newSpriteSheet = Resources.LoadAll<Sprite>(enemyList[enemyIndex].spriteSheet);
 
             enemySprites.Add(newSpriteSheet[enemyList[enemyIndex].sprite]);
+
+            newSpriteSheet = Resources.LoadAll<Sprite>(enemyList[enemyIndex].spriteSheet + " - Copy");
+            enemySpritesMasks.Add(newSpriteSheet[enemyList[enemyIndex].sprite]);
+
             enemyStats.Add(enemyList[enemyIndex]);
         }
+        //place enemies onto the map, set their stats, and thier sprite
         print("Layout Length: " + enemyLayout.layout.Length);
         for (int i = 0; i < enemyLayout.layout.Length; i += 3)
         {
             int x = enemyLayout.layout[i];
             int y = enemyLayout.layout[i + 1];
             Sprite s = enemySprites[enemyLayout.layout[i + 2]];
+            Sprite sm = enemySpritesMasks[enemyLayout.layout[i + 2]];
             Enemy e = enemyStats[enemyLayout.layout[i + 2]];
 
             Transform cell = cellsParent.GetChild(x + y * currentMap.height);
 
             GameObject enemy = Instantiate(enemyPrefab);
             enemy.transform.Find("Sprite").GetComponent<SpriteRenderer>().sprite = s;
+            enemy.transform.Find("Marker").GetComponent<SpriteRenderer>().sprite = sm;
             enemy.transform.position = cell.position;
             enemy.transform.parent = UnitParent.transform;
 
@@ -270,7 +318,7 @@ public class GenerateBattlemap : MonoBehaviour {
             enemy.GetComponent<Unit>().gunAttack = e.gun;
             enemy.GetComponent<Unit>().AttackRange = e.range;
             enemy.GetComponent<Unit>().MovementSpeed = e.movement;
-            enemy.GetComponent<Unit>().name = e.name;
+            enemy.GetComponent<Unit>().UnitName = e.name;
             enemy.GetComponent<Unit>().Speed = e.speed;
 
             enemy.GetComponent<Unit>().Initialize();

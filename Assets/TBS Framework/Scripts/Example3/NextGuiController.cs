@@ -10,26 +10,32 @@ public class NextGuiController : MonoBehaviour
 
     public Button NextTurnButton;
 
+    //UI Panels
     public GameObject InfoPanel;
     public GameObject GameOverPanel;
     public Canvas Canvas;
     public GameObject ActionPanel;
     public GameObject HpBar;
 
+    //instantiated instance of the UI Panels
     private GameObject _infoPanel;
     private GameObject _gameOverPanel;
     private GameObject _actionPanel;
 
+    //current unit whos turn it is
     private GenericUnit currentUnit = new GenericUnit();
 
+    //Turn order Display, it's a static 6 long array because that's how many portraits there are
     private GameObject[] turnOrderPortraits = new GameObject[6];
 
+    //list of al hp bars
     GameObject[] _bar;
 
     private RectTransform canvasTransform;
 
     void Start()
     {
+        //set the turn order portraits
         turnOrderPortraits[0] = Canvas.transform.Find("TurnOrder").Find("PortraitFrameMain").gameObject;
         turnOrderPortraits[1] = Canvas.transform.Find("TurnOrder").Find("Frame1").gameObject;
         turnOrderPortraits[2] = Canvas.transform.Find("TurnOrder").Find("Frame2").gameObject;
@@ -47,6 +53,7 @@ public class NextGuiController : MonoBehaviour
 
     private void Update()
     {
+        //This just makes sure all the HP bars are following the player, and to turn them off when the unit is no longer on screen
         for (int i = 0; i < CellGrid.Units.Count; i++)
         {
             Unit u = CellGrid.Units[i];
@@ -89,9 +96,8 @@ public class NextGuiController : MonoBehaviour
             unit.GetComponent<Unit>().UnitDestroyed += OnUnitDestroyed;
             unit.GetComponent<Unit>().UnitAttacked += OnUnitAttacked;
             unit.GetComponent<Unit>().UnitSelected += OnUnitSelected;
-
         }
-        
+        //at game start, instantiate the Hp bars
         print("Unit: " + CellGrid.Units.Count);
         _bar = new GameObject[CellGrid.Units.Count];
         for (int i = 0; i < CellGrid.Units.Count; i++)
@@ -104,11 +110,14 @@ public class NextGuiController : MonoBehaviour
 
     }
 
+    //what to do when end turn occurs
     private void OnTurnEnded(object sender, EventArgs e)
     {
         NextTurnButton.interactable = ((sender as CellGrid).CurrentPlayer is HumanPlayer);
         UpdateTurnUI();
     }
+
+    //When game ends, open the end screen
     private void OnGameEnded(object sender, EventArgs e)
     {
         _gameOverPanel = Instantiate(GameOverPanel);
@@ -120,6 +129,7 @@ public class NextGuiController : MonoBehaviour
 
     }
 
+    //highlight an attacked unit for feedback
     private void OnUnitAttacked(object sender, AttackEventArgs e)
     {
         if (!(CellGrid.CurrentPlayer is HumanPlayer)) return;
@@ -130,15 +140,14 @@ public class NextGuiController : MonoBehaviour
 
         OnUnitHighlighted(sender, e);
     }
+
+    //destroy the unit and associated infopanel
     private void OnUnitDestroyed(object sender, AttackEventArgs e)
     {
-
         Destroy(_infoPanel);
         print("unitdestroyed");
-
-
-
     }
+    //we don't want infopanel showing up when the character isn't selected
     private void OnUnitDehighlighted(object sender, EventArgs e)
     {
         Destroy(_infoPanel);
@@ -146,6 +155,8 @@ public class NextGuiController : MonoBehaviour
 
         LoadInfoPanel(currentUnit);
     }
+
+    //We want to load a seperate infopanenl if the highlighted unit is different
     private void OnUnitHighlighted(object sender, EventArgs e)
     {
         print("unithighlighted");
@@ -163,6 +174,7 @@ public class NextGuiController : MonoBehaviour
 
     }
 
+    //destroy the info panel because its another character's turn
     private void OnNextTurn(object sender, EventArgs e)
     {
         print("nextturn");
@@ -170,6 +182,8 @@ public class NextGuiController : MonoBehaviour
 
 
     }
+
+    //keep the info panel up if a character is selected
     private void OnUnitSelected(object sender, EventArgs e)
     {
         print("unitselected");
@@ -183,7 +197,8 @@ public class NextGuiController : MonoBehaviour
 
     }
 
-
+    //function for loading the stats of the current highlighted/selected unit on the infopanel
+    //this is to make sure that unit information is up to date
     private void LoadInfoPanel(GenericUnit unit)
     {
         _infoPanel = Instantiate(InfoPanel);
@@ -208,6 +223,10 @@ public class NextGuiController : MonoBehaviour
     {
         Application.LoadLevel(Application.loadedLevel);
     }
+
+    //this function updates the order of the current character in play and which units are next
+    //this allows the play to always know who's turn it is, and who will come next
+    //adds strategy to the element
     private void UpdateTurnUI()
     {
         for (int i = 0; i<turnOrderPortraits.Length; i++)

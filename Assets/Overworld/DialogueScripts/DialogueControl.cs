@@ -30,13 +30,12 @@ public class DialogueControl : MonoBehaviour {
         nameText = dialogueParent.transform.Find("DialogueBox").Find("Name").GetComponent<Text>();
         dialogueImageLeft = dialogueParent.transform.Find("LeftDialogue").GetComponent<Image>();
         dialogueImageRight = dialogueParent.transform.Find("RightDialogue").GetComponent<Image>();
-        //startDialogue(1);
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        //move on to the next piece of dialogue
+        //move on to the next piece of dialogue on mouseclick and space, but only if the dialoge box is active
 		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode. Space) ) && dialogueParent.activeSelf) 
         {
             //move through the dialogue of one character
@@ -99,7 +98,7 @@ public class DialogueControl : MonoBehaviour {
         }
     }
 
-    //set the portrait of the character speaking
+    //set the portrait of the character speaking, this is needed so that the play knows who's speaking
     void setPortrait()
     {
         if (false)

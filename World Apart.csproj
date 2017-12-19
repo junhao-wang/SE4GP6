@@ -226,7 +226,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\CameraController.cs" />
-    <Compile Include="Assets\Combat\Scripts\Adjustment.cs" />
     <Compile Include="Assets\Combat\Scripts\Enemy.cs" />
     <Compile Include="Assets\Combat\Scripts\EnemyLayout.cs" />
     <Compile Include="Assets\Combat\Scripts\GenerateBattlemap.cs" />
