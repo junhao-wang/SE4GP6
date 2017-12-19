@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 public class PartyProperties : MonoBehaviour {
+    public BattleState battleState;
     public static GameObject _instance;
     public GameObject OccupiedNode;
     public GameObject Canvas;

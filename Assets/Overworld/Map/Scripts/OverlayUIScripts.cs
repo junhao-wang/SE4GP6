@@ -75,6 +75,11 @@ public class OverlayUIScripts : MonoBehaviour {
         SceneManager.LoadScene("menu");
     }
 
+    public void loadFinalBattle()
+    {
+        SceneManager.LoadScene("TestBattle");
+    }
+
     //clears the text displayed in the info panel when called
     public void ClearNodePopUp()
     {

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Game {
+public class BattleState{
 
 
 
-	public static Game current;
+	public static BattleState current;
 	public HeroStats Kroner;
 	public HeroStats Lee;
 	public HeroStats Alexei;
 
-	public Game(){
+	public BattleState(){
 		Kroner = new HeroStats ("Kroner");
 		Lee = new HeroStats ("Lee");
 		Alexei = new HeroStats ("Alexei");

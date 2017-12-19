@@ -6,11 +6,11 @@ using System.IO;
 
 public static class SavedLoad{
 
-	public static List<Game> savedHeroStats = new List<Game> ();
+	public static List<BattleState> savedHeroStats = new List<BattleState> ();
 
 	//This value writes the hero stats to a file for scene changes
 	public static void Write(){
-		savedHeroStats.Add(Game.current);
+		savedHeroStats.Add(BattleState.current);
 		BinaryFormatter bf = new BinaryFormatter();
 		FileStream file = File.Create(Application.persistentDataPath + "/HeroStats.gd");
 		bf.Serialize (file, SavedLoad.savedHeroStats);
@@ -22,7 +22,7 @@ public static class SavedLoad{
 		if (File.Exists (Application.persistentDataPath + "/HeroStats.gd")) {
 			BinaryFormatter bf = new BinaryFormatter ();
 			FileStream file = File.Open (Application.persistentDataPath + "/HeroStats.gd", FileMode.Open);
-			SavedLoad.savedHeroStats = (List<Game>)bf.Deserialize (file);
+			SavedLoad.savedHeroStats = (List<BattleState>)bf.Deserialize (file);
 			file.Close ();
 		}
 	}
