@@ -212,9 +212,7 @@ public class NextGuiController : MonoBehaviour
     {
         for (int i = 0; i<turnOrderPortraits.Length; i++)
         {
-            print((CellGrid.turnIndex) % CellGrid.turnOrder.Length);
-            int unitIndex = CellGrid.turnOrder[(CellGrid.turnIndex + i) % CellGrid.turnOrder.Length];
-            turnOrderPortraits[i].transform.Find("Portrait").GetComponent<Image>().sprite = CellGrid.Units[unitIndex].transform.Find("Sprite").GetComponent<SpriteRenderer>().sprite;
+            turnOrderPortraits[i].transform.Find("Portrait").GetComponent<Image>().sprite = CellGrid.unitTurnOrder[((i+1)% CellGrid.unitTurnOrder.Count)].transform.Find("Sprite").GetComponent<SpriteRenderer>().sprite;
         }
     }
 

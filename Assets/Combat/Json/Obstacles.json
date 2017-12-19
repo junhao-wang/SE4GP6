@@ -10,8 +10,8 @@
     "sprite": 78
   },
    {
-     "name": "tree1",
-     "spriteSheet": "MapLayovers/Tree1",
+     "name": "tree2",
+     "spriteSheet": "MapLayovers/Tree2",
       "sprite" : 0
    }
  ]

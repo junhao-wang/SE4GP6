@@ -49,7 +49,6 @@ public class GenerateBattlemap : MonoBehaviour {
         PopulateTiles();
         PopulateObstacles();
         PopulateEnemies();
-
     }
 
     //set grid height, width, and create the grid
@@ -215,8 +214,8 @@ public class GenerateBattlemap : MonoBehaviour {
         foreach (string name in obstacleLayout.types)
         {
             int obsIndex = findElementOfName<Obstacles>(name, obsList);
-            newSpriteSheet = Resources.LoadAll<Sprite>(obsList[obsIndex].spriteSheet);
-            
+            newSpriteSheet = Resources.LoadAll<Sprite>(obsList[obsIndex].spriteSheet) as Sprite[];
+            print("Obstacle: " + newSpriteSheet[0]);
             obsSprites.Add(newSpriteSheet[obsList[obsIndex].sprite]);
         }
         //print("Layout Length: " + obstacleLayout.layout);

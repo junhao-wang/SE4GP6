@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: d3ece11dc6207924d9360cab6c555d93
-timeCreated: 1510798671
-licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
@@ -36,7 +34,7 @@ TextureImporter:
     mipBias: -1
     wrapU: 1
     wrapV: 1
-    wrapW: 1
+    wrapW: -1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -68,7 +66,6 @@ TextureImporter:
   - buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
-<<<<<<< HEAD
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
@@ -87,8 +84,6 @@ TextureImporter:
   - buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
-=======
->>>>>>> 381173cdf8c0b7cc6dfabeac94c326eef8d1ea55
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50

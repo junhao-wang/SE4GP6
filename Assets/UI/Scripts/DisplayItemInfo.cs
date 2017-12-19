@@ -36,14 +36,7 @@ public class DisplayItemInfo : MonoBehaviour {
 	//	makes a copy of the formatted image and brings it over to the item panel to be displayed
 	//	The text is also displayed
 	//	TODO if the item is deselected, then clear the information in the panel
-<<<<<<< HEAD
-	/*void displayItem(){
-		RectTransform t = panel.GetComponent<RectTransform>();
-		GameObject clone = new GameObject ();
-		clone.Instantiate (item, t.transform.up);
-		ItemInfo s = item.GetComponents<ItemInfo> ();
-	}*/
-=======
+
 	void displayItem(){
 		//Image Stuff
 		panel = gameObject.GetComponent<Image>();
@@ -66,5 +59,4 @@ public class DisplayItemInfo : MonoBehaviour {
 		//Text Stuff
 		displayText[0].text = "";
 	}
->>>>>>> 381173cdf8c0b7cc6dfabeac94c326eef8d1ea55
 }

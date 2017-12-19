@@ -3,7 +3,7 @@
     "id": 1,
      "types": [
       "table1",
-      "tree1"
+      "tree2"
     ],
     "layout": [
       7, 7, 1 ,
@@ -15,7 +15,7 @@
    {
     "id": 2,
      "types": [
-      "tree1",
+      "tree2",
       "table2"
     ],
     "layout": [

@@ -35,13 +35,9 @@ public class DialogueControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-<<<<<<< HEAD
-        //move on to the next piece of dialogue on click or space
-		if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode. Space)) 
-=======
+
         //move on to the next piece of dialogue
 		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode. Space) ) && dialogueParent.activeSelf) 
->>>>>>> 381173cdf8c0b7cc6dfabeac94c326eef8d1ea55
         {
             //move through the dialogue of one character
             if (lineIndex < currentDialogue.Dialogue[dialogueIndex].Lines.Count - 1)
