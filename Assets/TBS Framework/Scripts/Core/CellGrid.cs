@@ -54,9 +54,12 @@ public class CellGrid : MonoBehaviour
     public List<Unit>myUnits;
     public int lastPlayer; //ai or player
 
+    /// <summary>
+    /// this will initialize the map for the combat scene of the game.
+    /// </summary>
     void Start()
     {
-        
+        //initiatlizes human and AI players
         Players = new List<Player>();
         for (int i = 0; i < PlayersParent.childCount; i++)
         {
@@ -70,7 +73,7 @@ public class CellGrid : MonoBehaviour
 
         CurrentPlayerNumber = Players.Min(p => p.PlayerNumber);
         
-
+        //initializes each cell of the map
         Cells = new List<Cell>();
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -88,6 +91,7 @@ public class CellGrid : MonoBehaviour
             cell.CellDehighlighted += OnCellDehighlighted;
         }
              
+        //initializes the units of the current scene
         var unitGenerator = GetComponent<IUnitGenerator>();
         if (unitGenerator != null)
         {
@@ -113,7 +117,9 @@ public class CellGrid : MonoBehaviour
 
         StartGame();
     }
-
+    /// <summary>
+    /// orders the units by their speed parameter. Will be used to determine the turn order
+    /// </summary>
     void OrderSpeed()
     {
         unitTurnOrder = Units.OrderBy(o => -o.Speed).ToList();
@@ -122,6 +128,7 @@ public class CellGrid : MonoBehaviour
         unitTurnOrder.Insert(0, shifted);
     }
 
+    //the following are potential actions that can be triggered
     private void OnCellDehighlighted(object sender, EventArgs e)
     {
         CellGridState.OnCellDeselected(sender as Cell);
@@ -145,6 +152,9 @@ public class CellGrid : MonoBehaviour
         else { CellGridState.OnUnitClicked(sender as Unit); }
     }
 
+    /// <summary>
+    /// removes destroyed units from the game
+    /// </summary>
     private void OnUnitDestroyed(object sender, AttackEventArgs e)
     {
         Units.Remove(sender as Unit);
@@ -236,11 +246,16 @@ public class CellGrid : MonoBehaviour
         }
     }
 
-    public void EndTurn() //goes to next unit's turn.
+    public void EndTurn() //goes to next unit's turn
     {
 
         unitTurnOrder[0].OnTurnEnd();
-        
-        TurnCycleInvoke();
+        var totalPlayersAlive = Units.Select(u => u.PlayerNumber).Distinct().ToList(); //Checking if the game is over
+        if (totalPlayersAlive.Count != 1)
+        {
+
+            TurnCycleInvoke();
+        }
+
     }
 }
