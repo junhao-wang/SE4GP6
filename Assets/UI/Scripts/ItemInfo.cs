@@ -118,6 +118,7 @@ public class ItemInfo : MonoBehaviour {
 			}
 		}
 		//Consumable items
+		//TODO fix the Consumables by changing them to our version of the stats, not the built in stats
 		if (type < 2) {
 			if (HP != 0) {
 				temp.Add (new HealingBuff (activePeriod, (int)HP));
