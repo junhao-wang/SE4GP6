@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NodePartySelect : MonoBehaviour {
+    public static GameObject Map;
     public static GameObject PartyIcon;
     public static GameObject SourceNode;
     public static GameObject LooseScreen;
@@ -19,6 +20,7 @@ public class NodePartySelect : MonoBehaviour {
     public void SpawnParty()
     {
         NodePartySelect.PartyIcon = GameObject.FindWithTag("Overworld Party");
+        NodePartySelect.Map = GameObject.FindWithTag("Overworld Map");
         PartyIcon.GetComponent<SpriteRenderer>().enabled = true;
         PartyIcon.GetComponent<Transform>().position = gameObject.GetComponent<Transform>().position + new Vector3(0, 0.12f, -0.01f);
         PartyIcon.GetComponent<PartyProperties>().OccupiedNode = gameObject;
@@ -65,13 +67,14 @@ public class NodePartySelect : MonoBehaviour {
         }
         else if (SourceNode != null && SourceNode.GetComponent<NodeProperties>().Neighbors.Contains(gameObject))
         {
-            print(PartyIcon.GetComponent<PartyProperties>().Resources[(int)PartyProperties.ResourceType.SUPPLY]);
+            //print(PartyIcon.GetComponent<PartyProperties>().Resources[(int)PartyProperties.ResourceType.SUPPLY]);
             if(PartyIcon.GetComponent<PartyProperties>().Resources[(int)PartyProperties.ResourceType.SUPPLY] < 1)
             {
                 print("no supply");
                 LooseScreen = GameObject.FindWithTag("Overworld Canvas").GetComponent<OverlayUIScripts>().LooseScreen;
 
                 LooseScreen.SetActive(true);
+                Map.GetComponent<MapProperties>().defeat();
             }
             walk = true;
             PartyIcon.GetComponent<PartyWalk>().startWalk(SourceNode.GetComponent<Transform>(), gameObject.GetComponent<Transform>());

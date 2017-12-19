@@ -7,9 +7,11 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour {
 
+    public static MapGenerator _instance;
     public GameObject TilePrefab;
     public GameObject ClutterPrefab;
     public Sprite[] clutters = new Sprite[20];
+    public bool Generated = false;
     public float xSpawnMax=2.7f, xSpawnMin=-7f, ySpawnMax=2.2f, ySpawnMin=-3f;
     public int NumOfCoreNarration=15;
     public int MaxNarration=40;
@@ -34,19 +36,120 @@ public class MapGenerator : MonoBehaviour {
         float distance;
     }
 
+    struct DialogueChain
+    {
+        public int chainID;
+        public List<int> members;
+    }
+
+    void Awake()
+    {
+        //if we don't have an [_instance] set yet
+        if (!_instance)
+            _instance = this;
+        //otherwise, if we do, kill this thing
+        else
+            Destroy(this.gameObject);
+
+
+        DontDestroyOnLoad(this.gameObject);
+    }
     // Use this for initialization
     void Start () {
-        gameObject.GetComponent<MapProperties>().initList();
-        GenerateTiles(Rows, Cols);
-        gameObject.GetComponent<MapProperties>().Nodes[0].GetComponent<NodePartySelect>().SpawnParty();
-        GenerateEvents();
-        GenerateClutter();
-        PopulateDialogue();
+        DontDestroyOnLoad(transform.gameObject);
+        if (!Generated)
+        {
+            gameObject.GetComponent<MapProperties>().initList();
+            GenerateTiles(Rows, Cols);
+            gameObject.GetComponent<MapProperties>().Nodes[0].GetComponent<NodePartySelect>().SpawnParty();
+            GenerateEvents();
+            GenerateClutter();
+            PopulateDialogue();
+            Generated = true;
+        }
+
     }
 
     private void PopulateDialogue()
     {
-        
+        //parse all dialogue  and create a list of dialogue chains(a dialogue chain is a group of related dialogue sets)
+        List<DialogueChain> dSets = new List<DialogueChain>();
+        string dialogue = System.IO.File.ReadAllText("Assets/Overworld/Json/Dialogue.json");
+        DialogueSet[] allDialogue = JsonHelper.getJsonArray<DialogueSet>(dialogue);
+        foreach (DialogueSet d in allDialogue)
+        {
+            bool found = false;
+            foreach(DialogueChain dc in dSets)
+            {
+                if(dc.chainID == d.id / 10)
+                {
+                    dc.members.Add(d.id);
+                    found = true;
+                    break;
+                }
+
+            }
+            if (!found)
+            {
+                DialogueChain nDChain = new DialogueChain();
+                nDChain.chainID = d.id/ 10;
+                nDChain.members = new List<int>();
+                nDChain.members.Add(d.id);
+                dSets.Add(nDChain);
+            }
+        }
+
+
+        //now we generate a list of narrativecore nodes
+        List<GameObject> NCNodes = new List<GameObject>();
+        foreach(GameObject Node in gameObject.GetComponent<MapProperties>().Nodes)
+        {
+            if (Node.GetComponent<NodeProperties>().NodeEvent == NodeProperties.EventType.NARRATIVECORE)
+            {
+                NCNodes.Add(Node);
+            }
+        }
+
+        //with the list of narrative core nodes, assign each NCNode a dialogue chain until we run out of nodes or dialogue
+        foreach(GameObject Node in NCNodes)
+        {
+            if(dSets.Count == 0)
+            {
+                return;//if we no longer have any unassigned dialogue left, we are done
+            }
+            Node.GetComponent<NodeProperties>().chainID = dSets[0].chainID;
+            Node.GetComponent<NodeProperties>().dialogueSet.AddRange(dSets[0].members);
+            Node.GetComponent<NodeProperties>().SetColor();
+            dSets.RemoveAt(0);
+
+        }
+
+        //now we generate a list of side narrative nodes
+        List<GameObject> SNNodes = new List<GameObject>();
+        foreach (GameObject Node in gameObject.GetComponent<MapProperties>().Nodes)
+        {
+            if (Node.GetComponent<NodeProperties>().NodeEvent == NodeProperties.EventType.NARRATIVE)
+            {
+                SNNodes.Add(Node);
+            }
+        }
+
+        //with the list of side narrative, assign each NCNode a dialogue chain until we run out of nodes or dialogue
+        foreach (GameObject Node in SNNodes)
+        {
+            if (dSets.Count == 0)
+            {
+                return;//if we no longer have any unassigned dialogue left, we are done
+            }
+            Node.GetComponent<NodeProperties>().chainID = dSets[0].chainID;
+            Node.GetComponent<NodeProperties>().dialogueSet.AddRange(dSets[0].members);
+            Node.GetComponent<NodeProperties>().SetColor();
+            dSets.RemoveAt(0);
+
+        }
+
+
+
     }
 
     // Update is called once per frame
@@ -71,6 +174,7 @@ public class MapGenerator : MonoBehaviour {
         if (roll <= chance)
         {
             GameObject newclutter = GameObject.Instantiate(ClutterPrefab);
+            DontDestroyOnLoad(newclutter);
             Vector3 inipos = Node.GetComponent<Transform>().position;
             Vector3 offset = Random.insideUnitCircle * outer * 0.8f;
             offset += new Vector3(0, 0, -0.1f);
@@ -79,6 +183,7 @@ public class MapGenerator : MonoBehaviour {
             for (int i = 0; i < clutteramt; i++)
             {
                 GameObject additionalclutter = GameObject.Instantiate(ClutterPrefab);
+                DontDestroyOnLoad(additionalclutter);
                 Vector3 initpos = Node.GetComponent<Transform>().position;
                 Vector3 offsetpos = Random.insideUnitCircle * inner * 0.8f;
                 offsetpos += new Vector3(0, 0, -0.1f);

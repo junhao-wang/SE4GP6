@@ -7,6 +7,9 @@ TagManager:
   - Overworld Party
   - Overworld Canvas
   - LSc
+  - Undefined
+  - DestroyOnDefeat
+  - Overworld Map
   layers:
   - Default
   - TransparentFX

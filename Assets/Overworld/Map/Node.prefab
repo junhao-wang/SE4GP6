@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114000482767425806}
   m_Layer: 0
   m_Name: Node
-  m_TagString: Untagged
+  m_TagString: DestroyOnDefeat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,10 +98,12 @@ MonoBehaviour:
   OccupiedPathing: []
   NodeEvent: 3
   dialogueID: 0
+  chainID: 0
   ResourceMod:
   - 0
   - 0
   nodeRegion: 5
+  dialogueSet: 
 --- !u!114 &114371206943442108
 MonoBehaviour:
   m_ObjectHideFlags: 1
