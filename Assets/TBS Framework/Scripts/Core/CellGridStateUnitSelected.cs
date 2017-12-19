@@ -7,15 +7,13 @@ using System.Collections;
 
 class CellGridStateUnitSelected : CellGridState
 {
-
-
-
     
-    private Unit _unit;
+    private Unit _unit { get; set; }
     private List<Cell> _pathsInRange;
     private List<Unit> _unitsInRange;
 
     private Cell _unitCell;
+
 
     public CellGridStateUnitSelected(CellGrid cellGrid, Unit unit) : base(cellGrid)
     {
@@ -45,6 +43,7 @@ class CellGridStateUnitSelected : CellGridState
             _cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, _unit);
         }
     }
+
     public override void OnUnitClicked(Unit unit)
     {
         Debug.Log("onUnitClicked branch: ");
@@ -55,18 +54,27 @@ class CellGridStateUnitSelected : CellGridState
         }
         Debug.Log("_unit name " + _unit.name);
         Debug.Log("attacked name " + unit.name);
-        if (_unitsInRange.Contains(unit) && (_unit.ActionPoints > 0))
+        if (_unitsInRange.Contains(unit) && (_unit.ActionPoints > 0) && isAttacking == true)
         {
-            _unit.DealDamage(unit);
+            if(usingGun)
+            {
+                _unit.AttackFactor = _unit.gunAttack;
+            }
+            _unit.DealDamage(unit, attackingHealth, isTrueDamage);
             _cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, _unit);
+            isAttacking = false;
+            isTrueDamage = false;
+            usingGun = false;
+            _unit.AttackFactor = _unit.basicAttack;
         }
 
         if (unit.PlayerNumber.Equals(_unit.PlayerNumber))
         {
             _cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, unit);
-        }
-            
+        }     
     }
+
+
     public override void OnCellDeselected(Cell cell)
     {
         base.OnCellDeselected(cell);

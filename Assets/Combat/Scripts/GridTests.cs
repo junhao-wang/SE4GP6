@@ -65,7 +65,7 @@ public class GridTests : IPrebuildSetup{
         map = GameObject.Find("CellGrid").GetComponent<GenerateBattlemap>();
         yield return new WaitForFixedUpdate();
         int health = grid.GetComponent<CellGrid>().Units[0].HitPoints;
-        grid.GetComponent<CellGrid>().Units[0].TakeDamage(3);
+        grid.GetComponent<CellGrid>().Units[0].TakeDamage(3, true);
         Assert.AreEqual(health - 3, grid.GetComponent<CellGrid>().Units[0].HitPoints);
     }
 
@@ -130,7 +130,7 @@ public class GridTests : IPrebuildSetup{
         {
             if (grid.GetComponent<CellGrid>().Units[i].PlayerNumber != grid.GetComponent<CellGrid>().CurrentPlayerNumber)
             {
-                grid.GetComponent<CellGrid>().Units[i].TakeDamage(1000);
+                grid.GetComponent<CellGrid>().Units[i].TakeDamage(1000, true);
             }
         }
         yield return new WaitForFixedUpdate();
@@ -166,7 +166,7 @@ public class GridTests : IPrebuildSetup{
         {
             if (grid.GetComponent<CellGrid>().Units[i].PlayerNumber != grid.GetComponent<CellGrid>().CurrentPlayerNumber)
             {
-                grid.GetComponent<CellGrid>().Units[i].TakeDamage(1000);
+                grid.GetComponent<CellGrid>().Units[i].TakeDamage(1000, true);
             }
         }
         yield return new WaitForFixedUpdate();
@@ -186,7 +186,7 @@ public class GridTests : IPrebuildSetup{
         {
             if (grid.GetComponent<CellGrid>().Units[i].PlayerNumber == grid.GetComponent<CellGrid>().CurrentPlayerNumber)
             {
-                grid.GetComponent<CellGrid>().Units[i].TakeDamage(1000);
+                grid.GetComponent<CellGrid>().Units[i].TakeDamage(1000, true);
             }
         }
 
@@ -266,7 +266,7 @@ public class GridTests : IPrebuildSetup{
         map = GameObject.Find("CellGrid").GetComponent<GenerateBattlemap>();
         yield return new WaitForFixedUpdate();
         string uName = grid.GetComponent<CellGrid>().Units[0].name;
-        grid.GetComponent<CellGrid>().Units[0].TakeDamage(10000);
+        grid.GetComponent<CellGrid>().Units[0].TakeDamage(10000, true);
         yield return new WaitForFixedUpdate();
         Assert.True(grid.GetComponent<CellGrid>().Units[0].name != uName);
     }
@@ -279,7 +279,7 @@ public class GridTests : IPrebuildSetup{
         grid = GameObject.Find("CellGrid");
         map = GameObject.Find("CellGrid").GetComponent<GenerateBattlemap>();
         yield return new WaitForFixedUpdate();
-        grid.GetComponent<CellGrid>().Units[1].TakeDamage(10000);
+        grid.GetComponent<CellGrid>().Units[1].TakeDamage(10000, true);
         yield return new WaitForSeconds(3);
         Assert.True(grid.GetComponent<CellGrid>().CurrentPlayerNumber == 1);
     }

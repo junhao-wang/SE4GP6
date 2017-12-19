@@ -165,9 +165,8 @@ public class CellGrid : MonoBehaviour
         {
         }
         else { CellGridState.OnUnitClicked(sender as Unit); }
-          
-
     }
+
     private void OnUnitDestroyed(object sender, AttackEventArgs e)
     {
         int k = 0; //which unit index is dead
@@ -233,7 +232,31 @@ public class CellGrid : MonoBehaviour
                 
         }
     }
-    
+
+    public void AttackHealth()
+    {
+        print("Attacking Health...");
+        _cellGridState.isAttacking = true;
+        _cellGridState.attackingHealth = true;
+        
+    }
+
+    public void AttackArmor()
+    {
+        print("Attacking Armor...");
+        _cellGridState.isAttacking = true;
+        _cellGridState.attackingHealth = false;
+    }
+
+    public void ShootGun()
+    {
+        
+        _cellGridState.isAttacking = true;
+        _cellGridState.attackingHealth = true;
+        _cellGridState.isTrueDamage = true;
+        _cellGridState.usingGun = true;
+    }
+
     /// <summary>
     /// Method is called once, at the beggining of the game.
     /// </summary>

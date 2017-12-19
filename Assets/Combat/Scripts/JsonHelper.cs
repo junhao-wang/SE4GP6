@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+//helps unpack Json arrays
 public class JsonHelper
 {
     public static T[] getJsonArray<T>(string json)

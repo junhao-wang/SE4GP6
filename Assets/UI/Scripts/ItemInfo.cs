@@ -33,7 +33,7 @@ public class ItemInfo : MonoBehaviour {
 		ls = gameObject.GetComponentInChildren <LevelInfo>();
 		getLevel ();
 		setType ();
-		createBuff ();
+		//createBuff ();
 	}
 	
 	// Update is called once per frame
@@ -93,6 +93,7 @@ public class ItemInfo : MonoBehaviour {
 		}
 	}
 	//This takes the item values and translates them into a list of buffs.
+    /*
 	void createBuff(){
 		List<Buff> temp;
 		//Passive item buff creations
@@ -124,7 +125,6 @@ public class ItemInfo : MonoBehaviour {
 			if (AR != 0) {
 				//TODO create an attack range buff to increase attack range;
 			}
-			if (AF != 0) {
 				temp.Add (new AttackBuff (activePeriod, AF));
 			}
 			if (DF != 0) {
@@ -139,5 +139,5 @@ public class ItemInfo : MonoBehaviour {
 		}
 		//return temp buffs to the buffs array to be applied
 		buffs = temp;
-	}
+	}*/
 }

@@ -34,14 +34,16 @@ public class DialogueControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //move on to the next piece of dialogue
+        //move on to the next piece of dialogue on click or space
 		if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode. Space)) 
         {
+            //move through the dialogue of one character
             if (lineIndex < currentDialogue.Dialogue[dialogueIndex].Lines.Count - 1)
             { 
                 lineIndex++;
                 dText.text = currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex];
             }
+            //move to the next person speaking
             else if (dialogueIndex < currentDialogue.Dialogue.Length - 1)
             {
                 dialogueIndex++;
@@ -50,6 +52,7 @@ public class DialogueControl : MonoBehaviour {
                 setName();
                 setPortrait();
             }
+            //if there is no more dialogue, end the dialogue box
             else
             {
                 lineIndex = 0;
@@ -59,13 +62,15 @@ public class DialogueControl : MonoBehaviour {
         }
 	}
 
-   void loadDialogue(int id)
+    //load the dialogue json
+    void loadDialogue(int id)
     {
         string dialogue = System.IO.File.ReadAllText("Assets/Overworld/Json/Dialogue.json");
         DialogueSet[] allDialogue = JsonHelper.getJsonArray<DialogueSet>(dialogue);
         currentDialogue = allDialogue[id - 1];
     }
 
+    //open the dialogue box with a dialogue id
     public void startDialogue(int id)
     {
         dialogueParent.SetActive(true);
@@ -77,6 +82,7 @@ public class DialogueControl : MonoBehaviour {
         setPortrait();
     }
 
+    //set the name of the character speaking
     void setName()
     {
         if (currentDialogue.Dialogue[dialogueIndex].name == "Blank")
@@ -89,6 +95,7 @@ public class DialogueControl : MonoBehaviour {
         }
     }
 
+    //set the portrait of the character speaking
     void setPortrait()
     {
         if (false)
@@ -97,20 +104,24 @@ public class DialogueControl : MonoBehaviour {
         }
         else
         {
-            print(dialogueImageLeft.sprite.name);
+            //if no one is speaking, both portraits are false
             if (currentDialogue.Dialogue[dialogueIndex].name == "Blank")
             {
                 dialogueImageRight.sprite = Resources.Load("Portraits/blank", typeof(Sprite)) as Sprite;
                 dialogueImageLeft.sprite = Resources.Load("Portraits/blank", typeof(Sprite)) as Sprite;
             }
+
             else if (dialogueImageLeft.sprite.name != currentDialogue.Dialogue[dialogueIndex].name && dialogueImageRight.sprite.name != currentDialogue.Dialogue[dialogueIndex].name)
             {
+                //if the name of the character matches a portrait
                 if (Resources.Load("Portraits/" + currentDialogue.Dialogue[dialogueIndex].name, typeof(Sprite)) as Sprite != null)
                 {
+                    //set left
                     if (currentDialogue.Dialogue[dialogueIndex].side == "L")
                     {
                         dialogueImageLeft.sprite = Resources.Load("Portraits/" + currentDialogue.Dialogue[dialogueIndex].name, typeof(Sprite)) as Sprite;
                     }
+                    //set right
                     else if (currentDialogue.Dialogue[dialogueIndex].side == "R")
                     {
                         dialogueImageRight.sprite = Resources.Load("Portraits/" + currentDialogue.Dialogue[dialogueIndex].name, typeof(Sprite)) as Sprite;
@@ -118,16 +129,14 @@ public class DialogueControl : MonoBehaviour {
                 }
                 else
                 {
-                    
-                    if (isLastPortraitLeft)
+                    //set the current image as blank
+                    if (currentDialogue.Dialogue[dialogueIndex].side == "R")
                     {
                         dialogueImageRight.sprite = Resources.Load("Portraits/blank", typeof(Sprite)) as Sprite;
-                        isLastPortraitLeft = false;
                     }
-                    else
+                    else if (currentDialogue.Dialogue[dialogueIndex].side == "L")
                     {
                         dialogueImageLeft.sprite = Resources.Load("Portraits/blank", typeof(Sprite)) as Sprite;
-                        isLastPortraitLeft = true;
                     }
 
                 }

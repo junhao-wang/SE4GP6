@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 
     public float panDistance = 0.05f;
-    public float mouseBorder = 10f;
+    public float mouseBorder = 5f;
 
     public float maxZ = -0.7f;
     public float minZ = -3.5f;

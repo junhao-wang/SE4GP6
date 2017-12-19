@@ -3,7 +3,12 @@
 public abstract class CellGridState
 {
     protected CellGrid _cellGrid;
-    
+
+    public bool isAttacking { get; set; }
+    public bool attackingHealth { get; set; }
+    public bool isTrueDamage = false;
+    public bool usingGun = false;
+
     protected CellGridState(CellGrid cellGrid)
     {
         _cellGrid = cellGrid;

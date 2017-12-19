@@ -55,9 +55,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squarePrefab: {fileID: 186534, guid: 52b93693306dc1e49927cee651317c11, type: 2}
-  cellsParent: {fileID: 4897345523950930}
-  height: 20
-  width: 30
+  height: 10
+  width: 10
 --- !u!114 &114448313373852146
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -69,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa6e9b297b6dfe4b8619d3d27d31f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Amount: 140
+  Amount: 10
   ObstaclesParent: {fileID: 0}
   ObstaclePrefab: {fileID: 101402, guid: 635d9470b379fce4c9a685f745f78e5a, type: 2}
   CellGrid: {fileID: 114798793737554916}
@@ -97,4 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738545c63018a9840970e6adf4dfafae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameOver: 0
   PlayersParent: {fileID: 0}
+  turnOrder: 
+  turnOrderPlayerNumbers: 
+  turnIndex: 0
+  myUnits: []
+  lastPlayer: 0

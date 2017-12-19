@@ -1,0 +1,17 @@
+﻿[
+   {
+     "name": "table1",
+     "spriteSheet": "BattleTiles/TileA5",
+      "sprite" : 77
+   },
+  {
+    "name": "table2",
+    "spriteSheet": "BattleTiles/TileA5",
+    "sprite": 78
+  },
+   {
+     "name": "tree1",
+     "spriteSheet": "MapLayovers/Tree1",
+      "sprite" : 0
+   }
+ ]

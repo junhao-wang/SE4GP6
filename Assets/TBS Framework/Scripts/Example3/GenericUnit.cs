@@ -4,13 +4,14 @@ using UnityEngine;
 public class GenericUnit : Unit
 {
     public string UnitName;
-
+    
     private Coroutine PulseCoroutine;
 
     public override void Initialize()
     {
         base.Initialize();
         transform.position += new Vector3(0, 0, -0.001f);
+        
     }
 
     public override void OnUnitDeselected()
