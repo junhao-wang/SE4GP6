@@ -13,12 +13,20 @@ public class NodeProperties : MonoBehaviour {
     public bool visited = false;
     public List<GameObject> Pathing,OccupiedPathing;
     public EventType NodeEvent =EventType.NONE ;
-    public int dialogueID = 0;
+    public int dialogueID = 0, chainID = 0;
     public enum Region{A,B,C,D,E,NULL};
     public float[] ResourceMod = new float[(int)PartyProperties.ResourceType.SIZE];
     public enum EventType { COMBAT,NARRATIVECORE,NARRATIVE,NONE};
     public Region nodeRegion = Region.NULL;
     public List<int> dialogueSet = new List<int>();
+    public List<DiaReq> dialogueReqs= new List<DiaReq>();
+
+    public struct DiaReq
+    {
+        public int diaID;
+        public int[] Req;
+    }
+
 
     // Use this for initialization
     void Start () {
@@ -109,11 +117,8 @@ public class NodeProperties : MonoBehaviour {
             return;
         } else if (NodeEvent == EventType.NARRATIVECORE)
         {
-            GameObject Canvas = GameObject.FindWithTag("Overworld Canvas");
-            Canvas.transform.Find("DialogueUI").gameObject.SetActive(true);
-            //Canvas.GetComponent<DialogueControl>().startDialogue(dialogueID);
-            Canvas.GetComponent<DialogueControl>().startDialogue(1);
-            Party.GetComponent<PartyProperties>().inDialogue = true;
+          
+            startDialogue();
             if (dialogueSet.Count == 1 && dialogueSet[0] == 0)
             {
                 NodeEvent = EventType.NONE;
@@ -124,6 +129,19 @@ public class NodeProperties : MonoBehaviour {
         {
             NodeEvent = EventType.NONE;
             GameObject MController = GameObject.Find("MapController");
+            Party.GetComponent<PartyProperties>().battleState.enemyID = Random.Range(1,6);
+            if (gameObject == MController.GetComponent<MapProperties>().Nodes[MController.GetComponent<MapProperties>().Nodes.Count - 1])
+            {
+                Party.GetComponent<PartyProperties>().battleState.finalBattle = true;
+                Party.GetComponent<PartyProperties>().battleState.enemyID = 6;
+                GameObject WinScreen = GameObject.FindWithTag("Overworld Canvas").GetComponent<OverlayUIScripts>().WinScreen;
+
+                WinScreen.SetActive(true);
+                GameObject.FindWithTag("Overworld Canvas").GetComponent<MapProperties>().defeat();
+            }
+            
+            SavedLoad.savedHeroStats = Party.GetComponent<PartyProperties>().battleState;
+            SavedLoad.Write();
 
             SceneManager.LoadScene("TestBattle");
 
@@ -133,6 +151,11 @@ public class NodeProperties : MonoBehaviour {
             NodeEvent = EventType.NONE;
             GameObject Party = GameObject.FindWithTag("Overworld Party");
             Party.GetComponent<PartyProperties>().ProccessResourceEvent(gameObject.GetComponent<NodeProperties>().ResourceMod);
+            startDialogue();
+            if (dialogueSet.Count == 1 && dialogueSet[0] == 0)
+            {
+                NodeEvent = EventType.NONE;
+            }
 
 
         }
@@ -152,31 +175,68 @@ public class NodeProperties : MonoBehaviour {
                 gameObject.GetComponent<SpriteRenderer>().color = CombatEvent;
                 break;
             case (EventType.NARRATIVECORE):
-                gameObject.GetComponent<SpriteRenderer>().color = DialogueEvent;
+                if (dialogueSet.Count > 0)
+                {
+                    gameObject.GetComponent<SpriteRenderer>().color = DialogueEvent;
+                }
+                else
+                {
+                    gameObject.GetComponent<SpriteRenderer>().color = NoEvent;
+                }
+
                 break;
             case (EventType.NARRATIVE):
-                gameObject.GetComponent<SpriteRenderer>().color = ResourceEvent;
+                if (dialogueSet.Count > 0)
+                {
+                    gameObject.GetComponent<SpriteRenderer>().color = ResourceEvent;
+                }
+                else
+                {
+                    gameObject.GetComponent<SpriteRenderer>().color = NoEvent;
+                }
                 break;
         }
     }
 
-    public void loadDialogueSet(int SetID)
-    {
-       /*some code here to load the set of dialogues represented by SetID into the
-        dialogueSet list
-        */
-
-    }
+ 
 
     public List<int> fetchRequirements(int dialogueID)
     {
-        List<int> result = new List<int>();
-        /*code for loading dialogue requirements or
-         a function call that returns a list of requirements*/
 
-        return result;
+        if(dialogueReqs.Count != dialogueSet.Count)
+        {
+            string dialogue = System.IO.File.ReadAllText("Assets/Overworld/Json/Dialogue.json");
+            List<DialogueSet> allDialogue = new List<DialogueSet>(JsonHelper.getJsonArray<DialogueSet>(dialogue));
+            foreach(int d in dialogueSet)
+            {
+                for (int i = allDialogue.Count - 1;i >= 0; i --)
+                {
+                    DialogueSet ds = allDialogue[i];
+                    if(ds.id == d)
+                    {
+                        DiaReq newDR = new DiaReq();
+                        newDR.diaID = ds.id;
+                        newDR.Req = ds.requirement;
+                        allDialogue.Remove(ds);
+                        dialogueReqs.Add(newDR);
+                    }
+                }
+            }
+        }
+
+        foreach(DiaReq dr in dialogueReqs)
+        {
+            if(dr.diaID == dialogueID)
+            {
+                return new List<int>(dr.Req);
+            }
+        }
+
+
+        return new List<int>(new int[]{-1});
     }
 
+    //test if all requirements passed into the function have been fulfilled
     public bool testDialogueReq(List<int> requirements)
     {
         if(requirements[0] == 0)
@@ -186,8 +246,8 @@ public class NodeProperties : MonoBehaviour {
 
         foreach(int dialogue in Party.GetComponent<PartyProperties>().CompletedDialogue)
         {
-            bool cond1 = requirements.Contains(dialogue / 10 * 10);
-            bool cond2 = requirements.Contains(dialogue);
+            bool cond1 = requirements.Contains(dialogue / 10 * 10);//requirements ending in 0 are fulfilled if any dialogue within the set has been completed
+            bool cond2 = requirements.Contains(dialogue);//specific requirement for a particular dialogue set is complete
             if(cond1 || cond2)
             {
                 requirements.Remove(dialogue);
@@ -205,6 +265,7 @@ public class NodeProperties : MonoBehaviour {
             return false;
         }
     }
+    //finds the correct dialogue and initiates it
     public void startDialogue()
     {
         int dialogueID = -1;
@@ -229,6 +290,7 @@ public class NodeProperties : MonoBehaviour {
                 Party.GetComponent<PartyProperties>().CompletedDialogue.Add(dialogueID);
                 dialogueSet.Remove(dialogueID);
             }
+            Party.GetComponent<PartyProperties>().inDialogue = true;
         }
 
 

@@ -8,6 +8,6 @@ using UnityEngine;
 //Sets of Dialogue for each event
 public class DialogueSet {
     public int id;
-    public int requirement;
+    public int[] requirement;
     public Dialogue[] Dialogue;
 }

@@ -8,6 +8,7 @@ public class OverlayUIScripts : MonoBehaviour {
     public GameObject PartyStats,ChangePopUp;
     public PartyProperties pProp;
     public GameObject LooseScreen;
+    public GameObject WinScreen;
 	// Use this for initialization
 	void Start () {
         GameObject Party = GameObject.FindWithTag("Overworld Party");
@@ -73,6 +74,11 @@ public class OverlayUIScripts : MonoBehaviour {
     public void loadMainMenu()
     {
         SceneManager.LoadScene("menu");
+    }
+
+    public void loadFinalBattle()
+    {
+        SceneManager.LoadScene("TestBattle");
     }
 
     //clears the text displayed in the info panel when called

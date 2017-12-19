@@ -221,11 +221,14 @@
   <ItemGroup>
     <Compile Include="Assets\CameraController.cs" />
     <Compile Include="Assets\Combat\Scripts\Adjustment.cs" />
+    <Compile Include="Assets\Combat\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Combat\Scripts\EnemyLayout.cs" />
     <Compile Include="Assets\Combat\Scripts\GenerateBattlemap.cs" />
     <Compile Include="Assets\Combat\Scripts\GridTests.cs" />
     <Compile Include="Assets\Combat\Scripts\JsonHelper.cs" />
     <Compile Include="Assets\Combat\Scripts\MapList.cs" />
     <Compile Include="Assets\Combat\Scripts\MenuTests.cs" />
+    <Compile Include="Assets\Combat\Scripts\ObstacleLayout.cs" />
     <Compile Include="Assets\Combat\Scripts\ObstacleList.cs" />
     <Compile Include="Assets\Combat\Scripts\TileList.cs" />
     <Compile Include="Assets\Overworld\DialogueScripts\Dialogue.cs" />
@@ -244,6 +247,7 @@
     <Compile Include="Assets\Overworld\Map\Scripts\TileProperties.cs" />
     <Compile Include="Assets\Overworld\Map\Tests\MapTests.cs" />
     <Compile Include="Assets\Overworld\Map\Tests\SystemTest.cs" />
+    <Compile Include="Assets\Overworld\Scripts\DialogueGroup.cs" />
     <Compile Include="Assets\Resources\AssetDemo\MusicLoader.cs" />
     <Compile Include="Assets\Resources\AssetDemo\PanelSwap.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Core\AStarPathfinding.cs" />
@@ -319,6 +323,9 @@
     <Compile Include="Assets\UI\Scripts\MouseHover.cs" />
     <Compile Include="Assets\UI\Scripts\NextImage.cs" />
     <Compile Include="Assets\UI\Scripts\Selection.cs" />
+    <Compile Include="Assets\UI\Scripts\SteralizableClasses\BattleState.cs" />
+    <Compile Include="Assets\UI\Scripts\SteralizableClasses\HeroStats.cs" />
+    <Compile Include="Assets\UI\Scripts\SteralizableClasses\SavedLoad.cs" />
     <Compile Include="Assets\Utility\Scripts\AssetList.cs" />
   </ItemGroup>
   <ItemGroup>
