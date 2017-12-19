@@ -181,7 +181,7 @@ public class CellGrid : MonoBehaviour
         }
         Units.Remove(sender as Unit);
 
-        int newSize = turnOrder.Length - 1; //resizing turnOrder and turnOrderPlayerNumbers
+        int newSize = turnOrder.Length - 1; //resizing turnOrder and turnOrderPlayerNumbers to account for one fewer unit
         int[] tempArray = new int[newSize];
 
         int j = 0;
@@ -212,14 +212,7 @@ public class CellGrid : MonoBehaviour
             else j++;
         }
         turnOrderPlayerNumbers = tempArray;
-        foreach (var unit in turnOrder)
-        {
-            print("turnOrder left: " + unit.ToString());
-        }
-        foreach (var unit in turnOrderPlayerNumbers)
-        {
-            print("PlayerNumbers left: " + unit.ToString());
-        }
+
 
         var totalPlayersAlive = Units.Select(u => u.PlayerNumber).Distinct().ToList(); //Checking if the game is over
         if (totalPlayersAlive.Count == 1)
@@ -250,8 +243,9 @@ public class CellGrid : MonoBehaviour
             turnOrderPlayerNumbers[i] = Units[turnOrder[i]].PlayerNumber; //list of whether or not unit is ai 
         }
         lastPlayer = turnOrderPlayerNumbers[0];
+		
         TurnEnded += TurnCycle;
-        Players[turnOrderPlayerNumbers[turnIndex]].Play(this);
+        Players[turnOrderPlayerNumbers[turnIndex]].Play(this); //initiating the first unit that will move
         TurnCycleInvoke();
 
     }
@@ -259,30 +253,27 @@ public class CellGrid : MonoBehaviour
     /// Method makes turn transitions. It is called by player at the end of his turn.
     /// </summary>
 
-    public void TurnCycle(object sender, System.EventArgs e)//code for 1 turn
+    public void TurnCycle(object sender, System.EventArgs e)//code for a single turn of a unit
     {
         turnIndex = turnIndex % turnOrder.Length;
         Units[turnOrder[turnIndex]].OnTurnStart();
-        print("turnIndex " + turnIndex.ToString());
-        print("turnOrderPlayerNumber " + turnOrderPlayerNumbers[turnIndex].ToString());
-        print("Selected unit " + Units[turnOrder[turnIndex]].name);
 
         if (turnOrderPlayerNumbers[turnIndex] == 0) //check if player or ai's turn
             {
                 
-                CellGridState.OnUnitClicked(Units[turnOrder[turnIndex]]);
+                CellGridState.OnUnitClicked(Units[turnOrder[turnIndex]]); //player turn start
                 turnIndex++;
                 
             }
        else
             {
-                Players[1].GetComponent<NaiveAiPlayer>().SinglePlay(this, Units[turnOrder[turnIndex]]);
+                Players[1].GetComponent<NaiveAiPlayer>().SinglePlay(this, Units[turnOrder[turnIndex]]); //invoking ai
                 turnIndex++;
             }
 
     }
 
-    public void TurnCycleInvoke() //generates event that triggers turncycle
+    public void TurnCycleInvoke() //generates event that triggers the turn cycle
     {
         if (TurnEnded != null)
         {
@@ -297,10 +288,9 @@ public class CellGrid : MonoBehaviour
 
         if (turnOrderPlayerNumbers[lastUnit] != lastPlayer)
         {
-            Players[turnOrderPlayerNumbers[turnIndex%turnOrder.Length]].Play(this);
+            Players[turnOrderPlayerNumbers[turnIndex%turnOrder.Length]].Play(this); //initiating the next unit that will move
         }
         TurnCycleInvoke();
     }
-    //Transform cameraMove = Camera.main.gameObject.transform;
 
 }

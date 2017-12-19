@@ -98,7 +98,7 @@ class CellGridStateUnitSelected : CellGridState
         }
     }
 
-    public override void OnStateEnter()
+    public override void OnStateEnter() //beginning of a unit's turn
     {
 
         base.OnStateEnter();
