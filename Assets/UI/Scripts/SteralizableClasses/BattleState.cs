@@ -8,6 +8,7 @@ public class BattleState{
 
 
 	public static BattleState current;
+    public bool finalBattle = false;
 	public HeroStats Kroner;
 	public HeroStats Lee;
 	public HeroStats Alexei;
