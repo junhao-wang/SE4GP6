@@ -16,7 +16,6 @@ public class RandomObstacleGenerator : MonoBehaviour
 
     public void Start()
     {
-        print("random ex1 spawn");
         StartCoroutine(SpawnObstacles());
     }
 

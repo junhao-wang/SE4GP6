@@ -10,5 +10,4 @@ public class Tiles : Assets
     //public string name;
     public int sprite;
     public string spriteSheet;
-    public int movement;
 }

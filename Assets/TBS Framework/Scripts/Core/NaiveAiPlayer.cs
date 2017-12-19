@@ -21,7 +21,7 @@ public class NaiveAiPlayer : Player
         cellGrid.CellGridState = new CellGridStateAiTurn(cellGrid);
         _cellGrid = cellGrid;
 
-        StartCoroutine(Play()); //Coroutine is necessary to allow Unity to run updates on other objects (like UI).
+        //StartCoroutine(Play()); //Coroutine is necessary to allow Unity to run updates on other objects (like UI).
                                 //Implementing this with threads would require a lot of modifications in other classes, as Unity API is not thread safe.
     }
     public void SinglePlay(CellGrid cellGrid, Unit unit)
@@ -32,6 +32,7 @@ public class NaiveAiPlayer : Player
         StartCoroutine(SinglePlay(unit)); //Coroutine is necessary to allow Unity to run updates on other objects (like UI).
                                 //Implementing this with threads would require a lot of modifications in other classes, as Unity API is not thread safe.
     }
+    /*
     private IEnumerator Play()
     {
         var myUnits = _cellGrid.Units.FindAll(u => u.PlayerNumber.Equals(PlayerNumber)).ToList();
@@ -49,7 +50,7 @@ public class NaiveAiPlayer : Player
             if (unitsInRange.Count != 0)
             {
                 var index = _rnd.Next(0, unitsInRange.Count);
-                unit.DealDamage(unitsInRange[index]);
+                unit.DealDamage(unitsInRange[index], true, false);
                 yield return new WaitForSeconds(0.5f);
                 continue;
             }//If there is an enemy in range, attack it.
@@ -111,14 +112,14 @@ public class NaiveAiPlayer : Player
                 var enemyCell = enemyUnit.Cell;
                 if (unit.IsUnitAttackable(enemyUnit,unit.Cell))
                 { 
-                    unit.DealDamage(enemyUnit);
+                    unit.DealDamage(enemyUnit, true, false);
                     yield return new WaitForSeconds(0.5f);
                     break;
                 }
             }//Look for enemies in range and attack.
         }    
         _cellGrid.EndTurn();     
-    }
+    }*/
 
     private IEnumerator SinglePlay(Unit unit) //runs a single turn of an AI Unit
     {
@@ -134,10 +135,20 @@ public class NaiveAiPlayer : Player
                     unitsInRange.Add(enemyUnit);
                 }
             }//Looking for enemies that are in attack range.
-        if (unitsInRange.Count != 0)//If there is an enemy in range, attack it.
+        if (unitsInRange.Count != 0 && unit.ActionPoints > 0)//If there is an enemy in range, attack it.
         {
             var index = _rnd.Next(0, unitsInRange.Count);
-            unit.DealDamage(unitsInRange[index]);
+            if(unitsInRange[index].Armor > unit.AttackFactor/2)
+            {
+                unit.DealDamage(unitsInRange[index], false, false);
+                unit.ActionPoints -= 1;
+            }
+            else
+            {
+                unit.DealDamage(unitsInRange[index], true, false);
+                unit.ActionPoints -= 1;
+            }
+            
             yield return new WaitForSeconds(0.5f);
             //continue;
         }
@@ -198,11 +209,25 @@ public class NaiveAiPlayer : Player
             foreach (var enemyUnit in enemyUnits)
             {
                 var enemyCell = enemyUnit.Cell;
-                if (unit.IsUnitAttackable(enemyUnit, unit.Cell))
+                if (unit.IsUnitAttackable(enemyUnit, unit.Cell) && unit.ActionPoints >0)
                 {
-                    unit.DealDamage(enemyUnit);
-                    yield return new WaitForSeconds(0.5f);
-                    break;
+                    var index = _rnd.Next(0, unitsInRange.Count);
+                    if (enemyUnit.Armor > unit.AttackFactor / 2)
+                    {
+                        unit.DealDamage(enemyUnit, false, false);
+                        unit.ActionPoints -= 1;
+                        yield return new WaitForSeconds(0.5f);
+                        break;
+                    }
+                    else
+                    {
+                        unit.DealDamage(enemyUnit, true, false);
+                        unit.ActionPoints -= 1;
+                        yield return new WaitForSeconds(0.5f);
+                        break;
+                    }
+                    
+                    
                 }
             }//Look for enemies in range and attack.
         }
