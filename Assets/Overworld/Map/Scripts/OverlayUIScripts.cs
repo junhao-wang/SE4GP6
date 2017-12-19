@@ -8,6 +8,7 @@ public class OverlayUIScripts : MonoBehaviour {
     public GameObject PartyStats,ChangePopUp;
     public PartyProperties pProp;
     public GameObject LooseScreen;
+    public GameObject WinScreen;
 	// Use this for initialization
 	void Start () {
         GameObject Party = GameObject.FindWithTag("Overworld Party");
