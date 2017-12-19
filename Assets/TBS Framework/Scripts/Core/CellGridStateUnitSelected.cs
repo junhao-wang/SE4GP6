@@ -11,7 +11,7 @@ class CellGridStateUnitSelected : CellGridState
     private Unit _unit { get; set; }
     private List<Cell> _pathsInRange;
     private List<Unit> _unitsInRange;
-
+    public Boolean firstTurn = true;
     private Cell _unitCell;
 
 
@@ -91,6 +91,13 @@ class CellGridStateUnitSelected : CellGridState
     public override void OnCellSelected(Cell cell)
     {
         base.OnCellSelected(cell);
+
+        if (firstTurn == true)
+        {
+            _pathsInRange = _unit.GetAvailableDestinations(_cellGrid.Cells);
+            var cellsNotInRange = _cellGrid.Cells.Except(_pathsInRange);
+            firstTurn = false;
+        }
         if (!_pathsInRange.Contains(cell)) return;
         var path = _unit.FindPath(_cellGrid.Cells, cell);
         foreach (var _cell in path)
@@ -101,14 +108,14 @@ class CellGridStateUnitSelected : CellGridState
 
     public override void OnStateEnter()
     {
-        base.OnStateEnter();
 
+        base.OnStateEnter();
+        
         _unit.OnUnitSelected();
         _unitCell = _unit.Cell;
 
         _pathsInRange = _unit.GetAvailableDestinations(_cellGrid.Cells);
         var cellsNotInRange = _cellGrid.Cells.Except(_pathsInRange);
-
         foreach (var cell in cellsNotInRange)
         {
             cell.UnMark();

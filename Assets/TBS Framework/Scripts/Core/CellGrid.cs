@@ -107,8 +107,10 @@ public class CellGrid : MonoBehaviour
         if(Players.Count <=1)
         {
             isGameOver = true;
+
         }      
         OrderSpeed();
+
 
         StartGame();
     }
