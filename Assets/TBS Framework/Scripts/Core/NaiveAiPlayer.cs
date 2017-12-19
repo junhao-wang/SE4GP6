@@ -121,7 +121,7 @@ public class NaiveAiPlayer : Player
         _cellGrid.EndTurn();     
     }*/
 
-    private IEnumerator SinglePlay(Unit unit)
+    private IEnumerator SinglePlay(Unit unit) //runs a single turn of an AI Unit
     {
         var myUnits = _cellGrid.Units.FindAll(u => u.PlayerNumber.Equals(PlayerNumber)).ToList();
 

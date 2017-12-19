@@ -103,12 +103,11 @@ public class CellGrid : MonoBehaviour
         {
             Debug.LogError("No IUnitGenerator script attached to cell grid");
         }
-            
-        if(Players.Count <=1)
+
+        if (Players.Count <= 1)
         {
             isGameOver = true;
-
-        }      
+        }    
         OrderSpeed();
 
 
@@ -149,7 +148,9 @@ public class CellGrid : MonoBehaviour
     private void OnUnitDestroyed(object sender, AttackEventArgs e)
     {
         Units.Remove(sender as Unit);
+
         unitTurnOrder.Remove(sender as Unit);
+
 
         var totalPlayersAlive = Units.Select(u => u.PlayerNumber).Distinct().ToList(); //Checking if the game is over
         if (totalPlayersAlive.Count == 1)
@@ -195,10 +196,10 @@ public class CellGrid : MonoBehaviour
             GameStarted.Invoke(this, new EventArgs());
 
         CurrentPlayer.isPlaying = true;
-
         
         TurnEnded += TurnCycle;
         Players[unitTurnOrder[0].PlayerNumber].Play(this);
+
         TurnCycleInvoke();
 
     }
@@ -206,13 +207,15 @@ public class CellGrid : MonoBehaviour
     /// Method makes turn transitions. It is called by player at the end of his turn.
     /// </summary>
 
-    public void TurnCycle(object sender, System.EventArgs e)//code for 1 turn
+    public void TurnCycle(object sender, System.EventArgs e)//code for a single turn of a unit
     {
+
         Unit shifted = unitTurnOrder[0];
         unitTurnOrder.RemoveAt(0);
         unitTurnOrder.Add(shifted);
 
         unitTurnOrder[0].OnTurnStart();
+
 
         if(unitTurnOrder[0].PlayerNumber == 0)
         {
@@ -225,7 +228,7 @@ public class CellGrid : MonoBehaviour
         }
     }
 
-    public void TurnCycleInvoke() //generates event that triggers turncycle
+    public void TurnCycleInvoke() //generates event that triggers the turn cycle
     {
         if (TurnEnded != null)
         {
@@ -235,6 +238,7 @@ public class CellGrid : MonoBehaviour
 
     public void EndTurn() //goes to next unit's turn.
     {
+
         unitTurnOrder[0].OnTurnEnd();
         
         TurnCycleInvoke();
