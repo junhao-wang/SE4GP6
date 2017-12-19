@@ -129,14 +129,17 @@ public class NodeProperties : MonoBehaviour {
         {
             NodeEvent = EventType.NONE;
             GameObject MController = GameObject.Find("MapController");
-            if(gameObject == MController.GetComponent<MapProperties>().Nodes[MController.GetComponent<MapProperties>().Nodes.Count - 1])
+            Party.GetComponent<PartyProperties>().battleState.enemyID = Random.Range(1,6);
+            if (gameObject == MController.GetComponent<MapProperties>().Nodes[MController.GetComponent<MapProperties>().Nodes.Count - 1])
             {
                 Party.GetComponent<PartyProperties>().battleState.finalBattle = true;
+                Party.GetComponent<PartyProperties>().battleState.enemyID = 6;
                 GameObject WinScreen = GameObject.FindWithTag("Overworld Canvas").GetComponent<OverlayUIScripts>().WinScreen;
 
                 WinScreen.SetActive(true);
                 GameObject.FindWithTag("Overworld Canvas").GetComponent<MapProperties>().defeat();
             }
+            
             SavedLoad.savedHeroStats = Party.GetComponent<PartyProperties>().battleState;
             SavedLoad.Write();
 
