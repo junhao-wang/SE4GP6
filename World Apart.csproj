@@ -199,11 +199,17 @@
     <Reference Include="UnityEngine.Timeline">
       <HintPath>Library\UnityAssemblies\UnityEngine.Timeline.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UIAutomation">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UIAutomation.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GoogleAudioSpatializer">
+      <HintPath>Library\UnityAssemblies\UnityEngine.GoogleAudioSpatializer.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.HoloLens">
       <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Advertisements">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
+    <Reference Include="UnityEngine.SpatialTracking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
@@ -231,6 +237,9 @@
     <Compile Include="Assets\Combat\Scripts\ObstacleLayout.cs" />
     <Compile Include="Assets\Combat\Scripts\ObstacleList.cs" />
     <Compile Include="Assets\Combat\Scripts\TileList.cs" />
+    <Compile Include="Assets\Overworld\DialogueScripts\Dialogue.cs" />
+    <Compile Include="Assets\Overworld\DialogueScripts\DialogueControl.cs" />
+    <Compile Include="Assets\Overworld\DialogueScripts\DialogueSet.cs" />
     <Compile Include="Assets\Overworld\Map\Scripts\CameraScroll.cs" />
     <Compile Include="Assets\Overworld\Map\Scripts\MapGenerator.cs" />
     <Compile Include="Assets\Overworld\Map\Scripts\MapProperties.cs" />
@@ -244,10 +253,7 @@
     <Compile Include="Assets\Overworld\Map\Scripts\TileProperties.cs" />
     <Compile Include="Assets\Overworld\Map\Tests\MapTests.cs" />
     <Compile Include="Assets\Overworld\Map\Tests\SystemTest.cs" />
-    <Compile Include="Assets\Overworld\Scripts\Dialogue.cs" />
-    <Compile Include="Assets\Overworld\Scripts\DialogueControl.cs" />
     <Compile Include="Assets\Overworld\Scripts\DialogueGroup.cs" />
-    <Compile Include="Assets\Overworld\Scripts\DialogueSet.cs" />
     <Compile Include="Assets\Resources\AssetDemo\MusicLoader.cs" />
     <Compile Include="Assets\Resources\AssetDemo\PanelSwap.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Core\AStarPathfinding.cs" />
