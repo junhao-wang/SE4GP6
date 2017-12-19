@@ -84,7 +84,7 @@
     "level": 7
   },
   {
-    "name": "robot",
+    "name": "Robot",
     "spriteSheet": "CombatSprites/Robot",
     "sprite": 0,
     "realName":  "Security Bot",

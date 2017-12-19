@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class NextGuiController : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class NextGuiController : MonoBehaviour
         turnOrderPortraits[3] = Canvas.transform.Find("TurnOrder").Find("Frame3").gameObject;
         turnOrderPortraits[4] = Canvas.transform.Find("TurnOrder").Find("Frame4").gameObject;
         turnOrderPortraits[5] = Canvas.transform.Find("TurnOrder").Find("Frame5").gameObject;
-
+        GameOverPanel.SetActive(false);
         canvasTransform = Canvas.GetComponent<RectTransform>();
         CellGrid.GameStarted += OnGameStarted;
         CellGrid.TurnEnded += OnTurnEnded;
@@ -120,12 +121,12 @@ public class NextGuiController : MonoBehaviour
     //When game ends, open the end screen
     private void OnGameEnded(object sender, EventArgs e)
     {
-        _gameOverPanel = Instantiate(GameOverPanel);
-        _gameOverPanel.transform.Find("InfoText").GetComponent<Text>().text = "Player " + ((sender as CellGrid).CurrentPlayerNumber + 1) + "\nwins!";
-        
-        _gameOverPanel.transform.Find("DismissButton").GetComponent<Button>().onClick.AddListener(DismissPanel);
- 
-        _gameOverPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(), false);
+        GameOverPanel.SetActive(true);
+        GameOverPanel.transform.Find("InfoText").GetComponent<Text>().text = "Player " + ((sender as CellGrid).CurrentPlayerNumber + 1) + "\nwins!";
+
+        GameOverPanel.transform.Find("DismissButton").GetComponent<Button>().onClick.AddListener(DismissPanel);
+
+        GameOverPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(), false);
 
     }
 
@@ -233,6 +234,19 @@ public class NextGuiController : MonoBehaviour
         {
             turnOrderPortraits[i].transform.Find("Portrait").GetComponent<Image>().sprite = CellGrid.unitTurnOrder[((i+1)% CellGrid.unitTurnOrder.Count)].transform.Find("Sprite").GetComponent<SpriteRenderer>().sprite;
         }
+    }
+
+    public void DismissCombat()
+    {
+        if(UnitsParent.transform.GetChild(0).GetComponent<Unit>().PlayerNumber == 0)
+        {
+            SceneManager.LoadScene("Map");
+        }
+        else
+        {
+            SceneManager.LoadScene("menu");
+        }
+        
     }
 
 }

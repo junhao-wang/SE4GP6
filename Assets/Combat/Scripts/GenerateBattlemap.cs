@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GenerateBattlemap : MonoBehaviour {
 
-    private RectangularSquareGridGenerator gridGen = new RectangularSquareGridGenerator();
+    private RectangularSquareGridGenerator gridGen;
     private Transform cellsParent;
     public Transform ObstaclesParent;
     public Transform UnitParent;
@@ -46,6 +46,7 @@ public class GenerateBattlemap : MonoBehaviour {
     //initialize map
     private void Awake()
     {
+        gridGen = new RectangularSquareGridGenerator();
         cellsParent = transform;
         squarePrefab = Resources.Load("Prefabs/SquareTile", typeof(GameObject)) as GameObject;
 
