@@ -7,7 +7,7 @@ public class DialogueControl : MonoBehaviour {
     DialogueSet currentDialogue;
     public GameObject Party;
 
-    int dialogueIndex = 0;
+    int dialogueIndex = 11;
     int lineIndex = 0;
 
     GameObject dialogueParent;
@@ -30,7 +30,7 @@ public class DialogueControl : MonoBehaviour {
         nameText = dialogueParent.transform.Find("DialogueBox").Find("Name").GetComponent<Text>();
         dialogueImageLeft = dialogueParent.transform.Find("LeftDialogue").GetComponent<Image>();
         dialogueImageRight = dialogueParent.transform.Find("RightDialogue").GetComponent<Image>();
-        //startDialogue(1);
+        startDialogue(11);
     }
 	
 	// Update is called once per frame
