@@ -192,7 +192,7 @@ public class NodeProperties : MonoBehaviour {
                 }
                 else
                 {
-                    gameObject.GetComponent<SpriteRenderer>().color = NoEvent;
+                    gameObject.GetComponent<SpriteRenderer>().color = ResourceEvent;
                 }
                 break;
         }

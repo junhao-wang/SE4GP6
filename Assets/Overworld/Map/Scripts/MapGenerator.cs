@@ -98,6 +98,7 @@ public class MapGenerator : MonoBehaviour {
                 dSets.Add(nDChain);
             }
         }
+        dSets.RemoveAt(0);//removes intro scene from list of dialogues
 
 
         //now we generate a list of narrativecore nodes
