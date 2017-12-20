@@ -46,15 +46,20 @@ public class CellGrid : MonoBehaviour
     public List<Unit> Units { get; private set; }
     public object PlayerNumber { get; private set; }
 
-    public int[] turnOrder;
-    public int[] turnOrderPlayerNumbers;
+    public List<Unit> unitTurnOrder = new List<Unit>();
+
+    public List<int> turnOrder = new List<int>();
+    public List<int> turnOrderPlayerNumbers;
     public int turnIndex = 0;
     public List<Unit>myUnits;
     public int lastPlayer; //ai or player
 
+    /// <summary>
+    /// this will initialize the map for the combat scene of the game.
+    /// </summary>
     void Start()
     {
-        
+        //initiatlizes human and AI players
         Players = new List<Player>();
         for (int i = 0; i < PlayersParent.childCount; i++)
         {
@@ -65,11 +70,10 @@ public class CellGrid : MonoBehaviour
                 Debug.LogError("Invalid object in Players Parent game object");
         }
         NumberOfPlayers = Players.Count;
-        int[] speed; //list of speeds of each unit to be used later
 
         CurrentPlayerNumber = Players.Min(p => p.PlayerNumber);
         
-
+        //initializes each cell of the map
         Cells = new List<Cell>();
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -87,63 +91,44 @@ public class CellGrid : MonoBehaviour
             cell.CellDehighlighted += OnCellDehighlighted;
         }
              
+        //initializes the units of the current scene
         var unitGenerator = GetComponent<IUnitGenerator>();
         if (unitGenerator != null)
         {
             Units = unitGenerator.SpawnUnits(Cells);
-            speed = new int[Units.Count];
 
-            turnOrder = new int[Units.Count];
-            for (int i = 0; i < Units.Count; i++)
-            {
-                turnOrder[i] = i; //default before sorting
-            }
-
-            int stemp = 0;
             foreach (var unit in Units)
             {
-                speed[stemp] = unit.Speed;
                 unit.UnitClicked += OnUnitClicked;
                 unit.UnitDestroyed += OnUnitDestroyed;
-                stemp++;
             }
         }
         else
         {
             Debug.LogError("No IUnitGenerator script attached to cell grid");
-            speed= new int[] { 0 };
         }
-            
-        if(Players.Count <=1)
+
+        if (Players.Count <= 1)
         {
             isGameOver = true;
-        }
-        bool ttemp = true;
+        }    
+        OrderSpeed();
 
-        while (ttemp) //sort turn orders
-        {
-            ttemp = false;
-            for (int i =1; i < speed.Length; i++)
-            {
-                if(speed[i] > speed[i - 1])
-                {
-                    ttemp = true;
-                    speed[i] += speed[i - 1];
-                    speed[i - 1] = speed[i] - speed[i - 1];
-                    speed[i] = speed[i] - speed[i - 1];
-
-                    turnOrder[i] += turnOrder[i - 1];
-                    turnOrder[i - 1] = turnOrder[i] - turnOrder[i - 1];
-                    turnOrder[i] = turnOrder[i] - turnOrder[i - 1];
-                    
-                }
-            }
-        }
-        
 
         StartGame();
     }
+    /// <summary>
+    /// orders the units by their speed parameter. Will be used to determine the turn order
+    /// </summary>
+    void OrderSpeed()
+    {
+        unitTurnOrder = Units.OrderBy(o => -o.Speed).ToList();
+        Unit shifted = unitTurnOrder[unitTurnOrder.Count-1];
+        unitTurnOrder.RemoveAt(unitTurnOrder.Count -1);
+        unitTurnOrder.Insert(0, shifted);
+    }
 
+    //the following are potential actions that can be triggered
     private void OnCellDehighlighted(object sender, EventArgs e)
     {
         CellGridState.OnCellDeselected(sender as Cell);
@@ -165,62 +150,17 @@ public class CellGrid : MonoBehaviour
         {
         }
         else { CellGridState.OnUnitClicked(sender as Unit); }
-          
-
     }
+
+    /// <summary>
+    /// removes destroyed units from the game
+    /// </summary>
     private void OnUnitDestroyed(object sender, AttackEventArgs e)
     {
-        int k = 0; //which unit index is dead
-        for(int i =0; i < Units.Count(); i++)
-        {
-            if (sender.Equals(Units[i]))
-            {
-                k = i;
-                print("value of k is " + k.ToString());
-                print(Units[i].name);
-            }
-        }
         Units.Remove(sender as Unit);
 
-        int newSize = turnOrder.Length - 1; //resizing turnOrder and turnOrderPlayerNumbers
-        int[] tempArray = new int[newSize];
+        unitTurnOrder.Remove(sender as Unit);
 
-        int j = 0;
-        int l = 0;
-        for (int i = 0; i < newSize; i++)
-        {
-            if (turnOrder[i] != (k))
-            {
-                tempArray[i] = turnOrder[i + j];
-            }
-            else
-            {
-                j++;
-                l = i;
-                print("removing: " + i.ToString());
-            }
-        }
-        turnOrder = tempArray;
-        
-
-        j = 0;
-        for (int i = 0; i < newSize; i++)
-        {
-            if (i != (l ))
-            {
-                tempArray[i] = turnOrderPlayerNumbers[i + j];
-            }
-            else j++;
-        }
-        turnOrderPlayerNumbers = tempArray;
-        foreach (var unit in turnOrder)
-        {
-            print("turnOrder left: " + unit.ToString());
-        }
-        foreach (var unit in turnOrderPlayerNumbers)
-        {
-            print("PlayerNumbers left: " + unit.ToString());
-        }
 
         var totalPlayersAlive = Units.Select(u => u.PlayerNumber).Distinct().ToList(); //Checking if the game is over
         if (totalPlayersAlive.Count == 1)
@@ -230,10 +170,33 @@ public class CellGrid : MonoBehaviour
                 GameEnded.Invoke(this, new EventArgs());
                 isGameOver = true;
             }
-                
         }
     }
-    
+
+    public void AttackHealth()
+    {
+        print("Attacking Health...");
+        _cellGridState.isAttacking = true;
+        _cellGridState.attackingHealth = true;
+        
+    }
+
+    public void AttackArmor()
+    {
+        print("Attacking Armor...");
+        _cellGridState.isAttacking = true;
+        _cellGridState.attackingHealth = false;
+    }
+
+    public void ShootGun()
+    {
+        
+        _cellGridState.isAttacking = true;
+        _cellGridState.attackingHealth = true;
+        _cellGridState.isTrueDamage = true;
+        _cellGridState.usingGun = true;
+    }
+
     /// <summary>
     /// Method is called once, at the beggining of the game.
     /// </summary>
@@ -242,19 +205,11 @@ public class CellGrid : MonoBehaviour
         if(GameStarted != null)
             GameStarted.Invoke(this, new EventArgs());
 
-        //Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).ForEach(u => { u.OnTurnStart(); });
-        //Players.Find(p => p.PlayerNumber.Equals(CurrentPlayerNumber)).Play(this);
         CurrentPlayer.isPlaying = true;
-
-        turnOrderPlayerNumbers = new int[turnOrder.Length];
-
-        for (int i= 0; i < turnOrderPlayerNumbers.Length; i++)
-        {
-            turnOrderPlayerNumbers[i] = Units[turnOrder[i]].PlayerNumber; //list of whether or not unit is ai 
-        }
-        lastPlayer = turnOrderPlayerNumbers[0];
+        
         TurnEnded += TurnCycle;
-        Players[turnOrderPlayerNumbers[turnIndex]].Play(this);
+        Players[unitTurnOrder[0].PlayerNumber].Play(this);
+
         TurnCycleInvoke();
 
     }
@@ -262,72 +217,45 @@ public class CellGrid : MonoBehaviour
     /// Method makes turn transitions. It is called by player at the end of his turn.
     /// </summary>
 
-    public void TurnCycle(object sender, System.EventArgs e)//code for 1 turn
+    public void TurnCycle(object sender, System.EventArgs e)//code for a single turn of a unit
     {
-        turnIndex = turnIndex % turnOrder.Length;
-        Units[turnOrder[turnIndex]].OnTurnStart();
-        print("turnIndex " + turnIndex.ToString());
-        print("turnOrderPlayerNumber " + turnOrderPlayerNumbers[turnIndex].ToString());
-        print("Selected unit " + Units[turnOrder[turnIndex]].name);
 
-        if (turnOrderPlayerNumbers[turnIndex] == 0) //check if player or ai's turn
-            {
-                
-                CellGridState.OnUnitClicked(Units[turnOrder[turnIndex]]);
-                turnIndex++;
-                
-            }
-       else
-            {
-                Players[1].GetComponent<NaiveAiPlayer>().SinglePlay(this, Units[turnOrder[turnIndex]]);
-                turnIndex++;
-            }
+        Unit shifted = unitTurnOrder[0];
+        unitTurnOrder.RemoveAt(0);
+        unitTurnOrder.Add(shifted);
 
+        unitTurnOrder[0].OnTurnStart();
+
+
+        if(unitTurnOrder[0].PlayerNumber == 0)
+        {
+            Players[0].Play(this);
+            CellGridState.OnUnitClicked(unitTurnOrder[0]);
+        }
+        else
+        {
+            Players[1].GetComponent<NaiveAiPlayer>().SinglePlay(this, unitTurnOrder[0]);
+        }
     }
 
-    public void TurnCycleInvoke() //generates event that triggers turncycle
+    public void TurnCycleInvoke() //generates event that triggers the turn cycle
     {
         if (TurnEnded != null)
         {
             TurnEnded(this, new EventArgs());
         }
     }
-    /*public void EndTurn()
-    {
-        if (Units.Select(u => u.PlayerNumber).Distinct().Count() == 1)
-        {
-            return;
-        }
-        CellGridState = new CellGridStateTurnChanging(this);
 
-        Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).ForEach(u => { u.OnTurnEnd(); });
-
-        CurrentPlayerNumber = (CurrentPlayerNumber + 1) % NumberOfPlayers;
-        while (Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).Count == 0)
-        {
-            CurrentPlayerNumber = (CurrentPlayerNumber + 1)%NumberOfPlayers;
-        }//Skipping players that are defeated.
-        CurrentPlayer.isPlaying = false;
-        if (TurnEnded != null)
-            TurnEnded.Invoke(this, new EventArgs());
-        
-        Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).ForEach(u => { u.OnTurnStart(); });
-        Players.Find(p => p.PlayerNumber.Equals(CurrentPlayerNumber)).Play(this);     
-        CurrentPlayer.isPlaying = true;
-    }*/
-    public void EndTurn() //goes to next unit's turn.
+    public void EndTurn() //goes to next unit's turn
     {
-        int lastUnit = (turnIndex - 1) % turnOrder.Length;
-        //Units[turnOrder[turnIndex]].SetState(new UnitStateMarkedAsFinished(Units[turnOrder[turnIndex]]));
-        Units[turnOrder[lastUnit]].OnTurnEnd();
-        /*if (CellDehighlighted != null)
-            CellDehighlighted.Invoke(this, new EventArgs());*/
-        if (turnOrderPlayerNumbers[lastUnit] != lastPlayer)
+
+        unitTurnOrder[0].OnTurnEnd();
+        var totalPlayersAlive = Units.Select(u => u.PlayerNumber).Distinct().ToList(); //Checking if the game is over
+        if (totalPlayersAlive.Count != 1)
         {
-            Players[turnOrderPlayerNumbers[turnIndex%turnOrder.Length]].Play(this);
+
+            TurnCycleInvoke();
         }
-        TurnCycleInvoke();
+
     }
-    //Transform cameraMove = Camera.main.gameObject.transform;
-
 }

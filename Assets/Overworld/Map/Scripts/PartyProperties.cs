@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+
 public class PartyProperties : MonoBehaviour {
+    public static GameObject _instance;
     public GameObject OccupiedNode;
     public GameObject Canvas;
     public List<GameObject> path;
+    public List<int> CompletedDialogue = new List<int>();
     public bool inDialogue = false;
     public float initialMoney = 15, initialSupply = 15;
     public enum ResourceType {MONEY,SUPPLY ,SIZE};
@@ -19,9 +21,21 @@ public class PartyProperties : MonoBehaviour {
         Resources[(int)ResourceType.SUPPLY] = initialSupply;
         DontDestroyOnLoad(transform.gameObject);
     }
-	
-	// Update is called once per frame
-	void Update () {
+    void Awake()
+    {
+        //if we don't have an [_instance] set yet
+        if (!_instance)
+            _instance = transform.gameObject;
+        //otherwise, if we do, kill this thing
+        else
+            Destroy(transform.gameObject);
+
+
+        DontDestroyOnLoad(transform.gameObject);
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
@@ -46,6 +60,7 @@ public class PartyProperties : MonoBehaviour {
     public void ModResource(ResourceType t, float amt)
     {
         Resources[(int)t] += amt;
+        GameObject Canvas = GameObject.FindWithTag("Overworld Canvas");
         Canvas.GetComponent<OverlayUIScripts>().UpdatePartyStats();
     } 
 

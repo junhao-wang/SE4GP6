@@ -38,6 +38,8 @@ public abstract class Unit : MonoBehaviour
 
     public List<Buff> Buffs { get; private set; }
 
+    public int Armor = 10;
+    public int TotalArmor { get; set; }
     public int TotalHitPoints { get; private set; }
     protected int TotalMovementPoints;
     protected int TotalActionPoints;
@@ -50,6 +52,8 @@ public abstract class Unit : MonoBehaviour
     public int HitPoints;
     public int AttackRange;
     public int AttackFactor;
+    public int basicAttack;
+    public int gunAttack = 5;
     public int DefenceFactor;
     public int Speed;
     /// <summary>
@@ -85,10 +89,11 @@ public abstract class Unit : MonoBehaviour
         Buffs = new List<Buff>();
 
         UnitState = new UnitStateNormal(this);
-
+        TotalArmor = Armor;
         TotalHitPoints = HitPoints;
         TotalMovementPoints = MovementPoints;
         TotalActionPoints = ActionPoints;
+        basicAttack = AttackFactor;
     }
 
     protected virtual void OnMouseDown()
@@ -114,7 +119,10 @@ public abstract class Unit : MonoBehaviour
     {
         MovementPoints = TotalMovementPoints;
         ActionPoints = TotalActionPoints;
-
+        if ((float)TotalHitPoints/HitPoints >= 2)
+        {
+            AttackFactor = basicAttack/2;
+        }
         SetState(new UnitStateMarkedAsFriendly(this));
     }
     /// <summary>
@@ -170,7 +178,7 @@ public abstract class Unit : MonoBehaviour
     /// <summary>
     /// Method deals damage to unit given as parameter.
     /// </summary>
-    public virtual void DealDamage(Unit other)
+    public virtual void DealDamage(Unit other, bool isHp, bool isTrueDamage)
     {
         print("deal Damage branch: ");
         if (isMoving)
@@ -193,7 +201,7 @@ public abstract class Unit : MonoBehaviour
         print("attacked");
         MarkAsAttacking(other);
         ActionPoints--;
-        other.Defend(this, AttackFactor);
+        other.Defend(this, AttackFactor, isHp, isTrueDamage);
         print("actionpoints after attack:" + ActionPoints.ToString());
         if (ActionPoints == 0)
         {
@@ -202,9 +210,16 @@ public abstract class Unit : MonoBehaviour
         }  
     }
 
-    public virtual void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount, bool isHp)
     {
-        HitPoints -= amount;
+        if(isHp)
+        {
+            HitPoints -= amount;
+        }
+        else
+        {
+            Armor -= amount;
+        }
         if (HitPoints <= 0)
         {
             if (UnitDestroyed != null)
@@ -215,11 +230,32 @@ public abstract class Unit : MonoBehaviour
     /// <summary>
     /// Attacking unit calls Defend method on defending unit. 
     /// </summary>
-    protected virtual void Defend(Unit other, int damage)
+    protected virtual void Defend(Unit other, int damage, bool isHp, bool isTrueDamage)
     {
         MarkAsDefending(other);
-        HitPoints -= Mathf.Clamp(damage - DefenceFactor, 1, damage);  //Damage is calculated by subtracting attack factor of attacker and defence factor of defender. If result is below 1, it is set to 1.
-                                                                      //This behaviour can be overridden in derived classes.
+        if(isHp)
+        {
+            if (isTrueDamage)
+            {
+                HitPoints -= damage;
+            }
+            else
+            {
+                
+                HitPoints -= Mathf.Clamp(damage - Armor, 1, damage); //Damage is calculated by subtracting attack factor of attacker and defence factor of defender. If result is below 1, it is set to 1.
+                                                                     //This behaviour can be overridden in derived classes.
+            }
+
+        }
+        else
+        {
+            Armor -= damage;
+            if (Armor < 0)
+            {
+                Armor = 0;
+            }
+        }
+
         if (UnitAttacked != null)
             UnitAttacked.Invoke(this, new AttackEventArgs(other, this, damage));
 
@@ -263,7 +299,7 @@ public abstract class Unit : MonoBehaviour
         {
             while (new Vector2(transform.position.x,transform.position.y) != new Vector2(cell.transform.position.x,cell.transform.position.y))
             {
-                transform.position = Vector3.MoveTowards(transform.position, new Vector3(cell.transform.position.x,cell.transform.position.y,transform.position.z), Time.deltaTime * MovementSpeed);
+                transform.position = Vector3.MoveTowards(transform.position, new Vector3(cell.transform.position.x,cell.transform.position.y,transform.position.z), Time.deltaTime * 1.5f);
                 yield return 0;
             }
         }

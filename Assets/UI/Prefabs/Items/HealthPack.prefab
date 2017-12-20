@@ -40,8 +40,8 @@ GameObject:
   - component: {fileID: 114320763466493328}
   - component: {fileID: 114279906082405858}
   - component: {fileID: 114307045927203436}
-  - component: {fileID: 114540043991461128}
-  - component: {fileID: 114042492597411782}
+  - component: {fileID: 114317747180239734}
+  - component: {fileID: 114534414669751812}
   m_Layer: 5
   m_Name: HealthPack
   m_TagString: Untagged
@@ -67,18 +67,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114042492597411782
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1424296465940016}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28f7be2c2fcfbf34c88dfbb6a4bf222f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedItem: {fileID: 0}
 --- !u!114 &114069935830351138
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -183,7 +171,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 114540043991461128}
+      - m_Target: {fileID: 0}
         m_MethodName: set_enabled
         m_Mode: 6
         m_Arguments:
@@ -221,6 +209,18 @@ MonoBehaviour:
   cooldown: 0
   amount: 0
   character: {fileID: 0}
+--- !u!114 &114317747180239734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1424296465940016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31cf2d1c6932b924db40b7b9b8fb8b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedItem: {fileID: 0}
 --- !u!114 &114320763466493328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -260,15 +260,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelnum: 0
---- !u!114 &114540043991461128
+--- !u!114 &114534414669751812
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1424296465940016}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc6f2cb79db7f24d8fc3c13a690eb47, type: 3}
+  m_Script: {fileID: 11500000, guid: 04eb6bab91e70e04da88f56de3e0fd53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   display: {fileID: 0}
