@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 114940940863114116}
   - component: {fileID: 114783057529250492}
   - component: {fileID: 114417434844823278}
-  - component: {fileID: 114915842944266958}
-  - component: {fileID: 114155026307294726}
+  - component: {fileID: 114855453595210632}
+  - component: {fileID: 114929646864613398}
   m_Layer: 5
   m_Name: InventoryItem
   m_TagString: Untagged
@@ -94,18 +94,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114155026307294726
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1468566122776144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28f7be2c2fcfbf34c88dfbb6a4bf222f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectedItem: {fileID: 0}
 --- !u!114 &114322725380030150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -220,7 +208,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 114915842944266958}
+      - m_Target: {fileID: 0}
         m_MethodName: set_enabled
         m_Mode: 6
         m_Arguments:
@@ -233,7 +221,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114915842944266958
+--- !u!114 &114855453595210632
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -241,10 +229,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1468566122776144}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2dc6f2cb79db7f24d8fc3c13a690eb47, type: 3}
+  m_Script: {fileID: 11500000, guid: 04eb6bab91e70e04da88f56de3e0fd53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   display: {fileID: 0}
+--- !u!114 &114929646864613398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1468566122776144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31cf2d1c6932b924db40b7b9b8fb8b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedItem: {fileID: 0}
 --- !u!114 &114940940863114116
 MonoBehaviour:
   m_ObjectHideFlags: 1
