@@ -43,10 +43,13 @@ public class GenerateBattlemap : MonoBehaviour {
     private List<string> usedObstacles;
     private List<string> usedTiles;
 
+    BattleState battleState;
+
     //initialize map
     private void Awake()
     {
         gridGen = new RectangularSquareGridGenerator();
+        battleState = SavedLoad.Read();
         cellsParent = transform;
         squarePrefab = Resources.Load("Prefabs/SquareTile", typeof(GameObject)) as GameObject;
 
@@ -59,6 +62,7 @@ public class GenerateBattlemap : MonoBehaviour {
         PopulateTiles();
         PopulateObstacles();
         PopulateEnemies();
+        SetHeroStats();
     }
 
     //set grid height, width, and create the grid
@@ -83,15 +87,14 @@ public class GenerateBattlemap : MonoBehaviour {
         obsLayoutList = LoadObstacleLayout();
         enemyList = LoadEnemies();
         enemyLayoutList = LoadEnemyLayout();
-
-        int mapIndex = findElementOfName<Maps>(mapName, mapList);
+        int mapIndex = findElementOfName<Maps>(battleState.mapName, mapList);
 
         print("Map Index Found!");
 
         currentMap = mapList[mapIndex];
         int obstacleID = Random.Range((int)0, currentMap.obstaclePossible.Length);
         obstacleLayout = obsLayoutList[obstacleID];
-        enemyLayout = enemyLayoutList[enemyLayoutID];
+        enemyLayout = enemyLayoutList[battleState.enemyID-1];
 
         height = currentMap.height;
         width = currentMap.width;
@@ -318,11 +321,43 @@ public class GenerateBattlemap : MonoBehaviour {
             enemy.GetComponent<Unit>().AttackFactor = e.attack;
             enemy.GetComponent<Unit>().gunAttack = e.gun;
             enemy.GetComponent<Unit>().AttackRange = e.range;
-            enemy.GetComponent<Unit>().MovementSpeed = e.movement;
+            enemy.GetComponent<Unit>().MovementPoints = e.movement;
             enemy.GetComponent<Unit>().UnitName = e.name;
             enemy.GetComponent<Unit>().Speed = e.speed;
 
             enemy.GetComponent<Unit>().Initialize();
         }
+    }
+
+    void SetHeroStats()
+    {
+        Unit kroner = UnitParent.transform.Find("Kroner").GetComponent<Unit>();
+        Unit alexei = UnitParent.transform.Find("Alexei").GetComponent<Unit>();
+        Unit lee = UnitParent.transform.Find("Lee").GetComponent<Unit>();
+
+        lee.HitPoints = battleState.Lee.getHP();
+        lee.Armor = battleState.Lee.getArmour();
+        lee.AttackFactor = battleState.Lee.getAttack();
+        lee.gunAttack = battleState.Lee.getGunAttack();
+        lee.Speed = battleState.Lee.getSpeed();
+        lee.AttackRange = battleState.Lee.getRange();
+        lee.MovementPoints = battleState.Lee.getMoveRange();
+
+        kroner.HitPoints = battleState.Kroner.getHP();
+        kroner.Armor = battleState.Kroner.getArmour();
+        kroner.AttackFactor = battleState.Kroner.getAttack();
+        kroner.gunAttack = battleState.Kroner.getGunAttack();
+        kroner.Speed = battleState.Kroner.getSpeed();
+        kroner.AttackRange = battleState.Kroner.getRange();
+        kroner.MovementPoints = battleState.Kroner.getMoveRange();
+
+        alexei.HitPoints = battleState.Alexei.getHP();
+        alexei.Armor = battleState.Alexei.getArmour();
+        alexei.AttackFactor = battleState.Alexei.getAttack();
+        alexei.gunAttack = battleState.Alexei.getGunAttack();
+        alexei.Speed = battleState.Alexei.getSpeed();
+        alexei.AttackRange = battleState.Alexei.getRange();
+        alexei.MovementPoints = battleState.Alexei.getMoveRange();
+
     }
 }

@@ -328,6 +328,9 @@
     <Compile Include="Assets\UI\Scripts\MouseHover.cs" />
     <Compile Include="Assets\UI\Scripts\NextImage.cs" />
     <Compile Include="Assets\UI\Scripts\Selection.cs" />
+    <Compile Include="Assets\UI\Scripts\SteralizableClasses\BattleState.cs" />
+    <Compile Include="Assets\UI\Scripts\SteralizableClasses\HeroStats.cs" />
+    <Compile Include="Assets\UI\Scripts\SteralizableClasses\SavedLoad.cs" />
     <Compile Include="Assets\Utility\Scripts\AssetList.cs" />
   </ItemGroup>
   <ItemGroup>
