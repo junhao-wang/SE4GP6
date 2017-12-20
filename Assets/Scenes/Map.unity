@@ -620,6 +620,7 @@ MonoBehaviour:
   ChangePopUp: {fileID: 1635637072}
   pProp: {fileID: 0}
   LooseScreen: {fileID: 101240380}
+  WinScreen: {fileID: 1379518196}
 --- !u!1 &543216552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1454,7 +1455,7 @@ Prefab:
     - target: {fileID: 114789462490175950, guid: caa4606087a38a44d842c1c9d84b68ea,
         type: 2}
       propertyPath: initialSupply
-      value: 1
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: caa4606087a38a44d842c1c9d84b68ea, type: 2}
