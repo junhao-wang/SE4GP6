@@ -4,12 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ItemControl : MonoBehaviour {
 
-	public GameObject itemPanel;
 	public GameObject item;
 	private ItemLayout layout;
 	private bool trigger;
 	void Start(){
-		layout = itemPanel.GetComponent<ItemLayout> ();
+		layout = gameObject.GetComponent<ItemLayout> ();
 	}
 	void Update(){
 		//itemPanel.GetComponentsInChildren<
