@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class GenerateBattlemap : MonoBehaviour {
 
@@ -92,10 +93,9 @@ public class GenerateBattlemap : MonoBehaviour {
         print("Map Index Found!");
 
         currentMap = mapList[mapIndex];
-        int obstacleID = Random.Range((int)0, currentMap.obstaclePossible.Length);
+        int obstacleID = currentMap.obstaclePossible[Random.Range((int)0, currentMap.obstaclePossible.Length)];
         obstacleLayout = obsLayoutList[obstacleID];
         enemyLayout = enemyLayoutList[battleState.enemyID-1];
-
         height = currentMap.height;
         width = currentMap.width;
 
@@ -107,7 +107,7 @@ public class GenerateBattlemap : MonoBehaviour {
     //load obstacle json
     Obstacles[] LoadObstacles()
     {
-        string obs = System.IO.File.ReadAllText("Assets/Combat/Json/Obstacles.json");
+        string obs = System.IO.File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Obstacles.json"));
         Obstacles[] obsList = JsonHelper.getJsonArray<Obstacles>(obs);
         return obsList;
     }
@@ -115,7 +115,7 @@ public class GenerateBattlemap : MonoBehaviour {
     //load tiles json
     Tiles[] LoadTiles()
     {
-        string tiles = System.IO.File.ReadAllText("Assets/Combat/Json/Tiles.json");
+        string tiles = System.IO.File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Tiles.json"));
         Tiles[] tileList = JsonHelper.getJsonArray<Tiles>(tiles);
         return tileList;
     }
@@ -123,7 +123,7 @@ public class GenerateBattlemap : MonoBehaviour {
     //load map json
     Maps[] LoadMaps()
     {
-        string maps = System.IO.File.ReadAllText("Assets/Combat/Json/Maps.json");
+        string maps = System.IO.File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Maps.json"));
         Maps[] mapList = JsonHelper.getJsonArray<Maps>(maps);
         return mapList;
     }
@@ -131,7 +131,7 @@ public class GenerateBattlemap : MonoBehaviour {
     //load Obstacle Layout json
     ObstacleLayout[] LoadObstacleLayout()
     {
-        string obsLayout = System.IO.File.ReadAllText("Assets/Combat/Json/ObstacleLayout.json");
+        string obsLayout = System.IO.File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "ObstacleLayout.json"));
         ObstacleLayout[] layoutList = JsonHelper.getJsonArray<ObstacleLayout>(obsLayout);
         return layoutList;
     }
@@ -139,7 +139,7 @@ public class GenerateBattlemap : MonoBehaviour {
     //load Enemy json
     Enemy[] LoadEnemies()
     {
-        string enemies = System.IO.File.ReadAllText("Assets/Combat/Json/Enemies.json");
+        string enemies = System.IO.File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Enemies.json"));
         Enemy[] list = JsonHelper.getJsonArray<Enemy>(enemies);
         return list;
     }
@@ -147,7 +147,7 @@ public class GenerateBattlemap : MonoBehaviour {
     //load Enemy Layout json
     EnemyLayout[] LoadEnemyLayout()
     {
-        string enemies = System.IO.File.ReadAllText("Assets/Combat/Json/EnemyLayout.json");
+        string enemies = System.IO.File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "EnemyLayout.json"));
         EnemyLayout[] list = JsonHelper.getJsonArray<EnemyLayout>(enemies);
         return list;
     }

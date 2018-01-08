@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// CellGrid class keeps track of the game, stores cells, units and players objects. It starts the game and makes turn transitions. 
@@ -146,17 +147,21 @@ public class CellGrid : MonoBehaviour
 
     private void OnUnitClicked(object sender, EventArgs e)
     {
-        print("onunitclicked");
-        GenericUnit unit = sender as GenericUnit;
-        CellGridStateUnitSelected selected = CellGridState as CellGridStateUnitSelected;
-        if (unit.PlayerNumber == 0)
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-        }
-        else {
-            CellGridState.OnUnitClicked(sender as Unit);
-            if (!isActionDone && selected.IsUnitInRange(sender as Unit))
+
+            GenericUnit unit = sender as GenericUnit;
+            CellGridStateUnitSelected selected = CellGridState as CellGridStateUnitSelected;
+            if (unit.PlayerNumber == 0)
             {
-                EndTurn();
+            }
+            else
+            {
+                CellGridState.OnUnitClicked(sender as Unit);
+                if (!isActionDone && selected.IsUnitInRange(sender as Unit))
+                {
+                    EndTurn();
+                }
             }
         }
         
@@ -242,16 +247,22 @@ public class CellGrid : MonoBehaviour
 
         unitTurnOrder[0].OnTurnStart();
 
-
-        if(unitTurnOrder[0].PlayerNumber == 0)
+        CurrentPlayerNumber = unitTurnOrder[0].PlayerNumber;
+        if (unitTurnOrder[0].PlayerNumber == 0)
         {
             Players[0].Play(this);
             CellGridState.OnUnitClicked(unitTurnOrder[0]);
+            
         }
         else
         {
             Players[1].GetComponent<NaiveAiPlayer>().SinglePlay(this, unitTurnOrder[0]);
+            
+
         }
+        
+        print("Current Num: " + CurrentPlayerNumber);
+        
     }
 
     public void TurnCycleInvoke() //generates event that triggers the turn cycle

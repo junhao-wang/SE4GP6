@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.IO;
 
 
 public class MapGenerator : MonoBehaviour {
@@ -74,7 +74,7 @@ public class MapGenerator : MonoBehaviour {
     {
         //parse all dialogue  and create a list of dialogue chains(a dialogue chain is a group of related dialogue sets)
         List<DialogueChain> dSets = new List<DialogueChain>();
-        string dialogue = System.IO.File.ReadAllText("Assets/Overworld/Json/Dialogue.json");
+        string dialogue = System.IO.File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Dialogue.json"));
         DialogueSet[] allDialogue = JsonHelper.getJsonArray<DialogueSet>(dialogue);
         foreach (DialogueSet d in allDialogue)
         {

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
+
 [System.Serializable]
 public class NodeProperties : MonoBehaviour {
     public GameObject ParentTile;
@@ -134,15 +136,16 @@ public class NodeProperties : MonoBehaviour {
             {
                 Party.GetComponent<PartyProperties>().battleState.finalBattle = true;
                 Party.GetComponent<PartyProperties>().battleState.enemyID = 6;
+                Party.GetComponent<PartyProperties>().battleState.mapName = "Underground";
                 GameObject WinScreen = GameObject.FindWithTag("Overworld Canvas").GetComponent<OverlayUIScripts>().WinScreen;
 
                 WinScreen.SetActive(true);
-                GameObject.FindWithTag("Overworld Canvas").GetComponent<MapProperties>().defeat();
+                //GameObject.FindWithTag("Overworld Canvas").GetComponent<MapProperties>().defeat();
             }
             
             SavedLoad.savedHeroStats = Party.GetComponent<PartyProperties>().battleState;
             SavedLoad.Write();
-
+            GameObject.Find("MapController").GetComponent<AudioSource>().mute = true;
             SceneManager.LoadScene("TestBattle");
 
         }
@@ -205,7 +208,7 @@ public class NodeProperties : MonoBehaviour {
 
         if(dialogueReqs.Count != dialogueSet.Count)
         {
-            string dialogue = System.IO.File.ReadAllText("Assets/Overworld/Json/Dialogue.json");
+            string dialogue = System.IO.File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Dialogue.json"));
             List<DialogueSet> allDialogue = new List<DialogueSet>(JsonHelper.getJsonArray<DialogueSet>(dialogue));
             foreach(int d in dialogueSet)
             {

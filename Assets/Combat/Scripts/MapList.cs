@@ -8,6 +8,6 @@ public class Maps : Assets
     public int height;
     public int width;
     public string[] tiles;
-    public string[] obstaclePossible;
+    public int[] obstaclePossible;
     public int[] tileLayout;
 }

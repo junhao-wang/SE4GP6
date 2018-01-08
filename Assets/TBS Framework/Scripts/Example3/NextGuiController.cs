@@ -81,6 +81,12 @@ public class NextGuiController : MonoBehaviour
             _bar[i].transform.Find("HPText").GetComponent<Text>().text = u.HitPoints.ToString();
             _bar[i].transform.Find("ArmorText").GetComponent<Text>().text = u.Armor.ToString();
 
+            if (NextTurnButton.interactable != ((CellGrid).CurrentPlayer is HumanPlayer))
+            {
+                NextTurnButton.interactable = ((CellGrid).CurrentPlayer is HumanPlayer);
+            }
+            
+
         }
         for (int i = CellGrid.Units.Count;  i < _bar.Length; i++)
         {
@@ -114,7 +120,9 @@ public class NextGuiController : MonoBehaviour
     //what to do when end turn occurs
     private void OnTurnEnded(object sender, EventArgs e)
     {
-        NextTurnButton.interactable = ((sender as CellGrid).CurrentPlayer is HumanPlayer);
+        
+        //NextTurnButton.interactable = ((sender as CellGrid).CurrentPlayer is HumanPlayer);
+        
         UpdateTurnUI();
     }
 
@@ -240,6 +248,7 @@ public class NextGuiController : MonoBehaviour
     {
         if(UnitsParent.transform.GetChild(0).GetComponent<Unit>().PlayerNumber == 0)
         {
+            GameObject.Find("MapController").GetComponent<AudioSource>().mute = false;
             SceneManager.LoadScene("Map");
         }
         else

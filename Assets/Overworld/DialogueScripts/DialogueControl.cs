@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class DialogueControl : MonoBehaviour {
     DialogueSet currentDialogue;
@@ -30,10 +31,7 @@ public class DialogueControl : MonoBehaviour {
         nameText = dialogueParent.transform.Find("DialogueBox").Find("Name").GetComponent<Text>();
         dialogueImageLeft = dialogueParent.transform.Find("LeftDialogue").GetComponent<Image>();
         dialogueImageRight = dialogueParent.transform.Find("RightDialogue").GetComponent<Image>();
-<<<<<<< HEAD
-=======
-        startDialogue(11);
->>>>>>> 5612319049bb2673040124fa20d7230177ab55cc
+        //startDialogue(11);
     }
 	
 	// Update is called once per frame
@@ -72,7 +70,7 @@ public class DialogueControl : MonoBehaviour {
     //load the dialogue json
     void loadDialogue(int id)
     {
-        string dialogue = System.IO.File.ReadAllText("Assets/Overworld/Json/Dialogue.json");
+        string dialogue = System.IO.File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Dialogue.json"));
         DialogueSet[] allDialogue = JsonHelper.getJsonArray<DialogueSet>(dialogue);
         for(int i = 0; i < allDialogue.Length; i++)
         {

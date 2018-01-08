@@ -7,7 +7,6 @@ public class MyUnit : Unit
 {
     public Color PlayerColor;
 
-    public string UnitName;
 
     private Transform Highlighter;
 
