@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.25)  1 NOV 2017 20:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2017.10.25)  16 JAN 2018 21:09
 entering extended mode
 **./ReqRevBackup.tex
 (ReqRevBackup.tex
@@ -230,49 +230,44 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 {C:/Users/junha/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] (ReqRevBack
 up.toc
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 2.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 2.
-
 [1])
 \tf@toc=\write4
 \openout4 = `ReqRevBackup.toc'.
 
- [2] [1] [2] [3] [4] [5]
-Overfull \vbox (39.03564pt too high) has occurred while \output is active []
-
-
-[6] [7] [8] [9] [10] [11] [12] [13] [14] [15]
-Overfull \hbox (119.39131pt too wide) in paragraph at lines 393--402
+ [2] [1] [2] [3] [4] [5] [6] [7] [8] [9]
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+ [10] [11] [12] [13] [14] [15]
+Overfull \hbox (119.39131pt too wide) in paragraph at lines 401--410
  [] 
  []
 
 [16] [17]
-Overfull \hbox (9.5812pt too wide) in paragraph at lines 479--479
+Overfull \hbox (9.5812pt too wide) in paragraph at lines 487--487
 []\OT1/cmr/bx/n/14.4 Operational and En-vi-ron-men-tal Re-quire-ments 
  []
 
 [18] [19]
-Overfull \hbox (14.72762pt too wide) in paragraph at lines 535--554
+Overfull \hbox (14.72762pt too wide) in paragraph at lines 544--563
  [] 
  []
 
 [20] [21] [22] [23] (ReqRevBackup.aux) ) 
 Here is how much of TeX's memory you used:
- 2576 strings out of 493323
- 36113 string characters out of 3139065
- 108793 words of memory out of 3000000
- 6096 multiletter control sequences out of 15000+200000
+ 2575 strings out of 493323
+ 36099 string characters out of 3139065
+ 106794 words of memory out of 3000000
+ 6095 multiletter control sequences out of 15000+200000
  7895 words of font info for 28 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,13n,43p,861b,335s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,13n,43p,862b,335s stack positions out of 5000i,500n,10000p,200000b,50000s
 <D:/Program Files/MiKTeX 2.9/fonts/type
 1/public/amsfonts/cm/cmbx10.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public
 /amsfonts/cm/cmbx12.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
 s/cm/cmr10.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr1
 2.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on ReqRevBackup.pdf (26 pages, 140995 bytes).
+Output written on ReqRevBackup.pdf (26 pages, 142247 bytes).
 PDF statistics:
  106 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
