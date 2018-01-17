@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// CellGrid class keeps track of the game, stores cells, units and players objects. It starts the game and makes turn transitions. 
@@ -53,6 +54,8 @@ public class CellGrid : MonoBehaviour
     public int turnIndex = 0;
     public List<Unit>myUnits;
     public int lastPlayer; //ai or player
+
+    bool isActionDone = true;
 
     /// <summary>
     /// this will initialize the map for the combat scene of the game.
@@ -144,12 +147,24 @@ public class CellGrid : MonoBehaviour
 
     private void OnUnitClicked(object sender, EventArgs e)
     {
-        print("onunitclicked");
-        GenericUnit unit = sender as GenericUnit;
-        if (unit.PlayerNumber == 0)
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
+
+            GenericUnit unit = sender as GenericUnit;
+            CellGridStateUnitSelected selected = CellGridState as CellGridStateUnitSelected;
+            if (unit.PlayerNumber == 0)
+            {
+            }
+            else
+            {
+                CellGridState.OnUnitClicked(sender as Unit);
+                if (!isActionDone && selected.IsUnitInRange(sender as Unit))
+                {
+                    EndTurn();
+                }
+            }
         }
-        else { CellGridState.OnUnitClicked(sender as Unit); }
+        
     }
 
     /// <summary>
@@ -173,21 +188,26 @@ public class CellGrid : MonoBehaviour
         }
     }
 
+    //set the grid state to attacking Health
     public void AttackHealth()
     {
         print("Attacking Health...");
         _cellGridState.isAttacking = true;
         _cellGridState.attackingHealth = true;
+        isActionDone = false;
         
     }
 
+    //set the grid state to attacking Armor
     public void AttackArmor()
     {
         print("Attacking Armor...");
         _cellGridState.isAttacking = true;
         _cellGridState.attackingHealth = false;
+        isActionDone = false;
     }
 
+    //set the grid state to attacking with a Gun
     public void ShootGun()
     {
         
@@ -195,6 +215,7 @@ public class CellGrid : MonoBehaviour
         _cellGridState.attackingHealth = true;
         _cellGridState.isTrueDamage = true;
         _cellGridState.usingGun = true;
+        isActionDone = false;
     }
 
     /// <summary>
@@ -226,16 +247,22 @@ public class CellGrid : MonoBehaviour
 
         unitTurnOrder[0].OnTurnStart();
 
-
-        if(unitTurnOrder[0].PlayerNumber == 0)
+        CurrentPlayerNumber = unitTurnOrder[0].PlayerNumber;
+        if (unitTurnOrder[0].PlayerNumber == 0)
         {
             Players[0].Play(this);
             CellGridState.OnUnitClicked(unitTurnOrder[0]);
+            
         }
         else
         {
             Players[1].GetComponent<NaiveAiPlayer>().SinglePlay(this, unitTurnOrder[0]);
+            
+
         }
+        
+        print("Current Num: " + CurrentPlayerNumber);
+        
     }
 
     public void TurnCycleInvoke() //generates event that triggers the turn cycle
@@ -248,7 +275,7 @@ public class CellGrid : MonoBehaviour
 
     public void EndTurn() //goes to next unit's turn
     {
-
+        isActionDone = true;
         unitTurnOrder[0].OnTurnEnd();
         var totalPlayersAlive = Units.Select(u => u.PlayerNumber).Distinct().ToList(); //Checking if the game is over
         if (totalPlayersAlive.Count != 1)

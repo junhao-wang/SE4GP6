@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class DialogueControl : MonoBehaviour {
     DialogueSet currentDialogue;
@@ -30,13 +31,13 @@ public class DialogueControl : MonoBehaviour {
         nameText = dialogueParent.transform.Find("DialogueBox").Find("Name").GetComponent<Text>();
         dialogueImageLeft = dialogueParent.transform.Find("LeftDialogue").GetComponent<Image>();
         dialogueImageRight = dialogueParent.transform.Find("RightDialogue").GetComponent<Image>();
-        startDialogue(11);
+        //startDialogue(11);
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        //move on to the next piece of dialogue
+        //move on to the next piece of dialogue on mouseclick and space, but only if the dialoge box is active
 		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode. Space) ) && dialogueParent.activeSelf) 
         {
             //move through the dialogue of one character
@@ -69,7 +70,7 @@ public class DialogueControl : MonoBehaviour {
     //load the dialogue json
     void loadDialogue(int id)
     {
-        string dialogue = System.IO.File.ReadAllText("Assets/Overworld/Json/Dialogue.json");
+        string dialogue = System.IO.File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Dialogue.json"));
         DialogueSet[] allDialogue = JsonHelper.getJsonArray<DialogueSet>(dialogue);
         for(int i = 0; i < allDialogue.Length; i++)
         {
@@ -106,7 +107,7 @@ public class DialogueControl : MonoBehaviour {
         }
     }
 
-    //set the portrait of the character speaking
+    //set the portrait of the character speaking, this is needed so that the play knows who's speaking
     void setPortrait()
     {
         if (false)

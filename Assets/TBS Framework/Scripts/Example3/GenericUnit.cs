@@ -2,9 +2,7 @@
 using UnityEngine;
 
 public class GenericUnit : Unit
-{
-    public string UnitName;
-    
+{   
     private Coroutine PulseCoroutine;
 
     public override void Initialize()

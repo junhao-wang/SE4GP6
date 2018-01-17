@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapProperties : MonoBehaviour {
     public GameObject[,] Tiles;
@@ -26,10 +27,32 @@ public class MapProperties : MonoBehaviour {
         MController.GetComponent<MapProperties>().loadmap();
         print("map loaded");
         */
+        GameObject.Find("Canvas").GetComponent<DialogueControl>().startDialogue(11);
         DontDestroyOnLoad(transform.gameObject);
+        
+        Camera.main.transform.SetPositionAndRotation(new Vector3(-6, 2, Camera.main.transform.position.z), transform.rotation);
+
 
 
     }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Map")
+        {
+            gameObject.GetComponent<AudioSource>().mute = false;
+            Camera.main.GetComponent<CameraScroll>().initX = PartyObject.transform.position.x;
+            Camera.main.GetComponent<CameraScroll>().initY = PartyObject.transform.position.y;
+            print("Party Location: " + PartyObject.transform.position);
+            
+        }
+    }
+
     public void defeat()
     {
         GameObject[] thingsToDestroy = GameObject.FindGameObjectsWithTag("DestroyOnDefeat");
@@ -71,6 +94,9 @@ public class MapProperties : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-		
+		if(Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("Map");
+        }
 	}
 }

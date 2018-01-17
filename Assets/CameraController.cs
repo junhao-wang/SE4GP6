@@ -14,25 +14,26 @@ public class CameraController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (Input.mousePosition.y >= Screen.height - mouseBorder && (transform.position.z <= maxZ)){
+        if (Input.GetKey(KeyCode.W) && (transform.position.z <= maxZ))
+        {
             transform.Translate(0, panDistance, 0);
             //lastKey = "w";
-        };
-        if (Input.mousePosition.x <=  mouseBorder && (transform.position.x >= minX))
+        }
+        if (Input.GetKey(KeyCode.A) && (transform.position.x >= minX))
         {
             transform.Translate(-panDistance, 0, 0);
             //lastKey = "a";
-        };
-        if (Input.mousePosition.y <= mouseBorder && (transform.position.z >= minZ))
+        }
+        if (Input.GetKey(KeyCode.S) && (transform.position.z >= minZ))
         {
             transform.Translate(0, -panDistance, 0);
             //lastKey = "s";
-        };
-        if (Input.mousePosition.x >= Screen.width - mouseBorder && (transform.position.x<= maxX))
+        }
+        if (Input.GetKey(KeyCode.D) && (transform.position.x <= maxX))
         {
             transform.Translate(panDistance, 0, 0);
             //lastKey = "d";
-        };
+        }
 
     }
 }

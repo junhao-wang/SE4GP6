@@ -162,5 +162,17 @@ class CellGridStateUnitSelected : CellGridState
             cell.UnMark();
         }   
     }
+
+    public bool IsUnitInRange(Unit unit)
+    {
+        if (_unitsInRange.Contains(unit))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 

@@ -24,4 +24,16 @@ public class MainMenu : MonoBehaviour {
     {
         Application.Quit();
     }
+
+    public void Instructions()
+    {
+        if(transform.Find("InstructionPanel").gameObject.activeSelf == true)
+        {
+            transform.Find("InstructionPanel").gameObject.SetActive(false);
+        }
+        else
+        {
+            transform.Find("InstructionPanel").gameObject.SetActive(true);
+        }
+    }
 }

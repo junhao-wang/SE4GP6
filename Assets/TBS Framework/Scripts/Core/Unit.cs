@@ -11,6 +11,8 @@ public abstract class Unit : MonoBehaviour
 {
     public bool isSelected = false;
     public bool canAttack = false;
+
+    
     public Vector3 Offset;
     /// <summary>
     /// UnitClicked event is invoked when user clicks the unit. It requires a collider on the unit game object to work.
@@ -37,25 +39,28 @@ public abstract class Unit : MonoBehaviour
     }
 
     public List<Buff> Buffs { get; private set; }
-
+    //unit stats
+    public string UnitName;
     public int Armor = 10;
     public int TotalArmor { get; set; }
     public int TotalHitPoints { get; private set; }
     protected int TotalMovementPoints;
     protected int TotalActionPoints;
+    public int HitPoints;
+    public int AttackRange;
+    //current attack strength of the unit
+    public int AttackFactor;
+    //base attack of the unit
+    public int basicAttack;
+    public int gunAttack = 5;
+    public int DefenceFactor;
+    public int Speed;
 
     /// <summary>
     /// Cell that the unit is currently occupying.
     /// </summary>
     public Cell Cell { get; set; }
 
-    public int HitPoints;
-    public int AttackRange;
-    public int AttackFactor;
-    public int basicAttack;
-    public int gunAttack = 5;
-    public int DefenceFactor;
-    public int Speed;
     /// <summary>
     /// Determines how far on the grid the unit can move.
     /// </summary>
@@ -119,6 +124,8 @@ public abstract class Unit : MonoBehaviour
     {
         MovementPoints = TotalMovementPoints;
         ActionPoints = TotalActionPoints;
+        //set attack to half if Hp is half, this adds an element of strategy to the gameplay
+        //now you have to think about hitting hp despite higher enemy armor
         if ((float)TotalHitPoints/HitPoints >= 2)
         {
             AttackFactor = basicAttack/2;
