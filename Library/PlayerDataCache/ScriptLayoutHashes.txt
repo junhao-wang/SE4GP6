@@ -1,4 +1,4 @@
-OSXStandalone
+WindowsStandalone
 98eaa1db8e76798c9dec113df59248f6 Assembly-CSharp.dll:.NextImage
 4ad344ad9a9b55ddbaa3cd7ea97cc6d2 Assembly-CSharp.dll:.LevelInfo
 a47b073f01b654cc9b5caa00a3768eab Assembly-CSharp.dll:.NextGuiController
