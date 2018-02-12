@@ -7,6 +7,7 @@
 \usepackage{fancyhdr}
 \usepackage{array}
 \usepackage{tabu}
+\usepackage{soul}
 %%%%%%%% Title Page Stuff %%%%%%%%%
 \title{Requirements Document Rev 0\\A World Apart}
 \author{Team SantaHatesPoorKids
@@ -36,6 +37,7 @@ Oct 16 & 1.1 & Finalized first Draft.\\
 November 1 & 1.2 & Fixing TA Feedback part1\\
 November 5 & 1.3 &Added Requirements for V\&V\\
 December 3 & 1.4 &Moved some save/load requirements to working room for Design Doc\\
+February 10 & 2.0 &Version 2 of Requirement Document, Feedback highlighted\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -76,7 +78,7 @@ Judges - The judges stake is that they will give a review based on merit and spe
 \begin{enumerate}[{SC}1. ]
 	\item The project must be developed in the Unity Game Engine
 	\item Any game assets in the Unity assets store must be referenced in both the project documents and in the game folders. 
-	\item Any game assets outside of the Untity assets store and not original to the development team must have documented consent to use such game assets if not under free use terms and conditions.
+	\item Any game assets outside of the Unity assets store and not original to the development team must have documented consent to use such game assets if not under free use terms and conditions.
 \end{enumerate}
 \subsection{Implementation Environment of the Current System}
 \quad There are a few environment implementation constraints.
@@ -454,10 +456,9 @@ Main Menu & 1 & We felt that this is the appropriate music that can be used for 
 %below has included all functions
 \subsection{Speed and Latency Requirements}
 \begin{enumerate}[{SLR}1. ]
-	\item The program should not hang or freeze for more than 5 seconds during runtime.
-	\item Loading and saving periods should take no more than 10 seconds during runtime.
-	\item Loading and saving periods should take no more than 10 seconds during runtime.
-	\item The application shall load on most standard computers running Windows 10 or IOS and should take no more than 15 seconds to initialize the project.
+	\item \hl{The program should not hang or freeze for a long period of time.}
+	\item \hl{Loading and saving periods should not result in disrupted periods of play}
+	\item \hl{The application shall load on most standard computers running Windows 10 or IOS and should not take extensive periods of time to initiate.}
 	\item After the application is installed on the device, it shall be available for use 24 hours per day, 365 days per year.
 \end{enumerate}
 \subsection{Precision or Accuracy Requirements}
