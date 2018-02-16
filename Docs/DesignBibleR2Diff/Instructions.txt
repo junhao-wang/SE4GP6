@@ -1,0 +1,2 @@
+diff file produced using http://www.mergely.com/editor.
+Left and Right (old and new) files included along with the final diff file.

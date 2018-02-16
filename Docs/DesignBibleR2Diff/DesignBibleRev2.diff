@@ -1,0 +1,359 @@
+21c21
+< Revision 0.2
+---
+> Revision 1.0.1
+23c23
+< 12/03/2017
+---
+> 01/26/2018
+27c27
+< Design History                                                                                                   Section
+---
+> Design History                                                                                                   	Section
+59,60c59,61
+< Misc.
+< Other 20
+---
+> Rev 1
+> Bug and Issue Report
+> Bug and Issued Diagnosis 
+68c69
+< 0.1.1 -Iinitial document
+---
+> 0.1.1 -Initial document
+69a71,72
+> 1.0.1 - Revision 1 plan, see section 20 for full report.
+> 1.1.1 - Seconds Revision of the design doc and the high concept.
+95c98
+< card-based upgrade system that allows players to adapt and try different play styles as they travel the world
+---
+> randomly generated item system that allows players to adapt and try different play styles as they travel the world
+132c135
+< 2.5 Player Role
+---
+> 2.5 Player Role and Experience
+138c141
+< Players should be motivated to reunite the astronauts with their team, and to keep them alive through the tough journey.
+---
+> Players should be motivated to reunite the astronauts with their team, and to keep them alive through the tough journey. They might feel frustrated at managing the team or facing a difficult fight, but they should want to keep going because they are invested in the characters or the mystery of the world. While truly sombre moments will be few and far between, they should give the players pause.
+139a143,145
+> 2.6 Atmosphere
+>  
+> A World Apart should be filled with intrigue, tension, and occasional levity. While the world of AWA should feel cold and uninviting, the characters in it will be anything but. Each will have their own personality and quirks that accents an otherwise mysterious and unforgiving surrounding. Their colors will be vibrant where the rest of the world isn’t, and the things they say should make them feel human in the middle of an alien world.
+140a147,148
+> While the world will make use of cold ambience and sombre music to set the tone, the characters will be occasionally accompanied by lighter sounds and motifs. The battles will have brisk but low-key music being interrupted by poignant but not cacophonous sound effects.
+> 
+169c177
+< No Bullshit Moments
+---
+> No Frustrating Moments
+195c203
+< 5. Core Mechanics and Elements
+---
+> 5. Core Mechanics and Gameplay Elements
+198a207
+> 
+227c236
+< Inside of the combat scene, the player will only be able to perform actions on a handful of objects. These include the other character players, tiles, enemies and bosses. The player should never be able to move through or ontop of any other items in the scene and should not be able to interact with the terrain on the map.. The player does need to select the entity that they are interact with in order to perform the desired action, and the visual que will be given showing that they player can make that selection. The visual que is the red “X” that appears ontop of the desired entity. If the entity cannot be interact with, then it will have no visual que.
+---
+> Inside of the combat scene, the player will only be able to perform actions on a handful of objects. These include the other character players, tiles, enemies and bosses. The player should never be able to move through or on top of any other items in the scene and should not be able to interact with the terrain on the map.. The player does need to select the entity that they are interact with in order to perform the desired action, and the visual cue will be given showing that they player can make that selection. The visual cue is the red “X” that appears on top of the desired entity. If the entity cannot be interact with, then it will have no visual que.
+258c267,268
+< 5.2 World
+---
+> 5.2 Overworld
+> 
+267,268c277,278
+< 	Merchant Menu - This menu is opened when the player lands on the merchant node. See the merchant question for more references. Once the menu has been closed, the player will not be able to re open the menu at that node. As such, a prompt to ask if you are ok with this selection is mentioned before the player leaves the shop.
+< 	Item Menu - This menu is opened from selecting the item button from the over world view. This menu consists of 3 panels, which include from left to right the character loadouts, item pool and item description. The character load out displays what each selected character is equipped while also displaying their stats. The Item pool displays all of the unequipped items that the player party has acquired. There will be sort by buttons that will allow the items to be sorted by type and level. Finally the item description panel displays the description, expanded item image and stat bonuses of a selected item. A item is selected when the mouse is hovered over the item. Stat changes will be changed to the character aswell indicating changes that would be made to the character with this specific item change.
+---
+> 	Merchant Menu - This menu is opened when the player lands on the merchant node. See the merchant question for more references. Once the menu has been closed, the player will not be able to re open the menu at that node. As such, a prompt to ask if you are ok with this selection is mentioned before the player leaves the shop.(Note: The merchant menu is expected to be far more complex than the other menus.Depending on how further testing goes, it may make more sense for the merchant menu to exist in a scene of its own. )
+> 	Item Menu - This menu is opened from selecting the item button from the over world view. This menu consists of 3 panels, which include from left to right the character loadouts, item pool and item description. The character load out displays what each selected character is equipped while also displaying their stats. The Item pool displays all of the unequipped items that the player party has acquired. There will be sort by buttons that will allow the items to be sorted by type and level. Finally the item description panel displays the description, expanded item image and stat bonuses of a selected item. A item is selected when the mouse is hovered over the item. Stat changes will be changed to the character as well indicating changes that would be made to the character with this specific item change.
+282a293
+> 
+294c305,308
+< Implementation wise, this is achieved by taking the cost of all the connections within the minimum spanning tree, and doubling it before applying a 3x multiplier to the result and take that as the total supply to be distributed across the resource nodes of the region . The reason the cost of the connections is doubled is due to the potential for backtracking (dead ends) when traversing a minimum spanning tree.
+---
+> Supply costs are simply set to 1 between two nodes regardless of node-to-node distance to facilitate gameplay decisions and make strategizing for the overworld less cumbersome. By implementing supply costs in this manner, it is easier for the player to gauge, at a glance, how much supply they will need to reach a given destination. Given the complexity of supply availability( through events and currency), narrative decisions, and navigation choices based on location of combat nodes,  there is no reason to further confound the players with an extra layer of arithmetics for supply cost planning. 
+> 
+> Implementation wise,the minimum available supply is calculated by taking the cost of all the connections within the minimum spanning tree, and doubling it before applying a 3x multiplier to the result and take that as the total supply to be distributed across the resource nodes of the region . The reason the cost of the connections is doubled is due to the potential for backtracking (dead ends) when traversing a minimum spanning tree.
+> 
+305c319
+< Items will have the ability to stack on the player's base stats, current modifiers in the combat session, and other item stacks. The breakdown of the stat will be given by scrolling over the character's statistic number and a tooltip will show how those values are derived by iterating through the same modifiers and items. Player's will not be told what items stack well with others as this will be kept as the idea of item combinations a dynamic practice.
+---
+> Items will have the ability to stack on the player's base stats, current modifiers in the combat session, and other item stacks. The breakdown of the player statistics will be given by scrolling over the character's numerical statistics and a tooltip will show how those values are derived by iterating through the same modifiers and items. Player's will not be told what items stack well with others as this will be kept as the idea of item combinations a dynamic practice.
+326c340
+< Poison Lubricant : Applied onto the melee weapon, causes the enemy that was hit on the health bar to looses 5 + 3 per level every 5 turns.
+---
+> Poison Lubricant : Applied onto the melee weapon, causes the enemy that was hit on the health bar to loses 5 + 3 per level every 5 turns.
+341c355
+< Galactic Rifle: Standard issued rifle. 15 attack  at 12 tiles plus 1 range per level
+---
+> Galactic Rifle: Standard issue rifle. 15 attack  at 12 tiles plus 1 range per level
+367c381
+< 	The algorithm that will determine the cost of the items will be scalar of the item's level and it's purpose. Testing the project by using automated tests will allow us to see what items are easily able to be purchased and will allow us to balance the game. The item values will be changed in according to allow some items to me more rare than other, allowing important decisions to be made when selling and buying items. The basic algorithm we will use is:
+---
+> 	The algorithm that will determine the cost of the items will be scalar of the item's level and its purpose. Testing the project by using automated tests will allow us to see what items are easily able to be purchased and will allow us to balance the game. The item values will be changed in according to allow some items to me more rare than other, allowing important decisions to be made when selling and buying items. The basic algorithm we will use is:
+379c393
+< 	A major of game settings will apply immediately when the game is running and only a few settings will be needed to restart the game. Our group is still unsure of how Unity determines it's resolution or Anti Aliasing settings but we can determine that only those two setting will be needed to restart the game if changed. If any other graphical, UI or audio changes are made to the game, they will be saved on the user's computer. We can ensure this by reading the information from a file that has all of the default settings for the game and then save the changes to that file if changes are made. The number of settings that can be changed are the system's resolution, Anti Aliasing, texture quality, windowed mode, UI size and offeset, master volume, music volume and sound effect volume.
+---
+> 	A major of game settings will apply immediately when the game is running and only a few settings will be needed to restart the game. Our group is still unsure of how Unity determines it's resolution or Anti Aliasing settings but we can determine that only those two setting will be needed to restart the game if changed. If any other graphical, UI or audio changes are made to the game, they will be saved on the user's computer. We can ensure this by reading the information from a file that has all of the default settings for the game and then save the changes to that file if changes are made. The number of settings that can be changed are the system's resolution, Anti Aliasing, texture quality, windowed mode, UI size and offset, master volume, music volume and sound effect volume.
+395a410
+> 	
+398a414
+> Nothing for the section yet
+400d415
+< 
+545c560,562
+< Swinus - a boar like creature that wander the wastes
+---
+> Swinus - a boar like creature that wander the wastes. It is fairly sturdy, attacks with its tusks, has tough hide, and is fleet of foot.
+> 
+> Range - 1 | Health - 10 | Armor - 3 | Attack - 5 | Movement - 4
+547c564
+< Genomorph - a race of beings that have mutated from humans after centuries of genetic modification, nanotech experimentations, and radiation. They have become feral and will attack anything without regard.
+---
+> Genomorph - a race of beings that have mutated from humans after centuries of genetic modification, nanotech experimentations, and radiation. They have become feral and will attack anything without regard. It attacks anything on sight with its sharp claws, and is fairly durable due to its hard chitinous skin and muscled body.
+549a567,568
+> Range - 1 | Health - 15 | Armor - 7 | Attack - 6 | Movement - 3
+> 
+552c571,576
+< K-8 - an android programmed to guard one of the only remaining seed vaults on earth. She has forgotten about what exactly she is protecting, and now wanders the underground complex without direction
+---
+> Range - 1 | Health - 10 | Armor - 3 | Attack - 5 | Movement - 4
+> BOSS: K-8 - an android programmed to guard one of the only remaining seed vaults on earth. She has forgotten about what exactly she is protecting, and now wanders the underground complex without direction. K-8 has a short-ranged taser (Like Alexei) and is equipped with subdermal armor and enhanced fortitude. She also carries a rifle, which she can shoot at longer range. K8 can be defeated by using a “ISO Badge” item on her, as she is not hostile towards members of the ISO.
+> 
+> Range - 2 | Health - 17 | Armor - 15 | Attack - 6 | Movement - 3
+> 
+> Special Actions: Gun (range 4)
+591c615,617
+< Usamy - a group of only green Planties that have made settlements out of older army bases and ruins. Due to the regression in technology and the lack of knowledge of architecture, these bases are more reminiscent of castles and keeps than what they were before. The Usarmy have a grundge against the Lucarts and have been in a war with them for quite a long time. They have captured the Lucart prince.
+---
+> Usamy - a group of only green Planties that have made settlements out of older army bases and ruins. Due to the regression in technology and the lack of knowledge of architecture, these bases are more reminiscent of castles and keeps than what they were before. The Usarmy have a grundge against the Lucarts and have been in a war with them for quite a long time. They have captured the Lucart prince. The Usamy and Lucarts both use a pressurized nail gun as their primary weapon, and wear basic protection
+> 
+> Range - 3 | Health - 10 | Armor - 8 | Attack - 4 | Movement - 4
+599c625,632
+< Chancellor Horitice - Chancellor of the Lucarts and general of the Lucart army. Holds a lot of power in the Lucart Nation and wants to crush the Usamy.
+---
+> BOSS: Chancellor Horitice - Chancellor of the Lucarts and general of the Lucart army. Holds a lot of power in the Lucart Nation and wants to crush the Usamy. Horitice is outfitted with a better suit of armor, as well as a more advanced gun.
+> 
+> Range - 3 | Health - 20 | Armor - 15 | Attack - 6 | Movement - 3
+> 
+> Special: Warcry - boost the attack of all allies
+> Special: Tactician - While adjacent to an ally, ally gains 2 armor
+> 
+> Eyebots - Strange weaponized robots wandering the land. Equipped with a small short ranged laser and steel plating, this thing isn’t very beefy.
+601c634
+< Eyebots - Strange weaponized robots wandering the land
+---
+> Range - 2| Health - 4 | Armor - 10 | Attack - 4 | Movement - 5
+613c646
+< Whatever the case, the political situation is thus: The Usamy and Lucarts are at war, the Usarmy have captured the Lucart Prince, Mora, and the Lucarts are amassing an army to take down the Usarmy.
+---
+> Whatever the case, the political situation is thus: The Usamy and Lucarts are at war, the Usamy have captured the Lucart Prince, Mora, and the Lucarts are amassing an army to take down the Usamy.
+617c650
+< If they act as mediators, there will be several people from both sides trying to stop them. If the take the prince, Mora will inform them of his situation and the group can choose to help him. Theres several ways the senarios can pan out, but the results are one of the following:
+---
+> If they act as mediators, there will be several people from both sides trying to stop them. If the take the prince, Mora will inform them of his situation and the group can choose to help him. There's several ways the scenarios can pan out, but the results are one of the following:
+648c681
+< FFL soldiers - killer androids created by the FFL to do their bidding. In addition to recon, these androids are also tasked with rounding up Planties for experimentation
+---
+> FFL soldiers - killer androids created by the FFL to do their bidding. In addition to recon, these androids are also tasked with rounding up Planties for experimentation. Equipped with a rifle and advanced armor, these guys are a force to be reckoned with.
+649a683
+> Range - 3 | Health - 10 | Armor - 19 | Attack - 8 | Movement - 3
+651a686,688
+> Range - 3 | Health - 6 | Armor - 15 | Attack - 7 | Movement - 3
+> 
+> Special: Repair Armor - repair 8 points of armor on an ally
+653a691,692
+> Range - 3 | Health - 7 | Armor - 15 | Attack - 6 | Movement - 5
+> 
+670c709
+< 18. Music
+---
+> 12. Music
+672c711
+< 18.1 Motifs
+---
+> 12.1 Motifs
+674c713
+< 18.2 Boss Music
+---
+> 12.2 Boss Music
+680,681c719,840
+< 19. SFX
+< 19.1 Weapon Effects
+---
+> 12. Sounds and Ambiance
+> 12.1 Sound Effects
+> The goal of sound effects in this game is mainly to provide a sense of immersion for the players. 
+> To achieve this, there are sound effects assigned to every available combat action. There are less sound effects during the overworld phases of the game as the overworld itself is presented in a far more abstract way.The overworld thus rely upon ambient visual clutters and background music to offer a different style of immersion.
+> 	The sound effects used thus far in the game comes from a sampled collection of pre-recorded audio offered without fees  by Soniss.com and distributed via peer-to-peer networks. Further audio effects may be added to the game as required by new/modified weapons, items, or skills.
+> 12.2 Music
+> 	The music in the game mainly focuses on a desolate or desperate theme as the party tries to find their way across a world that was once familiar, but now unknown to them. The heavy piano notes in the main background musics conveys the feeling of desolation in the ice lands, and adds to the theme of emptiness to the first section of the overworld. Combat music, on the other hand, is more lively albeit with a serious tune.While these music choices convey the overarching themes used for ambiance, certain specific situations within the story may call for music that is of a different or contrary nature to these themes.
+> 	The background music adapted into the game are composed by I3 and used under license. With the implementation of successive arcs and story chapters, music from other composers may be included. 
+> 
+> 
+> 
+> 13. Rev 1 Plan
+> 13.1 Condensed Bug and Issue report
+> 
+> After overlooking the open issues on the git repository, we have condensed common or related bugs into the following groups. Each group of bugs have been titled and contain a general description of what the issue is. To stay concurrent with our development schedule, we will provide a period of when these these bugs will be addressed so that they may be removed when we are finished with similar portions of the game. 
+> 
+> 13.1.1 Bug Fixes
+> 
+> Issues and bugs will be worked on and closed as new systems are implemented, so as not to slow down development.
+> 
+> The following are bugs we have been made aware of and have been considered to be “undesirable” :
+> 
+> B1. Click through error: Players can click through UI elements onto the game. At time of this document, this bug is fixed in the combat but not in the map
+> B2. Camera spawn error: After combat, the camera may spawn off map, causing the player to be disorientated.
+> B3. Camera Sensitivity and Control: Camera in combat was overly sensitive and unintuitive. This issue and been fixed.
+> B4. Restarting with persistence: resources persisted through restart of a new game initialization.
+> B5. Game freezing after game over: after ending the game via lack of supplies, the game freezes and the player is stuck.
+> B6. Object order: objects that are supposed to be in front sometimes appear behind.
+> B7. Leftover objects after game over: objects from map do no despawn after game over.
+> B8. Portraits display from previous dialogue: Portraits from previous conversations are not destroyed.
+> B9. Lack of tooltip removal: Tooltips still appear when they are clearly not supposed to, this is in relation to either the tooltip not destroying itself when the cursor is moved or it generates itself when its not supposed to. This happens for example when the a character dies yet the information is still displayed.
+> B10. Menu generation overlap:  This occurs when a new menu is created, yet the previous one is not destroyed making an overlap.
+> B11. Characters occupying the same grid space. This seems to be a tile occupation check not being raised.
+> B12. Incorrect bar information. This is when amour bars and health bars are displaying incorrect information. This also happens for when the character tries to hit an enemy and is incorrectly told that they cannot hit the enemy when they can.
+> B13. Combat assets appearing in Overworld view. There seems to be assets transferring from the combat space over to the overworld view.
+> B14. Information is lost. When scenes are switched, some type progress that was made during them is lost when the scene is switched. This could be inventory items, resources values and previous settings.
+> B15. Soft locking in Combat Phase. Set as character A’s turn but character B’s portrait is being displayed, not allowing the player to make a move. This also happens for when the character has no supplies and the game over screen does not appear.
+> 
+> 13.1.2 Issue Fixes
+> 
+> The following are issues we have been made aware of that could improve the usability of the game and it’s enjoyability::
+> 
+> ISS1. Bad Signifiers: some buttons don’t have a good enough signifier for the player, due to lack of instructional text like “press space” or graphical indications like flashing buttons. Same thing occurs for damage indications to players and enemies. Cursor changes have also been suggested.
+> ISS2. Dialogue skips: since the game does repeat, a skip dialogue option is nice
+> ISS3. Dialogue quickness: sometimes dialogue is skipped because of how quickly it spawns, dialogue needs to be slowed down
+> ISS4. Lack of Menus: There is a lack of a menu in both the map and the combat screen, these include sub menus that give the player to continue playing after losing or conditions checking menus and decisions(ie “Are you satisfied with your changes” menu or double clicking on locations to prevent misclicks). Quit menu also lacking.
+> ISS5. Lack of Tutorial: There is a lack of guides for the tutorial portions of the game. This includes basic guidelines for the opening game, how to play the game and then finally important concepts for the game. There is also no explanation of what the win conditions are. There is also no quick access to see how things work if the player forgot a single thing like damage calculation, tooltips may help.
+> ISS6. Camera Movement during Dialogue: the camera can be moved during dialogue
+> ISS7. Ending screen bad text: The end of the dialogue displays the wrong text
+> ISS8. Unpolished Assets: Some assets give off the wrong impression in combat, same thing with a few animations.
+> ISS9. Inconsistent spelling and grammar: Item names, dialogue and other items have punctuation and grammar issues such as capitalization, spacing.
+> ISS10. Lack of Save Game functionality: Saving at checkpoints is non existent and was hard to keep track of progress as nothing is saved.
+> ISS11. Lack of customizable options: These included text speed, gamma and brightness levels, and resolution. This also goes for alternate controls such as using the mouse to move the map instead of WASD controls.
+> ISS12. Poor optimization: User experienced significant slowdowns while game was running in the background
+> ISS13. Controls are not uniform between all game scenes. There is an inconsistency between the two scenes where the controls do not match their purpose. Most common case is WASD but may include meu access.
+> ISS14. No “set to default” buttons. There is no buttons or hotkeys that reset the player back to a default position or location, so players may easily get lost in the expansive overworld or may not remember what the default settings for the game are without restarting.
+> 
+> 13.1.3 Bug Fix Priority Matrix
+> The priority Matrix visually displays which bugs and issues the team will need fix  based on how urgent the necessary fix is, how quickly it will be able to fix and how the fix may be related to future feature implementations. Bugs will have a more pressing matter over issues generally as they have unwanted effects, but the matrix is to be taken with a grain of salt. The higher priority of the bug or issue, the more likely is is to be fixed.
+> 
+> 
+> Priority
+> Bug ID
+> Expected fix date
+> 
+> 
+> Very High - If this bug is not fixed then the game is broken.
+> B5, B14, B15
+> Week of Jan 28 - Feb 3.
+> 
+> 
+> High - This bug disrupts the player’s ability to play, but does not break it.
+> ISS4, ISS5, ISS10, ISS11, B2, B4, B11, B12
+> Week of Jan 28 - Feb 3.
+> 
+> 
+> Intermediate - These bugs bothersome enough to make the player feel discomfort.
+> ISS1, ISS7, ISS12, ISS14, B1, B9, B10, B13
+> Week of Feb 4 - Feb 10.
+> 
+> 
+> Low - These bugs are noticeable but don’t detract significantly from the experience
+> ISS2, ISS3, ISS8, ISS13, B3, B7, B8
+> Week of Feb 4 - Feb 10.
+> 
+> 
+> Very Low - These bugs are minor nuisances to the player.
+> ISS9, B6
+> 2 Weeks of January 28 - Feb 10.
+> 
+> 
+> None - These bugs should not affect the players performance or experience.
+> ISS6
+> 2 Weeks of January 28 - Feb 10.
+> 
+> 
+> 
+> 
+> 13.1.4 Anticipated Features
+> These are features that the team hopes to implement that will remove some of the issues in the current state of the game. Although these changes may bring new bugs, they will effectively eliminate the above issues.
+> 
+> Menus: Menus will be added to all aspects of the game, and will be accessible via a button press. This will include a main menu option, a save option, and options for changing resolution and volume of music and sound effects. These will also include “double checking” menus which are responsible for asking the player if the selection they have made is appropriate.
+> Items: An item system will be implemented in order for characters to be customizable and for more options during combat. This will be both equippable items and one time use items.
+> Choices: Dialogue will have choices now, in order to give a more RPG feel and add depth to decision making
+> More Events: Event system will get more types of events, and most nodes will have dialogue. Events may now greatly affect the party and their available resources. There will also be some dialogue systems that will give the player some choice to a certain event, encouraging risk and reward playstyle.
+> Quests: Quests and quest markers will be added. These will be both main and side quests, and may offer unique rewards.
+> Shops: Players will be able to buy items with money at certain nodes.
+> Item usage in Combat: Items will be usable in combat, both passive items and consumable items that have an effect on other enemies/ characters.
+> Current player information display: This is a perminate view that will be shown in the combat view that will be matched with a hovered character
+> Tutorial: a tutorial will be added in order for the player to understand the game better, players will be able to turn off the tutorial if they want.
+> Tooltips: The team will be adding tooltips to nearly every interactable object to act as a temporary wiki. This will help the player understand things they may frequently forget like damage calculations or node types.
+> Polish: overall polish will be added to the game in the form of better animations, optimized graphics and workflow, and improved picture quality.
+> 
+> 13.2 Bug and Issue Diagnosis
+> 
+> This section will cover the team’s plan in how to solve the bugs and issues in the previous section. This section will give insight into what updates need to be made to fix the issues and what specific components will be needing to investigated to fix the bugs. This section will also give insight as to which sections are lacking in polish and/or development, thus proving evidence as to why these bugs and issues are present.
+> 
+> 13.2.1 Updates to Documents
+> 
+> This section includes which sections of the documents need to be updated for the bug fixes and feedback so that they are simply up to date.
+> 
+> Requirement Document: The requirements document will be reviewed and rewritten to reflect the changes that have been made to the game since the writing of the document. Previous feedback will be taken into account when doing this.
+682a842
+> V&V: newly implemented features will get automatic testing as needed, and the V&V document will be updated to reflect these new changes
+684c844
+< 19.2 Movement Effects
+---
+> Design Doc: the design document will be constantly updated through the term as needed. Any new design decision will be added to the document, and the document will be updated to reflect previous feedback
+686,691c846
+< Walk on Dirt
+< Walk on Stone
+< Walk on Metal
+< Walk on Wood
+< Walk on Flesh
+< Walk In Water
+---
+> 14.2.2 Item Improvements
+692a848
+> The items system has had some issues in the development process as it still requires more fleshing out and modular organization. This section will cover the different concerns and an estimated time completion of when these components will be completed. 
+693a850
+> Inventory Interaction: The inventory manipulation between selecting, deselecting, deleting, and removing objects is almost implemented. The last portion that needs to be fixed and fully implemented is the item category check for the different inventory slots.  This will only allowed items with the matching category to be placed in the inventory slot that matches that category. See Item Prefabs for estimated time completion. 
+694a852
+> Item Prefabs: The framework for the different type of items has been created with the corresponding stat changes.  Unique item effects like grenades wear the item has a very unique process of stat changes still need to be implemented. The direct changes to the character stats still needs to be implemented in the combat view and will take some rigorous testing to validate as it has two large modules of the game interacting. There will be a need to do some testing with item pricing and stat balancing but that will occur after system has been implemented. Overall this entire module and it’s integration will be completed over the course of a week. The expected time of completion will be the 3rd of February. Testing will take longer and will have an expected validation period around the 17th of February.
+695a854
+> Item Save File: A section of the save file will need to incorporate what items have been equipped and obtained by the party. This save file should be be able to be written to and loaded from in between game sessions and Scene changes. This save file will also minimize the number of “lost” items when scenes are changed. The expected time of completion will be February 3rd. with tests for this section being completed around February 10th.
+697c856
+< 19.3 Other Character Effects
+---
+> 13.2.3 General UI Improvements
+699,701c858
+< Grunt
+< Heavy Breath
+< Death
+---
+> The UI has generally been untouched since the beginning of the project since it adds little to the gameplay. However it is still part of the game and will be implemented once the core mechanics have been implemented. This section will cover the different concerns and an estimated time completion of when these components will be completed. 
+703c860
+< 19.4 Enemy Effects
+---
+> UI Aesthetic: The appearance of the UI has barebones recently to focus more on functionality rather than aesthetic. There will be a reformatting of the UI system once all the mechanics have been integrated and tested. This will not take very long but will require some testing to ensure that the UI is both visually pleasing and concise. The implementation and test should be completed by the 25th of February. 
+705c862
+< 19.5 Boss Effects
+---
+> UI Settings: The game has next to no format settings and not audio settings implemented. The menu setting implementation will need to be implemented so that the user can make these adjustments while playing the game. The implementation and test should be completed by the 25th of February. 
+707c864
+< 
+---
+> UI Display Hierarchy: The game currently has not documented hierarchy of how the different menus layer on top of each other, causing very haphazard views that make menu surfing a chore. By implementing a proper hierarchy and defining the requisite assets, the team will be able to have to confusing order of menus in the game. The implementation and test should be completed by the 25th of February. 
+709,710c866
+< 20. Other
+< 20.1 Planning
+---
+> UI Display Hierarchy: The game currently has not documented hierarchy of how the different menus layer on top of each other, causing very haphazard views that make menu surfing a chore. By implementing a proper hierarchy and defining the requisite assets, the team will be able to have to confusing order of menus in the game. The implementation and test should be completed by the 25th of February. 
+711a868
+> UI Signal Indicators: The development team knows all the ins and outs of the program, which unfortunately gives them a bias against knowing how to lead the player to master the game. The team believes that the best way to solve this problem is to highlight interactions that they can perform in order for to teach the player what actions they can and cannot perform. These signals will guide the player as to what the ultimate goal of the game will be so they can being to formulate plans.  The implementation should be completed by the 27th of February and thorough testing should be completed the first week of March so the team can finalize changes. 
