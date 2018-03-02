@@ -1,4 +1,8 @@
 sceneSetups:
+<<<<<<< HEAD
 - path: Assets/InitTestScene636555977572077052.unity
+=======
+- path: Assets/Scenes/Map.unity
+>>>>>>> bee1b4ee626078799242b4b3ac93dbd2141afe6a
   isLoaded: 1
   isActive: 1
