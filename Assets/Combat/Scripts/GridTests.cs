@@ -3,6 +3,7 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GridTests : IPrebuildSetup{
 
@@ -144,13 +145,12 @@ public class GridTests : IPrebuildSetup{
         yield return new WaitForFixedUpdate();
         grid = GameObject.Find("CellGrid");
         map = GameObject.Find("CellGrid").GetComponent<GenerateBattlemap>();
-        bool isMenuOpen = false;
-
+        GameObject menu = GameObject.Find("GuiController").transform.Find("Menu").gameObject;
         yield return new WaitForFixedUpdate();
         grid.GetComponent<CellGrid>().EndTurn();
         //Menu.open()
         yield return new WaitForFixedUpdate();
-        Assert.AreEqual(isMenuOpen, true);
+        Assert.AreEqual(menu.activeSelf, true);
     }
 
     [UnityTest]
@@ -282,6 +282,69 @@ public class GridTests : IPrebuildSetup{
         grid.GetComponent<CellGrid>().Units[1].TakeDamage(10000, true);
         yield return new WaitForSeconds(3);
         Assert.True(grid.GetComponent<CellGrid>().CurrentPlayerNumber == 1);
+    }
+
+    [UnityTest]
+    public IEnumerator Player_CannotSaveLoadDuring_Action()
+    {
+        SceneManager.LoadScene("TestBattle");
+        yield return new WaitForFixedUpdate();
+        grid = GameObject.Find("CellGrid");
+        map = GameObject.Find("CellGrid").GetComponent<GenerateBattlemap>();
+        GameObject menu = GameObject.Find("GuiController").transform.Find("Menu").gameObject;
+        yield return new WaitForFixedUpdate();
+        grid.GetComponent<CellGrid>().EndTurn();
+        //Menu.open()
+        yield return new WaitForFixedUpdate();
+        Button saveButton = menu.transform.Find("SaveButton").GetComponent<Button>();
+        Button loadButton = menu.transform.Find("LoadButton").GetComponent<Button>();
+        Assert.AreEqual(saveButton.IsInteractable() || loadButton.IsInteractable(), true);
+    }
+
+    [UnityTest]
+    public IEnumerator Player_CannotSelectUndoable_Action()
+    {
+        SceneManager.LoadScene("TestBattle");
+        yield return new WaitForFixedUpdate();
+        grid = GameObject.Find("CellGrid");
+        map = GameObject.Find("CellGrid").GetComponent<GenerateBattlemap>();
+        yield return new WaitForFixedUpdate();
+
+        grid.GetComponent<CellGrid>().Units[0].OnUnitSelected();
+        //Menu.open()
+        yield return new WaitForFixedUpdate();
+        GameObject actionBar = GameObject.Find("GuiController").transform.Find("ActionPanel").gameObject;
+        Button attackButton = actionBar.transform.Find("AttackButton").GetComponent<Button>();
+        Assert.AreEqual(attackButton.IsInteractable(), true);
+    }
+
+    [UnityTest]
+    public IEnumerator AI_IsNot_Dumb()
+    {
+        SceneManager.LoadScene("TestBattle");
+        yield return new WaitForFixedUpdate();
+        grid = GameObject.Find("CellGrid");
+        map = GameObject.Find("CellGrid").GetComponent<GenerateBattlemap>();
+        yield return new WaitForFixedUpdate();
+        grid.GetComponent<CellGrid>().EndTurn();
+        yield return new WaitForFixedUpdate();
+        
+        Assert.AreEqual(false, true);
+    }
+
+    [UnityTest]
+    public IEnumerator Player_CanCheck_Stats()
+    {
+        SceneManager.LoadScene("TestBattle");
+        yield return new WaitForFixedUpdate();
+        grid = GameObject.Find("CellGrid");
+        map = GameObject.Find("CellGrid").GetComponent<GenerateBattlemap>();
+        yield return new WaitForFixedUpdate();
+        grid.GetComponent<CellGrid>().Units[0].OnUnitSelected();
+        yield return new WaitForFixedUpdate();
+        GameObject infoPanel = GameObject.Find("GuiController").transform.Find("InfoPanel(Clone)").gameObject;
+    
+        Assert.AreEqual(infoPanel.transform.Find("Name").GetComponent<Text>().text = grid.GetComponent<CellGrid>().Units[0].name, true);
     }
 
 }
