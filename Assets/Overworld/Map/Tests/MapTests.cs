@@ -95,7 +95,7 @@ public class MapTest : IPrebuildSetup
         }
     }
 
-    //#################Tests Expected to FAIL###############################
+    
     [UnityTest]
     public IEnumerator EachNodeHasEvent()
     {
@@ -103,16 +103,21 @@ public class MapTest : IPrebuildSetup
         yield return new WaitForSeconds(2);
         MCont = GameObject.Find("MapController");
         List<GameObject> nodes = MCont.GetComponent<MapProperties>().Nodes;
+        int noEvent = 0;
         for (int i = 0; i < nodes.Count; i++)
         {
-
-            Assert.IsTrue(nodes[i].GetComponent<NodeEvent>().eventType != "");
+            if(nodes[i].GetComponent<NodeProperties>().NodeEvent == NodeProperties.EventType.NONE)
+            {
+                noEvent++;
+            }
+            Assert.IsTrue(noEvent <=1);
 
         }
 
         yield return null;
     }
 
+    //This is the only test that should fail in MapTests due to lack on region implementation
     [UnityTest]
     public IEnumerator EachNodeInARegion()
     {
