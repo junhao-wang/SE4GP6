@@ -8,8 +8,10 @@
 \usepackage{array}
 \usepackage{tabu}
 \usepackage{soul}
+\usepackage{color}
+\newcommand{\hilight}[1]{\colorbox{yellow}{#1}}
 %%%%%%%% Title Page Stuff %%%%%%%%%
-\title{Requirements Document Rev 0\\A World Apart}
+\title{Requirements Document Rev 2\\A World Apart}
 \author{Team SantaHatesPoorKids
 		\\ Jim Wu, 001409055
 		\\ Ian Yang, 001217664
@@ -38,6 +40,7 @@ November 1 & 1.2 & Fixing TA Feedback part1\\
 November 5 & 1.3 &Added Requirements for V\&V\\
 December 3 & 1.4 &Moved some save/load requirements to working room for Design Doc\\
 February 10 & 2.0 &Version 2 of Requirement Document, Feedback highlighted\\
+March 2 & 2.1 &Version History Change Highlights, Feedback highlighted\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -96,9 +99,10 @@ N/A
 	\item The Game requirement's document will need to be ready by October 19th 2017
 	\item The first Implementation document will need to be ready by December 7th 2017
 	\item The first V and V document will need to be ready by January 4th 2018
-	\item The last Game requirement's document will need to be ready by February 27th 2018
-	\item The last Implementation document will need to be ready by March 29th 2018
-	\item The last V and V document will need to be ready by April 6th 2018
+	\item The last Game requirement's document will need to be ready by \hl{March 5th 2018}
+	\item The last V and V document will need to be ready by \hl{March 9th 2018}
+	\item The last Implementation document will need to be ready by \hl{March 25th 2018}
+	\item \hl{Pull Requests for all other projects end April 5th}
 	\item The final demo will need to be presented sometime in April 2018
 \end{enumerate}
 \subsection{Budget Constraints}
@@ -154,29 +158,38 @@ N/A
 \begin{tabu} { | X[c] | X[c] | X[c] | X[c] | }
  \hline
 PUC & PUC Name & Actors & Input/Output \\
+ \hline
+ 1  & Save Game  & System & Save Game button initialization, Save game file \\
 \hline
- 1  & Load Game  & System & Load Game button initialization, Save game file, Re-initialization of Previous Game \\
+ 2  & Load Game  & System & Load Game button initialization, Save game file, Re-initialization of Previous Game \\
 \hline
- 2  & New Game  & System & New Game button initialization, Initialization of New Game \\
+ 3  & New Game  & System & New Game button initialization, Initialization of New Game \\
 \hline
- 3  & Display Tool Tip Info & System & Mouse x and y coordinates, GUI display of Tool Tip Info \\
+ 4  & Display Tool Tip Info & System & Mouse x and y coordinates, GUI display of Tool Tip Info \\
 \hline
- 4  & Perform Character Action  & System & Player Input, Appropriate System output, GUI output \\
+ 5  & Perform Character Action  & System & Player Input, Appropriate System output, GUI output \\
 \hline
- 5  & Perform Character Modification  & System & Player Input, Appropriate System modification, GUI output \\
+ 6  & Perform Character Modification  & System & Player Input, Appropriate System modification, GUI output \\
 \hline
- 6 & Audio Modification  & System & Player Input, Appropriate Audio modification \\
+ 7  & Audio Modification  & System & Player Input, Appropriate Audio modification \\
 \hline
- 7  & GUI Modification  & System & Player Input, Appropriate GUI modification \\
+ 8  & GUI Modification  & System & Player Input, Appropriate GUI modification \\
 \hline
- 8  & Merchant Interaction  & System & Player Input, Appropriate GUI modification, Resource update modification \\
+ 9  & Merchant Interaction  & System & Player Input, Appropriate GUI modification, Resource update modification \\
 \hline
- 9 & Overhead world movement  & System & Player Input, Appropriate GUI modification, Map update modification \\
+ 10 & Overhead world movement  & System & Player Input, Appropriate GUI modification, Map update modification \\
 \hline
 \end{tabu}
 \subsection{Individual Product Use Cases}
 \quad This Section will cover the Product Use Cases in detail. They will include their trigger conditions, preconditions, procedures, outcomes and any use cases that are related.
 \begin{enumerate}[{PUC}1. ]
+
+	\item \textbf{Save Game -} The user wants to save the current game session.\par
+\textbf{Trigger Conditions: }Player Selects Save Button \par
+\textbf{Preconditions Conditions: }Game Session is paused, Player is in Game Menus \par
+\textbf{Procedures: }Current Game session is formatted and outputted to corresponding save file. \par
+\textbf{Outcomes: }System displays game file is saved, Game file is saved in proper location.  \par
+\textbf{Related Use Cases: }N/A \par
 
 	\item \textbf{Load Game -} The user wants to load a desired game session.\par
 \textbf{Trigger Conditions: }Player Selects Load Button \par
@@ -263,6 +276,8 @@ PUC & PUC Name & Actors & Input/Output \\
 	%Random map generation
 	\item The system generates a map that has unique regions, each with their respective node maps using the generated file seed.
 	\item Each Region has more than 10 nodes, each node being connected to at least 4 other node and no more than 8 nodes.
+	\item \st{Nodes will not cross each others paths.}
+	\item \hl{The Combat map will be created with the correct N by N size.}
 	\item Each node has a cost of supplies in that the player needs to get to the specific node.
 	%Random event generation
 	\item Each node has the possibility of have positive, negative or neutral outcomes of acquire resources phase.
@@ -291,7 +306,7 @@ PUC & PUC Name & Actors & Input/Output \\
 \quad This section will cover requirements that are related to the primary game play of the project, which is the fighting portion of the game. The scope of the fighting game play will include it's setup, duration and outcome of combat. The requirements of the fighting game play is:
 \begin{enumerate}[{PGR}1. ]
 	%%%%%%% COMBAT REQUIREMENTS %%%%%%%%
-	%Win/loose condition
+	%Win/lose condition
 	\item The player is always has the first turn.
 	\item The combat phase's turns happen on individual character basis.
 	\item The player's or AI's turn shall not be interrupted
@@ -302,7 +317,7 @@ PUC & PUC Name & Actors & Input/Output \\
 	%Turn requirements.
 	\item While a character is performing an action or the AI's turn is being conducted, the player shall be able to enter the menus, pausing the game.
 	\item If the player is in the menus while a character is performing an action or the AI's turn is being conducted, the player is not able to save or load a game.
-	\item The Player may not be able to interrupt the AI's turn while the AI is still performing it's turn.
+	\item \hl{The Player may not be able to interrupt the AI's turn while the AI is still performing it's turn.}
 	\item When it is the player's turn, the player shall be able to move the chosen character.
 	\item When it is the player's movement phase, the player will not be able to move the chosen character on an obstacle on the map.
 	\item When the player has moved the chosen character, they maybe be able to select one of the four actions.
@@ -324,18 +339,15 @@ PUC & PUC Name & Actors & Input/Output \\
 	%Win/ Lose conditions
 	\item The game is won if the player defeats the final boss in the final region.
 	\item The game is lost of the player runs out of the supply resource, unable to move.
-	\item If the player losses the game, they are given a graphic indication and are returned to the main menu. The file is deemed as unplayable.
-	\item If the player wins the game, they are given a graphic indication and are returned to the main menu. The file is deemed as unplayable.
+	\item \st{If the player losses the game, they are given a graphic indication and are returned to the main menu. The file is deemed as unplayable.}
+	\item If the player wins \hl{or loses the game, they are the respected graphical indication} and are returned to the main menu. The file is deemed as unplayable.
 	%Merchant
 	\item If the merchant phase is triggered, the merchant menu is opened.
 	\item While the merchant menu is open, the player is able to view their resources, the rest of the map, and is able to exchange resources and equipment with the merchant for fixed prices.
 	\item Once the merchant menu is close, it can not be opened again on the same node.
 	%Action
 	\item If the combat phase is triggered, the player is moved to the Combat phase with current equipment layouts and resources.
-	\item If the player returns from combat phase, the rest of the node shalt progress as expected.
-%%%%%%%%%%% misclanious added from the V%V doc, integrate into document %%%%%%%%%%%%
-	\item The Combat map will be created with the correct N by N size.
-	\item The player and the AI can decide either to attack the health values or the armour values of their respective enemies.
+	\item If the player returns from combat phase, the rest of the node shalt progress as expected.	
 \end{enumerate}
 \subsection{Alternate Game Modes}
 %Character modification menus and map menus
@@ -350,15 +362,15 @@ PUC & PUC Name & Actors & Input/Output \\
 	\item If the player selects the back button in the character menus, they will be returned to the list of characters.
 	\item  If the player selects the back button in the edit character layout menus, they will be returned to the overhead world view.
 	%%%%%%%%%% ITEM SYSTEM %%%%%%%%%%%%%%%
-	\item Items will be listed in a grid system with respected image and border colour to indicate item type.
-	\item When items are selected, their information will be displayed to the screen.
-	\item If items are of the consumable type, the use of this item will remove the item from play and the player's item list.
-	\item If items are of the expendable type, the use of this item will decremented until they reach 0, where they will be refilled when the combat phase ends.
-	\item If items are of the rechargeable type, the use of the item will not allow the player to use the item again until the number of cooldown turns been completed.
-	\item If items are of the passive type, the item applies it's ability every turn for the course of the combat phase. These items are not "used" like other items.
-	\item If items are of the instant type, the item can be used for every turn of the assigned character.
-	\item If an item is equipped to character, no other characters are able to equip that same instance of the item.
-	\item If the mouse is hovering over a desired item and the item changes the stats of a character, those stats will be updated on the selected character with incremented values being coloured in blue, decremented stats being coloured in red and unchanged values being coloured in white.
+	\item \hl{Items will be listed in a grid system with respected image and border colour to indicate item type.}
+	\item \hl{When items are selected, their information will be displayed to the screen.}
+	\item \hl{If items are of the consumable type, the use of this item will remove the item from play and the player's item list.}
+	\item \hl{If items are of the expendable type, the use of this item will decremented until they reach 0, where they will be refilled when the combat phase ends.}
+	\item \hl{If items are of the rechargeable type, the use of the item will not allow the player to use the item again until the number of cooldown turns been completed.}
+	\item \hl{If items are of the passive type, the item applies it's ability every turn for the course of the combat phase. These items are not "used" like other items.}
+	\item \hl{If items are of the instant type, the item can be used for every turn of the assigned character.}
+	\item \hl{If an item is equipped to character, no other characters are able to equip that same instance of the item.}
+	\item \hl{If the mouse is hovering over a desired item and the item changes the stats of a character, those stats will be updated on the selected character with incremented values being coloured in blue, decremented stats being coloured in red and unchanged values being coloured in white.}
 \end{enumerate}
 \subsection{Menus and other Systems}
 \quad This section will cover requirements that are related to the different menus of the game. There are a list of menus in the game, but the two main menus are the Main menu that is shown when the game is first initialized and the In Game menus which is the menu that will be displayed while the game is being played. The requirements of both these menus are:
@@ -376,27 +388,13 @@ PUC & PUC Name & Actors & Input/Output \\
 	\item A Save game menu is created if the player presses the Save Game button from the Main Menu.
 	\item All sub menus can be closed if the player presses the esc key or the corresponding close menu key.	
 	%%%%%%%%%%%%% Item menus %%%%%%%%%%%%%%%%%%%%%
-	\item The player should  be able to access the the Item's menu from the Overworld menu by clicking the respected button or the respected hotkey.
+	\item \hl{The player should  be able to access the the Item's menu from the Overworld menu by clicking the respected button or the respected hotkey.}
 	%Not sure if to include player modification menus or tooltips.
-\end{enumerate}
-\section{Look and Feel Requirements}
-\subsection{Appearance Requirements}
-\begin{enumerate}[{APPR}1. ]
-	\item The Menus should have simple colours and patterns.
-	\item The project should have the same format that a modern game would conform to.
-	\item Buttons, Menus and item backgrounds should be a truncated square. 
-\end{enumerate}
-\subsection{Style Requirements}
-\begin{enumerate}[{SR}1. ]
-	\item The game world should make up of only 2d sprites, no 3d models.
-	\item The character, enemy, NPC and terrain should consist of only 3-4 colours, keeping the style simple.
-	\item The map pallets should only have around 16 colours for the pallet of the world.
-	\item The weapons, icons, costumes and text should be of the sci-fi theme.
 \end{enumerate}
 \subsection{Requisite Assets}
 %include any 3rd party assests here
 \quad We used the turn based strategy framework (TBS Framework) from the Unity Asset store because it suited the nature of the combat phase of our game very well. It handled turn taking, calculating and applying damage, the stacking of certain combos and victory conditions.
-\subsection{Audio}
+\subsection{Music Audio}
 %inlcude any audio used here, the number of pieces in the song, and rational
 %menu song, overworld song and battle song
 \begin{center}
@@ -408,8 +406,41 @@ Winter Biome Background & 2 & We felt that this music was appropriate for the wi
 \hline
 Main Menu & 1 & We felt that this is the appropriate music that can be used for the overall theme of the game, it matches the main menu title well.\\
 \hline
+\hl{Plains Biome Background }& 2 & \hl{These music numbers fit very nicely with the 2nd level of the game, they match the open plains biome very nicely.}\\
+\hline
+\hl{City Biome Background }& 2 & \hl{We felt that this is the appropriate music that can be used for the city/ army base biome for the game, fitting the final level with a sense of struggle very nicely.}\\
+\hline
 \end{tabular}
 \end{center}
+\subsection{\hl{Sound effect Audio}}
+\hl{This section iterates through the list of sounds effects found in Assets\textbackslash Resources\textbackslash SoundFX. All Sounds are not original and have been referenced.}
+\begin{enumerate}
+	\item \hl{Ammo Usage- Used for when a weapon that uses bullets is used. Matching file name is gun\_semi\_auto\_rifle\_cock\_02.wav}
+	\item \hl{Area Intro - SFX to go along with opening area information. Matching file name is WTOR\_Crystal, Glass, Red Wine, Tone, Rubbing, Musical\_07.wav}
+	\item \hl{Boss Room Intro - SFX that is played when the player enters the boss area. Matching file name is Slaughter Swell 03.wav}
+	\item \hl{Claymore Mine- Used for when a planted explosive weapon goes off. Matching file name is Bluezone-BC0214-beep-mine-explosion-002.wav}
+	\item \hl{Crossbow Shoot - SFX that is played when the crossbow shoots. Matching file name is Massey\_Foley\_Door\_Closing\_Int.wav}
+	\item \hl{Crossbow Hit - SFX that is played when crossbow bolt hits the enemy. Matching file name is bullet\_impact\_body\_thump\_02.wav}
+	\item \hl{Door - Used for when a player opens a barrack door in the 3rd level. Matching file name is Bluezone-BC0224-impact-016.wav}
+	\item \hl{Enemy Sword Hit - SFX used when an enemy hits one of the player's characters. Matching file name is bullet\_impact\_metal\_heavy\_08.wav}
+	\item \hl{Engi Robot Deploy - SFX that is played when an enemy droid has been deployed. Matching file name is 5366 - Space Lift Door 02.wav}
+	\item \hl{Grenade - Used for when a thrown explosive weapon goes off. Matching file name is Weapon Bomb Explosion Sci-Fi Plasma-04.wav}
+	\item \hl{Lee Shoot - SFX that is played when the crossbow shoots. Matching file name is Masseygun\_rifle\_sniper\_shot\_01.wav}
+	\item \hl{Lee Hit - SFX that is played when Lee's pistol hits an enemy. Matching file name is Bluezone-BC0226-whoosh-impact-012.wav}
+	\item \hl{Magnitizer- Used for when the magnitizer is activated. Matching file name is Whoosh Transition 049.wav}
+	\item \hl{MPPDD - Used for when the MPPDD is fired. Matching file name is Impacts and Hits - Sub Zero 027.wav}
+	\item \hl{NailGun - Used for when the NailGun is fired. Matching file name is Mechanism - Source - Metallic Auto Gun.wav}
+	\item \hl{Rapid Firing Weapon- Used for when a character or enemy fires a rapid firing weapon such as a machine gun or an assault rifle. Matching file name is warfare\_t2\_mg\_firing\_close\_projectile\_tail\_large\_field\_Telinga\_w\_MKH8020\_or\_MKH8060.wav}
+	\item \hl{Robot Weapon - SFX that is played when a robotic enemy shoots. Matching file name is Weapon Shot Blaster-06.wav}
+	\item \hl{Robotic Enemy Movement - SFX that is played when a robotic enemy moves. Matching file name is Bluezone-BC0223-noise-cracke-014.wav}
+	\item \hl{Robotic Enemy Death - Used for when a robotic enemy dies. Matching file name is Process Malfunction - Computer Glitch 40.wav}
+	\item \hl{Safe Cracking - SFX used when the player is cracking a safe, the original sound effect will be shortened down. Matching file name is small gear 13 plastic metal slow8.wav}
+	\item \hl{Spaceship - SFX that is played for the opening scene for when the spaceship crashes. Matching file name is Bluezone\_BC0230\_ambience\_009.wav}
+	\item \hl{Transmission - Used for when a transmission is received either as a merchant transmission, story element or action node. Matching file name is Glitch\_Error\_Malfunction\_090.wav}
+	\item \hl{Underground Lab - Used as a creepier alternative to the transmission sound. Matching file name is Signal Interference 38.wav}
+	\item \hl{Galactic Wind Ambiance - SFX that is played for specific action nodes in level 3. Matching file name is Galactic Wind2.wav}
+	\item \hl{Wind Ambiance - SFX that is played in the second level for general nodes. Matching file name is Wind, Gusty Behind Rock Bird.wav}
+\end{enumerate}
 \subsection{Visual}
 %include any visual assests here in alphabetical order, link to pics folder
 %title image, 2 character, one enemy, rock, default texture, button
@@ -418,22 +449,51 @@ Main Menu & 1 & We felt that this is the appropriate music that can be used for 
 	\item Kroner - One of the main characters. Matching file name is KronderProto.png
 	\item Lee - One of the main characters. Matching file name is LeeProto.png
 	\item Robot - One of the main enemies. Matching file name is  Robot1.png
+	\item\hl{K8 - One of the main bosses. Matching file name is K8.png}
+	\item\hl{Usarmy - One of the main bosses. Matching file name is Usarmy.png}
+	\item \hl{Alexei - One of the main characters. Matching file name is Alexei.png}
 \end{enumerate}
 \begin{enumerate}[{Texture}1.]
-	\item Snow - The main title texture for the winter biome. %need matching file
+	\item Snow - The main tile texture for the winter biome. \hl{Matching file is snow.jpg}
 \end{enumerate}
 \begin{enumerate}[{UI}1.]
 	\item Blue Menu Button - The main image that will be used for the buttons in the menu. Matching file is BluePanel.png
 	\item Title Page - The main menu image that the player first sees when the game is loaded. Matching file is TempTitle.png
+	\item \hl{Armour - The Armour indicator for the character's stats. Matching file is Armour.png}
+	\item \hl{Attack - The Attack value indicator for the character's stats. Matching file is Attack.png}
+	\item \hl{Gun attack - The Gun attack value indicator for the character's stats. Matching file is Gun.png}
+	\item \hl{Health - The Max Health indicator for the character's stats. Matching file is Health.png}
+	\item \hl{Range - The Max Range indicator for the character's stats. Matching file is Range.png}
+	\item \hl{Speed - The Armour indicator for the character's stats. Matching file is Speed.png}
+	\item \hl{InventoryPanels - Various panels used in the inventory screen to give it the layered design.}
 \end{enumerate}
 \begin{enumerate}[{Environment}1.]
-	\item Rock - The defualt rock used in the winter biome. % need matching file
+	\item \hl{Rock - The default rocks used in the winter biome. Matching files are Rock1.png, Rock2.png, Rock3.png, Rock4.png.}
+	\item \hl{Winter Tree - The default trees used in the winter biome. Matching files are Tree1.png, Tree2.png, Tree3.png, Tree4.png.}
+	\item \hl{Plains Tree - The default trees used in the plains biome. Matching files are Tree5.png, Tree6.png, Tree7.png }
+	\item \hl{Buildings - The default Building debris used in the city biome. Matching files are Building1.png, Building2.png, Building3.png, Building4.png, Building5.png, Column.png, streetlight.png}
+	\item \hl{Ice Hills - The default Ice environment additions used in the winter biome. Matching files are Ice1.png, Ice2.png}
+	\item \hl{Swap Debris - The swap debris used in the plains biome. Matching files are kelp1.png, kelp2.png, coral.png}
 \end{enumerate}
 \section{Usability and Humanity Requirements}
 \subsection{Ease of Use Requirements}
 \begin{enumerate}[{EUR}1. ]
 	\item The product shall be usable by a student in 6th grade or equivalent education.
 	\item The player should be able to use an xbox 360 controller if desired.
+\end{enumerate}
+\section{Look and Feel Requirements}
+\subsection{Appearance Requirements}
+\begin{enumerate}[{APPR}1. ]
+	\item \hl{The Menus should have simple colours and patterns.}
+	\item \hl{The project should have the same format that a modern game would conform to.}
+	\item \st{Buttons, Menus and item backgrounds should be a truncated square.}
+\end{enumerate}
+\subsection{Style Requirements}
+\begin{enumerate}[{SR}1. ]
+	\item \hl{The game world should make up of only 2d sprites, no 3d models.}
+	\item \hl{The character, enemy, NPC and terrain should consist of only 3-4 colours, keeping the style simple.}
+	\item \st{The map pallets should only have around 16 colours for the pallet of the world.}
+	\item \st{The weapons, icons, costumes and text should be of the sci-fi theme.}
 \end{enumerate}
 \subsection{Personalization Requirements}
 \begin{enumerate}[{PR}1. ]
