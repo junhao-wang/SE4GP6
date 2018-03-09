@@ -102,5 +102,33 @@ public class MenuTests : IPrebuildSetup{
         Assert.AreEqual(SceneManager.GetActiveScene().name, "Items");
 	}
 
+	public IEnumerator ToolTipBreakdown()
+	{
+		SceneManager.LoadScene("ItemMenu"); //eventually Map
+		yield return new WaitForFixedUpdate();
+		Assert.IsTrue(false);
+	}
+
+	public IEnumerator ToolTipDisplay()
+	{
+		SceneManager.LoadScene("ItemMenu"); //eventually Map
+		yield return new WaitForFixedUpdate();
+		Assert.IsTrue(false);
+	}
+
+	public IEnumerator ToolTipClippingCheck()
+	{
+		SceneManager.LoadScene("ItemMenu"); //eventually Map
+		yield return new WaitForFixedUpdate();
+		Assert.IsTrue(false);
+	}
+
+	public IEnumerator ToolTipRemoval()
+	{
+		SceneManager.LoadScene("ItemMenu"); //eventually Map
+		yield return new WaitForFixedUpdate();
+		Assert.IsTrue(false);
+	}
+
 
 }

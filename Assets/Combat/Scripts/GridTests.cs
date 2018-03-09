@@ -347,4 +347,63 @@ public class GridTests : IPrebuildSetup{
         Assert.AreEqual(infoPanel.transform.Find("Name").GetComponent<Text>().text = grid.GetComponent<CellGrid>().Units[0].name, true);
     }
 
+	//V&V 2 tests to be implemented
+
+	[UnityTest]
+	public IEnumerator TurnOrderDisplayed()
+	{
+		SceneManager.LoadScene("TestBattle");
+		yield return new WaitForFixedUpdate();
+		Assert.True (false);
+	}
+	[UnityTest]
+	public IEnumerator CharacterTypeAndBaseStatsInit()
+	{
+		SceneManager.LoadScene("TestBattle");
+		yield return new WaitForFixedUpdate();
+		Assert.True (false);
+	}
+	[UnityTest]
+	public IEnumerator RandomOrderKept()
+	{
+		SceneManager.LoadScene("TestBattle");
+		yield return new WaitForFixedUpdate();
+		Assert.True (false);
+	}
+	[UnityTest]
+	public IEnumerator CharacterRemovedFromPlay()
+	{
+		SceneManager.LoadScene("TestBattle");
+		yield return new WaitForFixedUpdate();
+		Assert.True (false);
+	}
+	[UnityTest]
+	public IEnumerator HealthArmourInit()
+	{
+		SceneManager.LoadScene("TestBattle");
+		yield return new WaitForFixedUpdate();
+		Assert.True (false);
+	}
+	[UnityTest]
+	public IEnumerator HealthArmourAttackSelection()
+	{
+		SceneManager.LoadScene("TestBattle");
+		yield return new WaitForFixedUpdate();
+		Assert.True (false);
+	}
+	[UnityTest]
+	public IEnumerator ArmourAttackSelection_Zero()
+	{
+		SceneManager.LoadScene("TestBattle");
+		yield return new WaitForFixedUpdate();
+		Assert.True (false);
+	}
+	[UnityTest]
+	public IEnumerator ArmourInverseProportion()
+	{
+		SceneManager.LoadScene("TestBattle");
+		yield return new WaitForFixedUpdate();
+		Assert.True (false);
+	}
+
 }
