@@ -263,40 +263,7 @@ public class MapGenerator : MonoBehaviour {
             }
         }
 
-        /*
-        GameObject cNode = gameObject.GetComponent<MapProperties>().Nodes[0];
-        //selecting the narrative node
-        for (int i = 0; i < 4; i++)
-        {
-            cNode = cNode.GetComponent<NodeProperties>().Neighbors[Random.Range(0,2)];
-        }
-        if(cNode == gameObject.GetComponent<MapProperties>().Nodes[0])
-        {
-            cNode = cNode.GetComponent<NodeProperties>().Neighbors[1];
-        }
-        gameObject.GetComponent<MapProperties>().Nodes[0].GetComponent<NodeProperties>().NodeEvent = NodeProperties.EventType.NONE;
-        gameObject.GetComponent<MapProperties>().Nodes[0].GetComponent<NodeProperties>().SetColor();
-        cNode.GetComponent<NodeProperties>().NodeEvent = NodeProperties.EventType.NARRATIVE;
-
-        //final node is combat node for now
-        cNode = gameObject.GetComponent<MapProperties>().Nodes[gameObject.GetComponent<MapProperties>().Nodes.Count-1];
-        cNode.GetComponent<NodeProperties>().NodeEvent = NodeProperties.EventType.COMBAT;
-
-        //set reset of nodes to resource
-        for (int i = 1; i < gameObject.GetComponent<MapProperties>().Nodes.Count; i++)
-        {
-            
-            if (gameObject.GetComponent<MapProperties>().Nodes[i].GetComponent<NodeProperties>().NodeEvent == NodeProperties.EventType.NONE)
-            {
-                gameObject.GetComponent<MapProperties>().Nodes[i].GetComponent<NodeProperties>().NodeEvent = NodeProperties.EventType.RESOURCE;
-                for(int j = 0; j < gameObject.GetComponent<MapProperties>().Nodes[i].GetComponent<NodeProperties>().ResourceMod.Length; j++)
-                {
-                    gameObject.GetComponent<MapProperties>().Nodes[i].GetComponent<NodeProperties>().ResourceMod[j] += (float) Random.Range(0,50);
-                }
-            }
-            gameObject.GetComponent<MapProperties>().Nodes[i].GetComponent<NodeProperties>().SetColor();
-        }
-        */
+        
     }
 
     //generates the hexagon (invisible) tiles, and selectively prunes nodes
@@ -314,50 +281,11 @@ public class MapGenerator : MonoBehaviour {
                 gameObject.GetComponent<MapProperties>().Nodes.Add(Tile.GetComponent<TileProperties>().NodeChild);
             }
         }
-        //deletion phase method 1
-        /*
-        for (int i = 0; i < numOfRows; i++)
-        {
-            for (int j = 0; j < numOfCols; j++)
-            {
-                fillNeighbours(gameObject.GetComponent<MapProperties>().Tiles[i, j], j, i);
-            }
-        }
-
-        print("Generation Phase Done");
-
-        for (int i = 0; i < numOfRows; i++)
-        {
-            for (int j = 0; j < numOfCols; j++)
-            {
-                if(gameObject.GetComponent<MapProperties>().Tiles[i, j].GetComponent<TileProperties>().NodeChild != null)
-                {
-                    gameObject.GetComponent<MapProperties>().Tiles[i, j].GetComponent<TileProperties>().NodeChild.GetComponent<NodeProperties>().visited = true;
-                    List<GameObject> neigh = gameObject.GetComponent<MapProperties>().Tiles[i, j].GetComponent<TileProperties>().NodeChild.GetComponent<NodeProperties>().Neighbors;
-                    for (int n = 0; n < neigh.Count; n++)
-                    {
-                        if(neigh[n] == null)
-                        {
-                            continue;
-                        }
-                        if (!neigh[n].GetComponent<NodeProperties>().visited)
-                        {
-                            float roll = Random.Range(0.0f, 1.0f);
-                            if (roll <= PruneChance)
-                            {
-                                Destroy(neigh[n]);
-                            }
-                        }
-                    }
-                }
-            }
-        }
- 
-
-    */
+        
+    
 
     
-     //method 2
+     //Deletion method
 
         //randomly remove nodes from the list based on preset probability and prune out all the destroyed entries
         for (int i = gameObject.GetComponent<MapProperties>().Nodes.Count-1; i >= 0; i--)

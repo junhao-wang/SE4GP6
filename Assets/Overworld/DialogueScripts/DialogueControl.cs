@@ -156,4 +156,8 @@ public class DialogueControl : MonoBehaviour {
             }          
         }
     }
+    public void skipDialogue()
+    {
+        dialogueParent.SetActive(false);
+    }
 }
