@@ -117,6 +117,7 @@ public class CellGrid : MonoBehaviour
         }    
         OrderSpeed();
 
+        //SFXLoader sfx = GameObject.Find("Audio Source").GetComponent<SFXLoader>();
 
         StartGame();
     }
@@ -172,9 +173,16 @@ public class CellGrid : MonoBehaviour
     /// </summary>
     private void OnUnitDestroyed(object sender, AttackEventArgs e)
     {
+        switch ((sender as Unit).name)
+        {
+            case ("Genomorph"):
+                GameObject.Find("Audio Source").GetComponent<SFXLoader>().LoadRoboticEnemySFX();
+                break;
+        }
         Units.Remove(sender as Unit);
 
         unitTurnOrder.Remove(sender as Unit);
+
 
 
         var totalPlayersAlive = Units.Select(u => u.PlayerNumber).Distinct().ToList(); //Checking if the game is over

@@ -204,7 +204,22 @@ public abstract class Unit : MonoBehaviour
             return;
         }
            
+        switch (this.name)
+        {
+            case ("Kroner"):
+                GameObject.Find("SFX Source").GetComponent<SFXLoader>().LoadLeesGunSFX();
+                break;
+            case ("Lee"):
+                GameObject.Find("SFX Source").GetComponent<SFXLoader>().LoadCrossbowSFX();
+                break;
+            case ("Alexei"):
+                GameObject.Find("SFX Source").GetComponent<SFXLoader>().LoadLeesGun2SFX();
+                break;
+            case ("Genomorph"):
+                GameObject.Find("SFX Source").GetComponent<SFXLoader>().LoadRobotWeaponSFX();
+                break;
 
+        }
         print("attacked");
         MarkAsAttacking(other);
         ActionPoints--;

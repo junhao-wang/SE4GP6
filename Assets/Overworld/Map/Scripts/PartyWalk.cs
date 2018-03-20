@@ -47,7 +47,8 @@ public class PartyWalk : MonoBehaviour {
         walkflag = true;
         startTime = Time.time;
         journeyLength = Vector3.Magnitude(end.position - start.position);
-}
+        GameObject.Find("SFX Source").GetComponent<SFXLoader>().LoadEngiRobotDeploySFX();
+    }
 
 
 }
