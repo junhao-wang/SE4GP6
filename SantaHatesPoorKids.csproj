@@ -182,6 +182,7 @@
     <Compile Include="Assets\UI\Scripts\MenuOpenClose.cs" />
     <Compile Include="Assets\UI\Scripts\MouseHover.cs" />
     <Compile Include="Assets\UI\Scripts\NextImage.cs" />
+    <Compile Include="Assets\UI\Scripts\Resolution.cs" />
     <Compile Include="Assets\UI\Scripts\Selection.cs" />
     <Compile Include="Assets\UI\Scripts\SteralizableClasses\BattleState.cs" />
     <Compile Include="Assets\UI\Scripts\SteralizableClasses\HeroStats.cs" />
