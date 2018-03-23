@@ -152,6 +152,7 @@ public class CellGrid : MonoBehaviour
         {
 
             GenericUnit unit = sender as GenericUnit;
+            //CellGridState.OnCellSelected(unit.Cell as Cell);
             CellGridStateUnitSelected selected = CellGridState as CellGridStateUnitSelected;
             if (unit.PlayerNumber == 0)
             {

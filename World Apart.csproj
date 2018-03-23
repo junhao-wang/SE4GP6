@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -305,6 +307,7 @@
     <Compile Include="Assets\Combat\Scripts\EnemyLayout.cs" />
     <Compile Include="Assets\Combat\Scripts\GenerateBattlemap.cs" />
     <Compile Include="Assets\Combat\Scripts\GridTests.cs" />
+    <Compile Include="Assets\Combat\Scripts\ItemTest.cs" />
     <Compile Include="Assets\Combat\Scripts\JsonHelper.cs" />
     <Compile Include="Assets\Combat\Scripts\MapList.cs" />
     <Compile Include="Assets\Combat\Scripts\MenuTests.cs" />
@@ -327,9 +330,9 @@
     <Compile Include="Assets\Overworld\Map\Scripts\TileProperties.cs" />
     <Compile Include="Assets\Overworld\Map\Tests\MapTests.cs" />
     <Compile Include="Assets\Overworld\Map\Tests\SystemTest.cs" />
-    <Compile Include="Assets\Overworld\Scripts\DialogueGroup.cs" />
     <Compile Include="Assets\Resources\AssetDemo\MusicLoader.cs" />
     <Compile Include="Assets\Resources\AssetDemo\PanelSwap.cs" />
+    <Compile Include="Assets\Resources\AssetDemo\SFXLoader.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Core\AStarPathfinding.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Core\BreadthFirstSearch.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Core\Buff.cs" />
@@ -377,21 +380,13 @@
     <Compile Include="Assets\TBS Framework\Scripts\Example1\GuiController.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Example1\HealingBuff.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Example1\Hero.cs" />
-    <Compile Include="Assets\TBS Framework\Scripts\Example1\MyHexagon.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Example1\MyUnit.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Example1\Paladin.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Example1\RandomObstacleGenerator.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Example1\Spearman.cs" />
-    <Compile Include="Assets\TBS Framework\Scripts\Example2\Alien.cs" />
-    <Compile Include="Assets\TBS Framework\Scripts\Example2\FlyingAlien.cs" />
-    <Compile Include="Assets\TBS Framework\Scripts\Example2\MyOtherHexagon.cs" />
-    <Compile Include="Assets\TBS Framework\Scripts\Example2\OtherGuiController.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Example3\GenericUnit.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Example3\MySquare.cs" />
     <Compile Include="Assets\TBS Framework\Scripts\Example3\NextGuiController.cs" />
-    <Compile Include="Assets\TBS Framework\Scripts\Tutorial\GUIController.cs" />
-    <Compile Include="Assets\TBS Framework\Scripts\Tutorial\SampleSquare.cs" />
-    <Compile Include="Assets\TBS Framework\Scripts\Tutorial\SampleUnit.cs" />
     <Compile Include="Assets\UI\Scripts\DisplayItemInfo.cs" />
     <Compile Include="Assets\UI\Scripts\EquipControl.cs" />
     <Compile Include="Assets\UI\Scripts\ItemControl.cs" />
@@ -403,6 +398,7 @@
     <Compile Include="Assets\UI\Scripts\MenuOpenClose.cs" />
     <Compile Include="Assets\UI\Scripts\MouseHover.cs" />
     <Compile Include="Assets\UI\Scripts\NextImage.cs" />
+    <Compile Include="Assets\UI\Scripts\Resolution.cs" />
     <Compile Include="Assets\UI\Scripts\Selection.cs" />
     <Compile Include="Assets\UI\Scripts\SteralizableClasses\BattleState.cs" />
     <Compile Include="Assets\UI\Scripts\SteralizableClasses\HeroStats.cs" />

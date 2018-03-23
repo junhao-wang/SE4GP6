@@ -95,6 +95,7 @@ public class GenericUnit : Unit
     public override void MarkAsReachableEnemy()
     {
         SetColor(new Color(1,0.8f,0.8f));
+        Cell.MarkAsAttacking();
     }
     public override void MarkAsSelected()
     {

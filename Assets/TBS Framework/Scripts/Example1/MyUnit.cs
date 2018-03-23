@@ -83,14 +83,17 @@ public class MyUnit : Unit
     public override void MarkAsFriendly()
     {
         SetHighlighterColor(new Color(0.8f,1,0.8f));
+        Cell.MarkAsHighlighted();
     }
     public override void MarkAsReachableEnemy()
     {
         SetHighlighterColor(Color.red);
+        Cell.MarkAsHighlighted();
     }
     public override void MarkAsSelected()
     {
         SetHighlighterColor(new Color(0,1,0));
+        Cell.MarkAsHighlighted();
     }
     public override void MarkAsFinished()
     {

@@ -78,6 +78,8 @@ public abstract class Cell : MonoBehaviour, IGraphNode
     /// </summary>
     public abstract void UnMark();
 
+    public abstract void MarkAsAttacking();
+
     public int GetDistance(IGraphNode other)
     {
         return GetDistance(other as Cell);
