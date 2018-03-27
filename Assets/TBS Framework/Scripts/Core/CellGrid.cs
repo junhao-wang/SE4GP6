@@ -38,6 +38,7 @@ public class CellGrid : MonoBehaviour
     {
         get { return Players.Find(p => p.PlayerNumber.Equals(CurrentPlayerNumber)); }
     }
+    public Unit CurrentUnit { get; set; }
     public int CurrentPlayerNumber { get; private set; }
 
     public Transform PlayersParent;
@@ -120,6 +121,11 @@ public class CellGrid : MonoBehaviour
         //SFXLoader sfx = GameObject.Find("Audio Source").GetComponent<SFXLoader>();
 
         StartGame();
+    }
+
+    private void Update()
+    {
+        CurrentUnit.Cell.Mark(Cell.HighlightState.FriendlySelected);
     }
     /// <summary>
     /// orders the units by their speed parameter. Will be used to determine the turn order
@@ -239,7 +245,8 @@ public class CellGrid : MonoBehaviour
         
         TurnEnded += TurnCycle;
         Players[unitTurnOrder[0].PlayerNumber].Play(this);
-
+        CurrentUnit = unitTurnOrder[0];
+        
         TurnCycleInvoke();
 
     }
@@ -261,12 +268,14 @@ public class CellGrid : MonoBehaviour
         {
             Players[0].Play(this);
             CellGridState.OnUnitClicked(unitTurnOrder[0]);
-            
+            CurrentUnit = unitTurnOrder[0];
+
         }
         else
         {
             Players[1].GetComponent<NaiveAiPlayer>().SinglePlay(this, unitTurnOrder[0]);
-            
+            CurrentUnit = unitTurnOrder[0];
+
 
         }
         

@@ -10,6 +10,8 @@ public abstract class Cell : MonoBehaviour, IGraphNode
     private Vector2 _offsetCoord;
     public Vector2 OffsetCoord { get { return _offsetCoord; } set { _offsetCoord = value; } }
 
+    public enum HighlightState {None, Highlighted, Reachable, Path, Attackable, AttackSelected, Friendly, FriendlySelected };
+
     /// <summary>
     /// Indicates if something is occupying the cell.
     /// </summary>
@@ -18,6 +20,8 @@ public abstract class Cell : MonoBehaviour, IGraphNode
     /// Cost of moving through the cell.
     /// </summary>
     public int MovementCost;
+
+    public Unit unit;
 
     /// <summary>
     /// CellClicked event is invoked when user clicks the unit. It requires a collider on the cell game object to work.
@@ -61,24 +65,16 @@ public abstract class Cell : MonoBehaviour, IGraphNode
       
     public abstract Vector3 GetCellDimensions(); //Cell dimensions are necessary for grid generators.
 
-    /// <summary>
-    ///  Method marks the cell to give user an indication, that selected unit can reach it.
-    /// </summary>
-    public abstract void MarkAsReachable();
-    /// <summary>
-    /// Method marks the cell as a part of a path.
-    /// </summary>
-    public abstract void MarkAsPath();
-    /// <summary>
-    /// Method marks the cell as highlighted. It gets called when the mouse is over the cell.
-    /// </summary>
-    public abstract void MarkAsHighlighted();
+    public abstract void Mark(HighlightState s);
+
     /// <summary>
     /// Method returns the cell to its base appearance.
     /// </summary>
     public abstract void UnMark();
 
-    public abstract void MarkAsAttacking();
+    
+
+
 
     public int GetDistance(IGraphNode other)
     {

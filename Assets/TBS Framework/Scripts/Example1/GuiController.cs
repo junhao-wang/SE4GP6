@@ -78,6 +78,7 @@ public class GuiController : MonoBehaviour
         var unit = sender as MyUnit;
         StatsText.text = unit.UnitName + "\nHit Points: " + unit.HitPoints +"/"+unit.TotalHitPoints + "\nAttack: " + unit.AttackFactor + "\nDefence: " + unit.DefenceFactor + "\nRange: " + unit.AttackRange;
         UnitImage.color = unit.PlayerColor;
+        
 
     }
 

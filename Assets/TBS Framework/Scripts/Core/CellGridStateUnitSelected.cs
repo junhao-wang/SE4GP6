@@ -11,6 +11,7 @@ class CellGridStateUnitSelected : CellGridState
     private Unit _unit { get; set; }
     private List<Cell> _pathsInRange;
     private List<Unit> _unitsInRange;
+    private List<Cell> _attackableInRange;
     public Boolean firstTurn = true;
     private Cell _unitCell;
 
@@ -19,6 +20,7 @@ class CellGridStateUnitSelected : CellGridState
     {
         _unit = unit;
         _pathsInRange = new List<Cell>();
+        _attackableInRange = new List<Cell>();
         _unitsInRange = new List<Unit>();
     }
 
@@ -28,8 +30,10 @@ class CellGridStateUnitSelected : CellGridState
             return;
         if(cell.IsTaken)
         {
-            //_cellGrid.CellGridState = new CellGridStateWaitingForInput(_cellGrid);
-            return;
+            if (cell.unit != null)
+            {
+                OnUnitClicked(cell.unit);
+            }
         }
             
         if(!_pathsInRange.Contains(cell))
@@ -79,11 +83,15 @@ class CellGridStateUnitSelected : CellGridState
     {
         base.OnCellDeselected(cell);
 
+        foreach (var _cell in _attackableInRange)
+        {
+            _cell.Mark(Cell.HighlightState.Attackable);
+        }
         foreach (var _cell in _pathsInRange)
         {
-            _cell.MarkAsReachable();
+            _cell.Mark(Cell.HighlightState.Reachable);
         }
-        foreach (var _cell in _cellGrid.Cells.Except(_pathsInRange))
+        foreach (var _cell in _cellGrid.Cells.Except(_attackableInRange))
         {
             _cell.UnMark();
         }
@@ -95,15 +103,26 @@ class CellGridStateUnitSelected : CellGridState
         if (firstTurn == true)
         {
             _pathsInRange = _unit.GetAvailableDestinations(_cellGrid.Cells);
+            _attackableInRange = _unit.GetAvailableAttacks(_cellGrid.Cells);
             var cellsNotInRange = _cellGrid.Cells.Except(_pathsInRange);
             firstTurn = false;
         }
-        if (!_pathsInRange.Contains(cell)) return;
-        var path = _unit.FindPath(_cellGrid.Cells, cell);
-        foreach (var _cell in path)
+        if (_pathsInRange.Contains(cell))
         {
-            _cell.MarkAsPath();
+            var path = _unit.FindPath(_cellGrid.Cells, cell);
+            foreach (var _cell in path)
+            {
+                _cell.Mark(Cell.HighlightState.Path);
+            }
         }
+        else if (_attackableInRange.Contains(cell))
+        {
+            cell.Mark(Cell.HighlightState.AttackSelected);
+        }
+        else
+            return;
+
+        
     }
 
     public override void OnStateEnter() //beginning of a unit's turn
@@ -115,14 +134,19 @@ class CellGridStateUnitSelected : CellGridState
         _unitCell = _unit.Cell;
 
         _pathsInRange = _unit.GetAvailableDestinations(_cellGrid.Cells);
+        _attackableInRange = _unit.GetAvailableAttacks(_cellGrid.Cells);
         var cellsNotInRange = _cellGrid.Cells.Except(_pathsInRange);
         foreach (var cell in cellsNotInRange)
         {
             cell.UnMark();
         }
+        foreach (var cell in _attackableInRange)
+        {
+            cell.Mark(Cell.HighlightState.Attackable);
+        }
         foreach (var cell in _pathsInRange)
         {
-            cell.MarkAsReachable();
+            cell.Mark(Cell.HighlightState.Reachable);
         }
 
         if (_unit.ActionPoints <= 0) return;

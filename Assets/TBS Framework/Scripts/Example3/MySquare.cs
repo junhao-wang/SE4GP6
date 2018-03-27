@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class MySquare : Square
 {
@@ -13,22 +14,42 @@ public class MySquare : Square
         return ret*0.98f;
     }
 
-    public override void MarkAsReachable()
+    public override void Mark(HighlightState s)
     {
-        SetColor(new Color(1,0.92f,0.16f,0.5f));
+        if (s == HighlightState.None)
+        {
+            SetColor(new Color(1, 1, 1, 0));
+        }
+        else if (s == HighlightState.Attackable)
+        {
+            SetColor(new Color(1f, 0.1f, 0.1f, 0.3f));
+        }
+        else if (s == HighlightState.AttackSelected)
+        {
+            SetColor(new Color(0.9f, 0.1f, 0.1f, 0.5f));
+        }
+        else if (s == HighlightState.Highlighted)
+        {
+            SetColor(new Color(0.8f, 0.8f, 0.8f, 0.5f));
+        }
+        else if (s == HighlightState.Path)
+        {
+            SetColor(new Color(0, 1, 0, 0.5f));
+        }
+        else if (s == HighlightState.Reachable)
+        {
+            SetColor(new Color(1, 0.92f, 0.16f, 0.5f));
+        }
+        else if (s == HighlightState.Friendly)
+        {
+            SetColor(new Color(0, .8f, 1f, 0.3f));
+        }
+        else if (s == HighlightState.FriendlySelected)
+        {
+            SetColor(new Color(0, .7f, 1f, 0.5f));
+        }
     }
-    public override void MarkAsAttacking()
-    {
-        SetColor(new Color(1, 0.1f, 0.1f, 0.5f));
-    }
-    public override void MarkAsPath()
-    {
-        SetColor(new Color(0,1,0,0.5f));
-    }
-    public override void MarkAsHighlighted()
-    {
-        SetColor(new Color(0.8f,0.8f,0.8f,0.5f));
-    }
+
     public override void UnMark()
     {
         SetColor(new Color(1,1,1,0));

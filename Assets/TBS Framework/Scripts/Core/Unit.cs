@@ -299,9 +299,10 @@ public abstract class Unit : MonoBehaviour
             return;
 
         MovementPoints -= totalMovementCost;
-
+        Cell.unit = null;
         Cell.IsTaken = false;
         Cell = destinationCell;
+        Cell.unit = this;
         destinationCell.IsTaken = true;
 
         if (MovementSpeed > 0)
@@ -336,6 +337,20 @@ public abstract class Unit : MonoBehaviour
     {
         return !cell.IsTaken;
     }
+
+    public virtual bool IsCellAttackable(Cell cell)
+    {
+        if (!cell.IsTaken)
+        {
+            return true;
+        }
+        else if (cell.unit != null && cell.unit.PlayerNumber != PlayerNumber)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
     /// <summary>
     /// Method indicates if unit is capable of moving through cell given as parameter.
     /// </summary>
@@ -364,6 +379,24 @@ public abstract class Unit : MonoBehaviour
                 ret.AddRange(path);
         }
         return ret.FindAll(IsCellMovableTo).Distinct().ToList();
+    }
+
+    /// <summary>
+    /// Method returns all cells that the unit is capable of Attacking.
+    /// </summary>
+    public List<Cell> GetAvailableAttacks(List<Cell> cells)
+    {
+        var cellsInMovementRange = cells.FindAll(c => IsCellMovableTo(c) && c.GetDistance(Cell) <= MovementPoints);
+        List<Cell> cellsInAttackRange = new List<Cell>();
+        if (!cellsInMovementRange.Any())
+        {
+            return cells.FindAll(c => IsCellAttackable(c) && c.GetDistance(Cell) <= AttackRange);
+        }
+        foreach (Cell cell in cellsInMovementRange)
+        {
+            cellsInAttackRange.AddRange(cells.FindAll(c => IsCellAttackable(c) && c.GetDistance(cell) <= AttackRange));
+        }
+        return cellsInAttackRange.Distinct().ToList();
     }
 
     public List<Cell> FindPath(List<Cell> cells, Cell destination)

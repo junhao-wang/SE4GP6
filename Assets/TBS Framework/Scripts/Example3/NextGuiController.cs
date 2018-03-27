@@ -54,6 +54,7 @@ public class NextGuiController : MonoBehaviour
 
     private void Update()
     {
+        
         //This just makes sure all the HP bars are following the player, and to turn them off when the unit is no longer on screen
         for (int i = 0; i < CellGrid.Units.Count; i++)
         {
@@ -180,6 +181,19 @@ public class NextGuiController : MonoBehaviour
 
             LoadInfoPanel(unit);
         }
+        if (unit.PlayerNumber != currentUnit.PlayerNumber && currentUnit.GetAvailableAttacks(CellGrid.Cells).Contains(unit.Cell))
+        {
+            unit.Cell.Mark(Cell.HighlightState.AttackSelected);
+        }
+        else if (unit.PlayerNumber != currentUnit.PlayerNumber)
+        {
+            unit.Cell.Mark(Cell.HighlightState.Attackable);
+        }
+        else
+        {
+            unit.Cell.Mark(Cell.HighlightState.Friendly);
+        }
+        
 
     }
 
@@ -200,6 +214,7 @@ public class NextGuiController : MonoBehaviour
         if (unit.UnitName != currentUnit.UnitName)
         {
             currentUnit = unit;
+            
             LoadInfoPanel(unit);
         }
 

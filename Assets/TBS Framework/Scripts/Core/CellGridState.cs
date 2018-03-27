@@ -23,10 +23,15 @@ public abstract class CellGridState
     }
     public virtual void OnCellSelected(Cell cell)
     {
-        cell.MarkAsHighlighted();
+        cell.Mark(Cell.HighlightState.Highlighted);
     }
     public virtual void OnCellClicked(Cell cell)
-    { }
+    {
+        if (cell.unit != null)
+        {
+            OnUnitClicked(cell.unit);
+        }
+    }
 
     public virtual void OnStateEnter()
     {
