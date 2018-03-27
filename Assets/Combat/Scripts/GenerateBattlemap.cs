@@ -164,7 +164,6 @@ public class GenerateBattlemap : MonoBehaviour {
             }
             index++;
         }
-        print(index);
         return index;
     }
 
@@ -196,7 +195,6 @@ public class GenerateBattlemap : MonoBehaviour {
             if (gridIndex < currentMap.tileLayout.Length)
             {     
                 newSpriteSheet = Resources.LoadAll<Sprite>(tiles[currentMap.tileLayout[gridIndex]].spriteSheet);
-                print("Sprite Changed: "+ newSpriteSheet[tiles[currentMap.tileLayout[gridIndex]].sprite]);
                 try
                 {
                     sr.sprite = newSpriteSheet[tiles[currentMap.tileLayout[gridIndex]].sprite];
@@ -319,7 +317,7 @@ public class GenerateBattlemap : MonoBehaviour {
             enemy.GetComponent<Unit>().HitPoints = e.hp;
             enemy.GetComponent<Unit>().Armor = e.armor;
             enemy.GetComponent<Unit>().AttackFactor = e.attack;
-            enemy.GetComponent<Unit>().gunAttack = e.gun;
+            enemy.GetComponent<Unit>().GunAttack = e.gun;
             enemy.GetComponent<Unit>().AttackRange = e.range;
             enemy.GetComponent<Unit>().MovementPoints = e.movement;
             enemy.GetComponent<Unit>().UnitName = e.name;
@@ -338,7 +336,7 @@ public class GenerateBattlemap : MonoBehaviour {
         lee.HitPoints = battleState.Lee.getHP();
         lee.Armor = battleState.Lee.getArmour();
         lee.AttackFactor = battleState.Lee.getAttack();
-        lee.gunAttack = battleState.Lee.getGunAttack();
+        lee.GunAttack = battleState.Lee.getGunAttack();
         lee.Speed = battleState.Lee.getSpeed();
         lee.AttackRange = battleState.Lee.getRange();
         lee.MovementPoints = battleState.Lee.getMoveRange();
@@ -346,7 +344,7 @@ public class GenerateBattlemap : MonoBehaviour {
         kroner.HitPoints = battleState.Kroner.getHP();
         kroner.Armor = battleState.Kroner.getArmour();
         kroner.AttackFactor = battleState.Kroner.getAttack();
-        kroner.gunAttack = battleState.Kroner.getGunAttack();
+        kroner.GunAttack = battleState.Kroner.getGunAttack();
         kroner.Speed = battleState.Kroner.getSpeed();
         kroner.AttackRange = battleState.Kroner.getRange();
         kroner.MovementPoints = battleState.Kroner.getMoveRange();
@@ -354,7 +352,7 @@ public class GenerateBattlemap : MonoBehaviour {
         alexei.HitPoints = battleState.Alexei.getHP();
         alexei.Armor = battleState.Alexei.getArmour();
         alexei.AttackFactor = battleState.Alexei.getAttack();
-        alexei.gunAttack = battleState.Alexei.getGunAttack();
+        alexei.GunAttack = battleState.Alexei.getGunAttack();
         alexei.Speed = battleState.Alexei.getSpeed();
         alexei.AttackRange = battleState.Alexei.getRange();
         alexei.MovementPoints = battleState.Alexei.getMoveRange();

@@ -111,7 +111,6 @@ public class NextGuiController : MonoBehaviour
         for (int i = 0; i < CellGrid.Units.Count; i++)
         {
             _bar[i] = Instantiate(HpBar);
-            print("Bar Instantiated");
             _bar[i].transform.parent = Canvas.transform.Find("HPBarParent");
         }
         CellGrid.TurnEnded += OnNextTurn;
@@ -200,7 +199,6 @@ public class NextGuiController : MonoBehaviour
     //destroy the info panel because its another character's turn
     private void OnNextTurn(object sender, EventArgs e)
     {
-        print("nextturn");
         Destroy(_infoPanel);
 
 
@@ -209,7 +207,6 @@ public class NextGuiController : MonoBehaviour
     //keep the info panel up if a character is selected
     private void OnUnitSelected(object sender, EventArgs e)
     {
-        print("unitselected");
         var unit = sender as GenericUnit;
         if (unit.UnitName != currentUnit.UnitName)
         {

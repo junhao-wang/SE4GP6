@@ -43,36 +43,50 @@ public abstract class Unit : MonoBehaviour
     public string UnitName;
     public int Armor = 10;
     public int TotalArmor { get; set; }
-    public int TotalHitPoints { get; private set; }
-    protected int TotalMovementPoints;
-    protected int TotalActionPoints;
+
     public int HitPoints;
+    public int TotalHitPoints { get; private set; }
+
+    /// <summary>
+    /// Determines how far on the grid the unit can move.
+    /// </summary>
+    public int MovementPoints;
+    protected int TotalMovementPoints;
+
+    /// <summary>
+    /// Determines how many attacks unit can perform in one turn.
+    /// </summary>
+    public int ActionPoints;
+    protected int TotalActionPoints;
+
+    /// <summary>
+    /// Determines the range of a unit's attack.
+    /// </summary>
     public int AttackRange;
-    //current attack strength of the unit
+    public int BaseAttackRange;
+
+    /// <summary>
+    /// Determines the power of a unit's attack.
+    /// </summary>
     public int AttackFactor;
-    //base attack of the unit
-    public int basicAttack;
-    public int gunAttack = 5;
+    public int BaseAttack;
+    public int AttackAOE;
+    public int GunAttack = 5;
     public int DefenceFactor;
     public int Speed;
+
 
     /// <summary>
     /// Cell that the unit is currently occupying.
     /// </summary>
     public Cell Cell { get; set; }
 
-    /// <summary>
-    /// Determines how far on the grid the unit can move.
-    /// </summary>
-    public int MovementPoints;
+    
     /// <summary>
     /// Determines speed of movement animation.
     /// </summary>
     public float MovementSpeed;
-    /// <summary>
-    /// Determines how many attacks unit can perform in one turn.
-    /// </summary>
-    public int ActionPoints;
+    
 
     /// <summary>
     /// Indicates the player that the unit belongs to. Should correspoond with PlayerNumber variable on Player script.
@@ -93,12 +107,14 @@ public abstract class Unit : MonoBehaviour
     {
         Buffs = new List<Buff>();
 
+        AttackAOE = 1;
         UnitState = new UnitStateNormal(this);
         TotalArmor = Armor;
+        BaseAttackRange = AttackRange;
         TotalHitPoints = HitPoints;
         TotalMovementPoints = MovementPoints;
         TotalActionPoints = ActionPoints;
-        basicAttack = AttackFactor;
+        BaseAttack = AttackFactor;
     }
 
     protected virtual void OnMouseDown()
@@ -128,7 +144,7 @@ public abstract class Unit : MonoBehaviour
         //now you have to think about hitting hp despite higher enemy armor
         if ((float)TotalHitPoints/HitPoints >= 2)
         {
-            AttackFactor = basicAttack/2;
+            AttackFactor = BaseAttack/2;
         }
         SetState(new UnitStateMarkedAsFriendly(this));
     }
@@ -177,7 +193,7 @@ public abstract class Unit : MonoBehaviour
     /// </summary>
     public virtual bool IsUnitAttackable(Unit other, Cell sourceCell)
     {
-        if (sourceCell.GetDistance(other.Cell) <= AttackRange)
+        if (sourceCell.GetDistance(other.Cell) <= AttackRange + AttackAOE - 1)
             return true;
 
         return false;
@@ -222,9 +238,10 @@ public abstract class Unit : MonoBehaviour
         }
         print("attacked");
         MarkAsAttacking(other);
-        ActionPoints--;
         other.Defend(this, AttackFactor, isHp, isTrueDamage);
+        ActionPoints--;
         print("actionpoints after attack:" + ActionPoints.ToString());
+        
         if (ActionPoints == 0)
         {
             SetState(new UnitStateMarkedAsFinished(this));

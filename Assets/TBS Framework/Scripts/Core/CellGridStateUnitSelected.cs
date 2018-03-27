@@ -26,56 +26,111 @@ class CellGridStateUnitSelected : CellGridState
 
     public override void OnCellClicked(Cell cell)
     {
+
         if (_unit.isMoving)
             return;
-        if(cell.IsTaken)
+        if (_cellGrid.CurrentUnit.AttackAOE != 1)
         {
-            if (cell.unit != null)
-            {
-                OnUnitClicked(cell.unit);
-            }
-        }
+            Debug.Log("AOE: " + _cellGrid.CurrentUnit.AttackAOE);
+            Unit currentUnit = _cellGrid.CurrentUnit;
+            List<Cell> affectedCells = _cellGrid.Cells.FindAll(c => _cellGrid.CurrentUnit.IsCellAttackable(c) && c.GetDistance(cell) < _cellGrid.CurrentUnit.AttackAOE);
+            affectedCells.Add(cell);
             
-        if(!_pathsInRange.Contains(cell))
-        {
-            //_cellGrid.CellGridState = new CellGridStateWaitingForInput(_cellGrid);
+            List<Unit> affectedUnits = new List<Unit>();
+            
+            foreach (Cell c in affectedCells)
+            {
+                if (c.unit != null)
+                {
+                    affectedUnits.Add(c.unit);
+                }
+
+            }
+            if (affectedUnits.Count > 0)
+            {
+                _unit.ActionPoints = affectedUnits.Count;
+            }
+            
+            Debug.Log("multiple units Handling" + affectedUnits.Count);
+            HandleAttack(affectedUnits);
         }
         else
         {
-            var path = _unit.FindPath(_cellGrid.Cells, cell);
-            _unit.Move(cell,path);
-            _cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, _unit);
+            if (cell.IsTaken)
+            {
+                if (cell.unit != null)
+                {
+                    OnUnitClicked(cell.unit);
+                }
+            }
+            if (!_pathsInRange.Contains(cell))
+            {
+                //_cellGrid.CellGridState = new CellGridStateWaitingForInput(_cellGrid);
+            }
+            else
+            {
+                var path = _unit.FindPath(_cellGrid.Cells, cell);
+                _unit.Move(cell, path);
+                _cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, _unit);
+            }
         }
+        
+        
+            
+        
     }
 
     public override void OnUnitClicked(Unit unit)
     {
-        Debug.Log("onUnitClicked branch: ");
-        if (unit.Equals(_unit) || unit.isMoving)
+        if (_unit.ActionPoints > 0 && isAttacking == true)
         {
-            Debug.Log("self attack?");
-            return;
-        }
-        Debug.Log("_unit name " + _unit.name);
-        Debug.Log("attacked name " + unit.name);
-        if (_unitsInRange.Contains(unit) && (_unit.ActionPoints > 0) && isAttacking == true)
-        {
-            if(usingGun)
+            if (_cellGrid.CurrentUnit.AttackAOE == 1)
             {
-                _unit.AttackFactor = _unit.gunAttack;
+                if (_unitsInRange.Contains(unit))
+                {
+                    List<Unit> units = new List<Unit>();
+                    units.Add(unit);
+                    HandleAttack(units);
+                }
+            }
+            else
+            {
+                OnCellClicked(unit.Cell);
+                
+            }
+        }
+    }
+
+    public void HandleAttack(List<Unit> units)
+    {
+        foreach (Unit unit in units)
+        {
+            Debug.Log("onUnitClicked branch: ");
+            if (unit.Equals(_unit) || unit.isMoving)
+            {
+                Debug.Log("self attack?");
+                return;
+            }
+            Debug.Log("_unit name " + _unit.name);
+            Debug.Log("attacked name " + unit.name);
+            if (usingGun)
+            {
+                _unit.AttackFactor = _unit.GunAttack;
             }
             _unit.DealDamage(unit, attackingHealth, isTrueDamage);
-            _cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, _unit);
-            isAttacking = false;
-            isTrueDamage = false;
-            usingGun = false;
-            _unit.AttackFactor = _unit.basicAttack;
+            
         }
-
-        if (unit.PlayerNumber.Equals(_unit.PlayerNumber))
+        _cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, _unit);
+        isAttacking = false;
+        isTrueDamage = false;
+        usingGun = false;
+        _unit.AttackFactor = _unit.BaseAttack;
+        _unit.AttackAOE = 1;
+        if (_unit.ActionPoints == 0 && !_cellGrid.isActionDone)
         {
-            _cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, unit);
-        }     
+            Debug.Log("ENDING TURN>>>");
+            _cellGrid.EndTurn();
+        }
     }
 
 
@@ -107,7 +162,7 @@ class CellGridStateUnitSelected : CellGridState
             var cellsNotInRange = _cellGrid.Cells.Except(_pathsInRange);
             firstTurn = false;
         }
-        if (_pathsInRange.Contains(cell))
+        if (_pathsInRange.Contains(cell) && _unit.AttackAOE == 1)
         {
             var path = _unit.FindPath(_cellGrid.Cells, cell);
             foreach (var _cell in path)
@@ -118,6 +173,12 @@ class CellGridStateUnitSelected : CellGridState
         else if (_attackableInRange.Contains(cell))
         {
             cell.Mark(Cell.HighlightState.AttackSelected);
+            List<Cell> affectedCells = _cellGrid.Cells.FindAll(c => _cellGrid.CurrentUnit.IsCellAttackable(c) && c.GetDistance(cell) < _cellGrid.CurrentUnit.AttackAOE);
+            Debug.Log("Highlighted Lots" + affectedCells.Count);
+            foreach (Cell c in affectedCells)
+            {
+                c.Mark(Cell.HighlightState.AttackSelected);
+            }
         }
         else
             return;

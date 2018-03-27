@@ -56,7 +56,7 @@ public class CellGrid : MonoBehaviour
     public List<Unit>myUnits;
     public int lastPlayer; //ai or player
 
-    bool isActionDone = true;
+    public bool isActionDone = true;
 
     /// <summary>
     /// this will initialize the map for the combat scene of the game.
@@ -150,6 +150,7 @@ public class CellGrid : MonoBehaviour
     private void OnCellClicked(object sender, EventArgs e)
     {
         CellGridState.OnCellClicked(sender as Cell);
+
     }
 
     private void OnUnitClicked(object sender, EventArgs e)
@@ -166,10 +167,6 @@ public class CellGrid : MonoBehaviour
             else
             {
                 CellGridState.OnUnitClicked(sender as Unit);
-                if (!isActionDone && selected.IsUnitInRange(sender as Unit))
-                {
-                    EndTurn();
-                }
             }
         }
         
@@ -233,6 +230,15 @@ public class CellGrid : MonoBehaviour
         isActionDone = false;
     }
 
+    public void AoeAttack()
+    {
+        print("AOE");
+        _cellGridState.isAttacking = true;
+        _cellGridState.attackingHealth = true;
+        CurrentUnit.AttackAOE = 3;
+        isActionDone = false;
+    }
+
     /// <summary>
     /// Method is called once, at the beggining of the game.
     /// </summary>
@@ -277,10 +283,7 @@ public class CellGrid : MonoBehaviour
             CurrentUnit = unitTurnOrder[0];
 
 
-        }
-        
-        print("Current Num: " + CurrentPlayerNumber);
-        
+        }       
     }
 
     public void TurnCycleInvoke() //generates event that triggers the turn cycle
