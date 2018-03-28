@@ -311,7 +311,6 @@
     <Compile Include="Assets\Combat\Scripts\MenuTests.cs" />
     <Compile Include="Assets\Combat\Scripts\ObstacleLayout.cs" />
     <Compile Include="Assets\Combat\Scripts\ObstacleList.cs" />
-    <Compile Include="Assets\Combat\Scripts\StateEnum.cs" />
     <Compile Include="Assets\Combat\Scripts\TileList.cs" />
     <Compile Include="Assets\Overworld\DialogueScripts\Dialogue.cs" />
     <Compile Include="Assets\Overworld\DialogueScripts\DialogueControl.cs" />

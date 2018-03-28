@@ -148,8 +148,11 @@ public abstract class Unit : MonoBehaviour
         }
         SetState(new UnitStateMarkedAsFriendly(this));
     }
+
     /// <summary>
-    /// Method is called at the end of each turn.
+    /// Method is called at the end of each turn. Handles the duration of buffs and resets the state of the current unit
+    /// Used to make sure that buffs get taken off the board once their time is up and that the unit's state is 
+    /// clean for the next turn
     /// </summary>
     public virtual void OnTurnEnd()
     {
@@ -159,8 +162,11 @@ public abstract class Unit : MonoBehaviour
 
         SetState(new UnitStateNormal(this));
     }
+
     /// <summary>
-    /// Method is called when units HP drops below 1.
+    /// Method is called when units HP drops below 1. Destroys the unit such that
+    /// there is one less unit on the board, advancing the combat game state to
+    /// either victory or defeat
     /// </summary>
     public virtual void OnDestroyed()
     {
@@ -190,6 +196,7 @@ public abstract class Unit : MonoBehaviour
 
     /// <summary>
     /// Method indicates if it is possible to attack unit given as parameter, from cell given as second parameter.
+    /// Used to determine if attacks are possible against the unit in question
     /// </summary>
     public virtual bool IsUnitAttackable(Unit other, Cell sourceCell)
     {
@@ -198,8 +205,11 @@ public abstract class Unit : MonoBehaviour
 
         return false;
     }
+
     /// <summary>
-    /// Method deals damage to unit given as parameter.
+    /// Method deals damage to unit given as parameter. This method also handles non-possible actions (i.e. no action points)
+    /// This is used to handle most of the processes surrounding damage calculation related to an attack.
+    /// Allows units to deal damage, and therefore advancing the combat game state
     /// </summary>
     public virtual void DealDamage(Unit other, bool isHp, bool isTrueDamage)
     {
@@ -249,6 +259,10 @@ public abstract class Unit : MonoBehaviour
         }  
     }
 
+    /// <summary>
+    /// Simple method for unit taking damage. Used in testing and some items to do flat damage instead
+    /// doing actual damage calculation.
+    /// </summary>
     public virtual void TakeDamage(int amount, bool isHp)
     {
         if(isHp)
@@ -266,8 +280,11 @@ public abstract class Unit : MonoBehaviour
             OnDestroyed();
         }
     }
+
     /// <summary>
-    /// Attacking unit calls Defend method on defending unit. 
+    /// Attacking unit calls Defend method on defending unit. This method is used for calculating
+    /// damage done to the unit. This is to fulfil the requirement that units take damage and 
+    /// advances the combat game state
     /// </summary>
     protected virtual void Defend(Unit other, int damage, bool isHp, bool isTrueDamage)
     {
@@ -306,6 +323,11 @@ public abstract class Unit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method for moving one unit from one cell to another. This method fulfills the requirement of
+    /// units being able to move, and moving with movment points. Allows for the flow of combat and 
+    /// to add a dimension to the turn based combat system
+    /// </summary>
     public virtual void Move(Cell destinationCell, List<Cell> path)
     {
         if (isMoving)
@@ -355,6 +377,9 @@ public abstract class Unit : MonoBehaviour
         return !cell.IsTaken;
     }
 
+    /// <summary>
+    /// Method for determining if the cell in question in attackable. Used as helper to handle attack actions
+    /// </summary>
     public virtual bool IsCellAttackable(Cell cell)
     {
         if (!cell.IsTaken)
@@ -368,15 +393,20 @@ public abstract class Unit : MonoBehaviour
         else
             return false;
     }
+
     /// <summary>
-    /// Method indicates if unit is capable of moving through cell given as parameter.
+    /// Method indicates if unit is capable of moving through cell given as parameter. Used to make sure units do not overlap,
+    /// or try to move to obstacles
     /// </summary>
     public virtual bool IsCellTraversable(Cell cell)
     {
         return !cell.IsTaken;
     }
+
     /// <summary>
-    /// Method returns all cells that the unit is capable of moving to.
+    /// Method returns all cells that the unit is capable of moving to. This is used by the Cell grid state to handling highlighting cells
+    /// and to determine which cells are movable to based on the unit's movment points. The method returns a list of movable cells for
+    /// later methods to use
     /// </summary>
     public List<Cell> GetAvailableDestinations(List<Cell> cells)
     {
@@ -399,7 +429,8 @@ public abstract class Unit : MonoBehaviour
     }
 
     /// <summary>
-    /// Method returns all cells that the unit is capable of Attacking.
+    /// Method returns all cells that the unit is capable of Attacking. Ignores friendly units and obstacles
+    /// Used for highlighting, and for determining if an attack with succeed
     /// </summary>
     public List<Cell> GetAvailableAttacks(List<Cell> cells)
     {
@@ -416,10 +447,16 @@ public abstract class Unit : MonoBehaviour
         return cellsInAttackRange.Distinct().ToList();
     }
 
+    /// <summary>
+    /// Method for finding path from one cell to another. Used to determine movement, perform the move animation
+    /// and to highliht the path for user feedback. Useful for allowing proper movement on the grid without
+    /// teleporting
+    /// </summary>
     public List<Cell> FindPath(List<Cell> cells, Cell destination)
     {
         return _pathfinder.FindPath(GetGraphEdges(cells), Cell, destination);
     }
+
     /// <summary>
     /// Method returns graph representation of cell grid for pathfinding.
     /// </summary>
@@ -491,6 +528,7 @@ public class MovementEventArgs : EventArgs
         Path = path;
     }
 }
+
 public class AttackEventArgs : EventArgs
 {
     public Unit Attacker;

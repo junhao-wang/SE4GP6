@@ -65,6 +65,9 @@ public abstract class Cell : MonoBehaviour, IGraphNode
       
     public abstract Vector3 GetCellDimensions(); //Cell dimensions are necessary for grid generators.
 
+    /// <summary>
+    /// Method for highlighting cells depending on the situation. Used to provide good user feedback
+    /// </summary>
     public abstract void Mark(HighlightState s);
 
     /// <summary>

@@ -14,6 +14,9 @@ public class MySquare : Square
         return ret*0.98f;
     }
 
+    /// <summary>
+    /// Method for highlighting cells depending on the situation. Used to provide good user feedback
+    /// </summary>
     public override void Mark(HighlightState s)
     {
         if (s == HighlightState.None)

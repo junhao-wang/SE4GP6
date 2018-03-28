@@ -123,10 +123,14 @@ public class CellGrid : MonoBehaviour
         StartGame();
     }
 
+    /// <summary>
+    /// Update called per frame, used to highlight the current acting character, so the player will know
+    /// </summary>
     private void Update()
     {
         CurrentUnit.Cell.Mark(Cell.HighlightState.FriendlySelected);
     }
+
     /// <summary>
     /// orders the units by their speed parameter. Will be used to determine the turn order
     /// </summary>
@@ -173,7 +177,7 @@ public class CellGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// removes destroyed units from the game
+    /// removes destroyed units from the game, to advance the combate game state towards ending
     /// </summary>
     private void OnUnitDestroyed(object sender, AttackEventArgs e)
     {
@@ -200,6 +204,10 @@ public class CellGrid : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Action bar button functions, will be used to perform actions in combat. Allows the player to 
+    /// perform different attacks/use different items in the combat scene
+    /// </summary>
     //set the grid state to attacking Health
     public void AttackHealth()
     {
@@ -230,6 +238,7 @@ public class CellGrid : MonoBehaviour
         isActionDone = false;
     }
 
+    //set the grid state to attack with an AOE attack, Testing purposes only. Should be substituted with an item function
     public void AoeAttack()
     {
         print("AOE");
@@ -240,7 +249,7 @@ public class CellGrid : MonoBehaviour
     }
 
     /// <summary>
-    /// Method is called once, at the beggining of the game.
+    /// Method is called once, at the beggining of the game. Initialized the board and the turn order
     /// </summary>
     public void StartGame()
     {
@@ -256,10 +265,11 @@ public class CellGrid : MonoBehaviour
         TurnCycleInvoke();
 
     }
-    /// <summary>
-    /// Method makes turn transitions. It is called by player at the end of his turn.
-    /// </summary>
 
+    /// <summary>
+    /// Method makes turn transitions. It is called by player at the end of his turn. Allows for the game state to go
+    /// from one turn to the next.
+    /// </summary>
     public void TurnCycle(object sender, System.EventArgs e)//code for a single turn of a unit
     {
 
@@ -286,6 +296,9 @@ public class CellGrid : MonoBehaviour
         }       
     }
 
+    /// <summary>
+    /// For invoking the turn cycle
+    /// </summary>
     public void TurnCycleInvoke() //generates event that triggers the turn cycle
     {
         if (TurnEnded != null)
@@ -294,6 +307,10 @@ public class CellGrid : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set some states at the end of the turn. For handling end of turn actions and
+    /// cycling to the next turn.
+    /// </summary>
     public void EndTurn() //goes to next unit's turn
     {
         isActionDone = true;

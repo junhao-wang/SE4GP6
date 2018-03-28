@@ -15,7 +15,10 @@ class CellGridStateUnitSelected : CellGridState
     public Boolean firstTurn = true;
     private Cell _unitCell;
 
-
+    /// <summary>
+    /// What to do upon unit selection. For initializing the range lists of the unit, such that
+    /// attacking and moving can be handled
+    /// </summary>
     public CellGridStateUnitSelected(CellGrid cellGrid, Unit unit) : base(cellGrid)
     {
         _unit = unit;
@@ -24,6 +27,11 @@ class CellGridStateUnitSelected : CellGridState
         _unitsInRange = new List<Unit>();
     }
 
+    /// <summary>
+    /// Method for handling Cell clicks. This method is used to make sure that units can be moved
+    /// and the proper AOE attacs are processed. Not used for single attacks as OnUnitClicked handles
+    /// that feature
+    /// </summary>
     public override void OnCellClicked(Cell cell)
     {
 
@@ -65,7 +73,6 @@ class CellGridStateUnitSelected : CellGridState
             }
             if (!_pathsInRange.Contains(cell))
             {
-                //_cellGrid.CellGridState = new CellGridStateWaitingForInput(_cellGrid);
             }
             else
             {
@@ -73,13 +80,13 @@ class CellGridStateUnitSelected : CellGridState
                 _unit.Move(cell, path);
                 _cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, _unit);
             }
-        }
-        
-        
-            
-        
+        }  
     }
 
+    /// <summary>
+    /// Method for handleing clicked units. This method is used for in-combat actions.
+    /// This is to make sure that proper damage is done and all affected units are done with
+    /// </summary>
     public override void OnUnitClicked(Unit unit)
     {
         if (_unit.ActionPoints > 0 && isAttacking == true)
@@ -101,6 +108,10 @@ class CellGridStateUnitSelected : CellGridState
         }
     }
 
+    /// <summary>
+    /// Method for handling attacks. Takes in a list of units being attacked and processes the attack
+    /// This makes it easy to process multi-target attacks, and the damage being done
+    /// </summary>
     public void HandleAttack(List<Unit> units)
     {
         foreach (Unit unit in units)
@@ -128,12 +139,14 @@ class CellGridStateUnitSelected : CellGridState
         _unit.AttackAOE = 1;
         if (_unit.ActionPoints == 0 && !_cellGrid.isActionDone)
         {
-            Debug.Log("ENDING TURN>>>");
             _cellGrid.EndTurn();
         }
     }
 
-
+    /// <summary>
+    /// Method for handling cell deselection. This method handles proper highlighting of cells
+    /// after it has be deselected, such that user can be given proper feedback
+    /// </summary>
     public override void OnCellDeselected(Cell cell)
     {
         base.OnCellDeselected(cell);
@@ -151,6 +164,13 @@ class CellGridStateUnitSelected : CellGridState
             _cell.UnMark();
         }
     }
+
+    /// <summary>
+    /// Method for handling cell hover-over. This is used for handling the currently
+    /// Acting units, and highlighting the relevant information (Movement path
+    /// and attackable areas). Makes it easier for the player
+    /// to determine thier course of action
+    /// </summary>
     public override void OnCellSelected(Cell cell)
     {
         base.OnCellSelected(cell);
@@ -182,10 +202,13 @@ class CellGridStateUnitSelected : CellGridState
         }
         else
             return;
-
-        
     }
 
+    /// <summary>
+    /// Method at beginning of unit's turn. Used to highlight possible moves
+    /// as well as possible attacks based on the unit range. Used to give a clear
+    /// indication of what is possible on a unit's turn.
+    /// </summary>
     public override void OnStateEnter() //beginning of a unit's turn
     {
 
@@ -230,10 +253,12 @@ class CellGridStateUnitSelected : CellGridState
             _unit.SetState(new UnitStateMarkedAsFinished(_unit));
 
         }
-            
-
-
     }
+
+    /// <summary>
+    /// Method for handling when it is no longer a unit's turn. Used for unmarking the unit
+    /// and resetting other unit states, such that the game state is clean for the next turn
+    /// </summary>
     public override void OnStateExit()
     {
         _unit.OnUnitDeselected();
@@ -248,6 +273,10 @@ class CellGridStateUnitSelected : CellGridState
         }   
     }
 
+    /// <summary>
+    /// Determines if a unit is in range. Used for several Methods to check if actions
+    /// can be performed on the unit (as you cannot, say, attack units out of range)
+    /// </summary>
     public bool IsUnitInRange(Unit unit)
     {
         if (_unitsInRange.Contains(unit))

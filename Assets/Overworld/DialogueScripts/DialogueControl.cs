@@ -38,9 +38,13 @@ public class DialogueControl : MonoBehaviour {
         dialogueImageRight = dialogueParent.transform.Find("RightDialogue").GetComponent<Image>();
         //startDialogue(11);
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    /// <summary>
+    /// In this method, we handle the cycling of dialogue. This allows the user to have control of the dialogue happening,
+    /// going from one to the next, and the option to skip parts of the dialogue.
+    /// </summary>
+    void Update () {
         
         //move on to the next piece of dialogue on mouseclick and space, but only if the dialoge box is active
         if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode. Space) ) && dialogueParent.activeSelf && doneScrolling) 
@@ -86,7 +90,11 @@ public class DialogueControl : MonoBehaviour {
         dText.text = currentText;
     }
 
-    //load the dialogue json
+    /// <summary>
+    /// Method for loading the dialogue json. This is so that the game will have the dialogues ready to cycle through.
+    /// The json is used to dialogue can be stored and edited, and subsequently algorithmically assigned and cycled through
+    /// without hardcoding
+    /// </summary>
     void loadDialogue(int id)
     {
         string dialogue = System.IO.File.ReadAllText(Path.Combine(Application.streamingAssetsPath, "Dialogue.json"));
@@ -101,7 +109,10 @@ public class DialogueControl : MonoBehaviour {
         }
     }
 
-    //open the dialogue box with a dialogue id
+    //// <summary>
+    /// Method for opening a set of dialogue given an ID. Allows for any peice of dialogue to be loaded at any time.
+    /// This allows for the dynamic allocation of dialogue peices
+    /// </summary>
     public void startDialogue(int id)
     {
         dialogueParent.SetActive(true);
@@ -114,6 +125,10 @@ public class DialogueControl : MonoBehaviour {
         setPortrait();
     }
 
+    /// <summary>
+    /// Method for dialogue to slowly scroll, as if being said. Both allows for a more RPG feel and prevents
+    /// users from accedentally skipping though dialogue because they pressed the space bar too often
+    /// </summary>
     public IEnumerator ScrollDialogue(string t)
     {
         print("Starting Scroll");
@@ -134,6 +149,11 @@ public class DialogueControl : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Method for skipping dialogue. Does not altogether skip all the dialogue, rather it scrolls through it really fast as
+    /// long as a button is held. This allows dialogue to be quickly skipped without taking away the ability to only skip
+    /// a part of the dialogue
+    /// </summary>
     public IEnumerator SkipDialogue()
     {
         isSkipping = false;
@@ -167,7 +187,7 @@ public class DialogueControl : MonoBehaviour {
         }
     }
 
-    //set the name of the character speaking
+    //set the name of the character speaking, so the player will know who is currently speaking
     void setName()
     {
         if (currentDialogue.Dialogue[dialogueIndex].name == "Blank")
@@ -180,7 +200,7 @@ public class DialogueControl : MonoBehaviour {
         }
     }
 
-    //set the portrait of the character speaking, this is needed so that the play knows who's speaking
+    //set the portrait of the character speaking, this is needed so that the player knows who's speaking
     void setPortrait()
     {
         if (false)

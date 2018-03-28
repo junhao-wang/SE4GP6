@@ -76,10 +76,12 @@ public class GenerateBattlemap : MonoBehaviour {
         gridGen.GenerateGrid();
     }
 
-    /* Load map onto the existing grid
-     * This function loads all the map-related json into arrays, so that they can be used to generate the map later
-     * It also loads the layouts in the json into their respective layout variables, and in general sets all variables
-     * into what they need to be in order for the map generation to commence */
+    /// <summary>
+    /// Load map onto the existing grid
+    ///  This function loads all the map-related json into arrays, so that they can be used to generate the map later
+    ///  It also loads the layouts in the json into their respective layout variables, and in general sets all variables
+    ///  into what they need to be in order for the map generation to commence
+    /// </summary>
     void LoadMap()
     {
         mapList = LoadMaps();

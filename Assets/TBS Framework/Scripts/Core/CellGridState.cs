@@ -4,9 +4,24 @@ public abstract class CellGridState
 {
     protected CellGrid _cellGrid;
 
+    /// <summary>
+    /// Attacking State of the game board
+    /// </summary>
     public bool isAttacking { get; set; }
+    
+    /// <summary>
+    /// Is the current attack attacking health or armor?
+    /// </summary>
     public bool attackingHealth { get; set; }
+
+    /// <summary>
+    /// Is the current attack going to ignore armor?
+    /// </summary>
     public bool isTrueDamage = false;
+
+    /// <summary>
+    /// Is the current attack performed using a Gun?
+    /// </summary>
     public bool usingGun = false;
 
     protected CellGridState(CellGrid cellGrid)
