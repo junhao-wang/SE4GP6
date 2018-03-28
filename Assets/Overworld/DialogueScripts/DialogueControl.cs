@@ -10,6 +10,11 @@ public class DialogueControl : MonoBehaviour {
 
     int dialogueIndex = 11;
     int lineIndex = 0;
+    int dialogueSpeed = 100;
+    string currentText = "";
+
+    bool doneScrolling = true;
+    bool isSkipping = false;
 
     GameObject dialogueParent;
 
@@ -36,22 +41,22 @@ public class DialogueControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+        
         //move on to the next piece of dialogue on mouseclick and space, but only if the dialoge box is active
-		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode. Space) ) && dialogueParent.activeSelf) 
+        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode. Space) ) && dialogueParent.activeSelf && doneScrolling) 
         {
             //move through the dialogue of one character
             if (lineIndex < currentDialogue.Dialogue[dialogueIndex].Lines.Count - 1)
             { 
                 lineIndex++;
-                dText.text = currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex];
+                StartCoroutine("ScrollDialogue", currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex]);
             }
             //move to the next person speaking
             else if (dialogueIndex < currentDialogue.Dialogue.Length - 1)
             {
                 dialogueIndex++;
                 lineIndex = 0;
-                dText.text = currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex];
+                StartCoroutine("ScrollDialogue", currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex]);
                 setName();
                 setPortrait();
             }
@@ -65,7 +70,21 @@ public class DialogueControl : MonoBehaviour {
                 Party.GetComponent<PartyProperties>().inDialogue = false;
             }
         }
-	}
+
+        if ((Input.GetKeyDown(KeyCode.RightControl)|| Input.GetKeyDown(KeyCode.LeftControl)) && dialogueParent.activeSelf && !isSkipping)
+        {
+            //move through the dialogue of one character
+            
+            StartCoroutine("SkipDialogue");
+            
+        }
+        if ((Input.GetKeyUp(KeyCode.RightControl) || Input.GetKeyUp(KeyCode.LeftControl)))
+        {
+            StopCoroutine("SkipDialogue");
+            isSkipping = false;
+        }
+        dText.text = currentText;
+    }
 
     //load the dialogue json
     void loadDialogue(int id)
@@ -89,9 +108,63 @@ public class DialogueControl : MonoBehaviour {
         loadDialogue(id);
         lineIndex = 0;
         dialogueIndex = 0;
-        dText.text = currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex];
+        print("Starting");
+        StartCoroutine("ScrollDialogue", currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex]);
         setName();
         setPortrait();
+    }
+
+    public IEnumerator ScrollDialogue(string t)
+    {
+        print("Starting Scroll");
+        doneScrolling = false;
+        currentText = "";
+        for (int i = 0; i < t.Length; i++)
+        {
+            currentText += t[i];
+            yield return new WaitForSeconds(dialogueSpeed * 0.0001f);
+            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && dialogueParent.activeSelf)
+            {
+                currentText = t;
+                doneScrolling = true;
+                break;
+            }
+        }
+        doneScrolling = true;
+
+    }
+
+    public IEnumerator SkipDialogue()
+    {
+        isSkipping = false;
+        while (true)
+        {
+            yield return new WaitForSeconds(0.1f);
+            if (lineIndex < currentDialogue.Dialogue[dialogueIndex].Lines.Count - 1)
+            {
+                lineIndex++;
+                currentText = currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex];
+                print(currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex]);
+            }
+            //move to the next person speaking
+            else if (dialogueIndex < currentDialogue.Dialogue.Length - 1)
+            {
+                dialogueIndex++;
+                lineIndex = 0;
+                currentText = currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex];
+                setName();
+                setPortrait();
+            }
+            //if there is no more dialogue, end the dialogue box
+            else
+            {
+                lineIndex = 0;
+                dialogueIndex = 0;
+
+                dialogueParent.SetActive(false);
+                Party.GetComponent<PartyProperties>().inDialogue = false;
+            }
+        }
     }
 
     //set the name of the character speaking
