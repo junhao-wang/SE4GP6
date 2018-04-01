@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class NextGuiController : MonoBehaviour
 {
@@ -93,6 +94,11 @@ public class NextGuiController : MonoBehaviour
         {
             _bar[i].SetActive(false);
         }
+        if (Input.GetMouseButton(0))
+        {
+            print("Dehighlighting");
+            DehighlightAll();
+        }
     }
 
     private void OnGameStarted(object sender, EventArgs e)
@@ -117,7 +123,7 @@ public class NextGuiController : MonoBehaviour
 
     }
 
-    //what to do when end turn occurs
+    //what to do when end turn occurs, this is here to update the UI such that it follows the correct order of turns
     private void OnTurnEnded(object sender, EventArgs e)
     {
         
@@ -138,7 +144,7 @@ public class NextGuiController : MonoBehaviour
 
     }
 
-    //highlight an attacked unit for feedback
+    //highlight an attacked unit. Useful for user feedback
     private void OnUnitAttacked(object sender, AttackEventArgs e)
     {
         if (!(CellGrid.CurrentPlayer is HumanPlayer)) return;
@@ -150,12 +156,13 @@ public class NextGuiController : MonoBehaviour
         OnUnitHighlighted(sender, e);
     }
 
-    //destroy the unit and associated infopanel
+    //destroy the unit and associated infopanel, to clear up memory and signal to the player that there is no longer 
     private void OnUnitDestroyed(object sender, AttackEventArgs e)
     {
         Destroy(_infoPanel);
         print("unitdestroyed");
     }
+
     //we don't want infopanel showing up when the character isn't selected
     private void OnUnitDehighlighted(object sender, EventArgs e)
     {
@@ -236,10 +243,46 @@ public class NextGuiController : MonoBehaviour
         _infoPanel.GetComponent<RectTransform>().SetParent(Canvas.GetComponent<RectTransform>(), false);
     }
 
+    public void HighlightFrame(GameObject UIElement)
+    {
+        try
+        {
+            GameObject highlight = UIElement.transform.Find("Highlight").gameObject;
+            highlight.SetActive(true);
+        }
+        catch { }
+    }
+
+    public void DehighlightFrame(GameObject UIElement)
+    {
+        
+        try
+        {
+            GameObject highlight = UIElement.transform.Find("Highlight").gameObject;
+            print("Dehighlighting: " + UIElement.name);
+            highlight.SetActive(false);
+        }
+        catch { }
+    }
+
+    public void HighlightButton()
+    {
+        HighlightFrame(EventSystem.current.currentSelectedGameObject);
+    }
+
     public void DismissPanel()
     {
         Destroy(_gameOverPanel);
     }
+
+    public void DehighlightAll()
+    {
+        foreach (Transform t in ActionPanel.transform)
+        {              
+            DehighlightFrame(t.gameObject);       
+        }
+    }
+
     public void RestartLevel()
     {
         Application.LoadLevel(Application.loadedLevel);
