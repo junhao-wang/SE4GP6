@@ -70,6 +70,7 @@ public class MapGenerator : MonoBehaviour {
 
     }
 
+    //This function is implemented to ensure that there is dialogue in the overworld
     private void PopulateDialogue()
     {
         //parse all dialogue  and create a list of dialogue chains(a dialogue chain is a group of related dialogue sets)
@@ -157,6 +158,8 @@ public class MapGenerator : MonoBehaviour {
     void Update () {
 		
 	}
+
+    //This function improves the aesthetic appearance of the map for the player by placing clutter.
     void GenerateClutter()
     {
         foreach (GameObject Node in gameObject.GetComponent<MapProperties>().Nodes)
@@ -169,7 +172,9 @@ public class MapGenerator : MonoBehaviour {
 
         }
     }
-    void placeclutter(float inner, float outer, Sprite[] imgs,int begin,int end,GameObject Node,float chance,int clutteramt)
+    
+    //implementation specific function
+    public void placeclutter(float inner, float outer, Sprite[] imgs,int begin,int end,GameObject Node,float chance,int clutteramt)
     {
         float roll = Random.value;
         if (roll <= chance)
@@ -180,7 +185,10 @@ public class MapGenerator : MonoBehaviour {
             Vector3 offset = Random.insideUnitCircle * outer * 0.8f;
             offset += new Vector3(0, 0, -0.1f);
             newclutter.transform.position = inipos + offset;
-            newclutter.GetComponent<SpriteRenderer>().sprite = imgs[Random.Range(begin, end + 1)];
+            int imgIndex = Random.Range(begin, end + 1);
+            newclutter.GetComponent<SpriteRenderer>().sprite = imgs[imgIndex];
+            newclutter.GetComponent<ClutterProperties>().type = imgIndex;
+            gameObject.GetComponent<MapProperties>().Clutter.Add(newclutter);
             for (int i = 0; i < clutteramt; i++)
             {
                 GameObject additionalclutter = GameObject.Instantiate(ClutterPrefab);
@@ -191,7 +199,10 @@ public class MapGenerator : MonoBehaviour {
                 additionalclutter.transform.position = initpos + offsetpos;
                 if (additionalclutter.transform.position.x >xSpawnMin && additionalclutter.transform.position.x <xSpawnMax && additionalclutter.transform.position.y <ySpawnMax && additionalclutter.transform.position.y > ySpawnMin)
                 {
-                    additionalclutter.GetComponent<SpriteRenderer>().sprite = imgs[Random.Range(begin, end + 1)];
+                    imgIndex = Random.Range(begin, end + 1);
+                    additionalclutter.GetComponent<SpriteRenderer>().sprite = imgs[imgIndex];
+                    additionalclutter.GetComponent<ClutterProperties>().type = imgIndex;
+                    gameObject.GetComponent<MapProperties>().Clutter.Add(additionalclutter);
                 }
    
                
@@ -452,41 +463,7 @@ public class MapGenerator : MonoBehaviour {
 
 
 
-    /*
-
-    
-    void fillNeighbours(GameObject Tile,int i, int j)
-    {
-        for(int x = -1;x < 2; x++)
-        {
-            for (int y = -1; y < 2; y++)
-            {
-                if(!(x == 0 && y == 0)){
-                    if (inRange(i+x, j+y))
-                    {
-                        Tile.GetComponent<TileProperties>().NodeChild.GetComponent<NodeProperties>().Neighbors.Add(gameObject.GetComponent<MapProperties>().Tiles[i + x, j + y].GetComponent<TileProperties>().NodeChild);
-                    }
-                }
-            }
-        }
-    }
-    */
-
-
-
-
-    bool inRange(int x, int y)
-    {
-        if (0<=x && x < Rows && 0<= y && y< Cols)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
+ 
     Vector3 calcSpawnPositionFromIndex(int x, int y)
     {
         Vector3 initpos = gameObject.GetComponent<Transform>().position;
