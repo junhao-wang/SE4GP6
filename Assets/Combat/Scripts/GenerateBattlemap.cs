@@ -191,6 +191,8 @@ public class GenerateBattlemap : MonoBehaviour {
         int gridIndex = 0;
         foreach (Transform child in cellsParent)
         {
+            Cell cell = child.GetComponent<Cell>();
+            cell.cellNumber = (height - gridIndex % height) + gridIndex/ height + 5;
             SpriteRenderer sr = child.GetComponent<SpriteRenderer>();
             Sprite[] newSpriteSheet;
             //load tile sprite onto tile
@@ -269,6 +271,7 @@ public class GenerateBattlemap : MonoBehaviour {
             obstacle.GetComponent<SpriteRenderer>().sprite = s;
             obstacle.transform.position = cell.position + new Vector3(0, 0, 0.1f);
             obstacle.transform.parent = ObstaclesParent.transform;
+            obstacle.GetComponent<SpriteRenderer>().sortingOrder = cell.GetComponent<Cell>().cellNumber;
         }
     }
 
@@ -315,6 +318,7 @@ public class GenerateBattlemap : MonoBehaviour {
             enemy.transform.Find("Marker").GetComponent<SpriteRenderer>().sprite = sm;
             enemy.transform.position = cell.position;
             enemy.transform.parent = UnitParent.transform;
+            enemy.GetComponent<Unit>().Cell = cell.GetComponent<Cell>();
 
             enemy.GetComponent<Unit>().HitPoints = e.hp;
             enemy.GetComponent<Unit>().Armor = e.armor;
@@ -326,6 +330,10 @@ public class GenerateBattlemap : MonoBehaviour {
             enemy.GetComponent<Unit>().Speed = e.speed;
 
             enemy.GetComponent<Unit>().Initialize();
+            foreach (SpriteRenderer sr in enemy.GetComponentsInChildren<SpriteRenderer>())
+            {
+                sr.sortingOrder = enemy.GetComponent<Unit>().Cell.cellNumber;
+            }
         }
     }
 
