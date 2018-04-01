@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 342}
   m_MaxSize: {x: 12008, y: 8042}
   vertical: 0
-  controlID: 97
+  controlID: 81
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 342}
   m_MaxSize: {x: 8006, y: 8042}
   vertical: 1
-  controlID: 10
+  controlID: 95
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 11
+  controlID: 96
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -366,10 +366,10 @@ MonoBehaviour:
     height: 506
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 4afbffff
-    m_LastClickedID: -1206
-    m_ExpandedIDs: c883ffff9884ffffa884ffffb884ffff20fbffff74fbffff76fbffff9efbffff000000003a4500007045000084450000
+    scrollPos: {x: 0, y: 35}
+    m_SelectedIDs: 62450000
+    m_LastClickedID: 17762
+    m_ExpandedIDs: 9efbffff0000000094440000b0440000ba440000d2440000ec4400003a450000444500005a450000624500007c450000ba450000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -425,9 +425,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 6.7166777, y: -2.19472, z: 5.4397674}
+    m_Target: {x: 573.6331, y: 263.01434, z: -0.64088583}
     speed: 2
-    m_Value: {x: 6.7166777, y: -2.19472, z: 5.4397674}
+    m_Value: {x: 573.6331, y: 263.01434, z: -0.64088583}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -455,9 +455,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 17.414862
+    m_Target: 610.01544
     speed: 2
-    m_Value: 17.414862
+    m_Value: 610.01544
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -535,33 +535,33 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Combat/Scripts
+    - Assets/Resources/CombatSprites
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Combat/Scripts
+  - Assets/Resources/CombatSprites
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Unity\World Apart
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 31}
-    m_SelectedIDs: 58410000
-    m_LastClickedID: 16728
-    m_ExpandedIDs: 0000000048280000662800007c280000963a00009a3a00008e3c0000fe3c0000f64000007e430000b44300004048000042480000444800004648000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 314}
+    m_SelectedIDs: 00430000
+    m_LastClickedID: 17152
+    m_ExpandedIDs: 0000000048280000662800007c280000963a00009a3a00008e3c0000fe3c0000f6400000464300007e43000088430000b44300004048000042480000444800004648000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Prefabs
+      m_OriginalName: Prefabs
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 14824
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 10}
     m_SearchString: 
@@ -575,7 +575,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000048280000662800007c280000963a00009a3a00008e3c0000f64000007e430000b443000040480000424800004448000046480000
+    m_ExpandedIDs: 0000000048280000662800007c280000963a00009a3a00008e3c0000fe3c0000f64000007e430000b443000040480000424800004448000046480000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -600,8 +600,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 52fbffff
-    m_LastClickedInstanceID: -1198
+    m_SelectedInstanceIDs: 62450000
+    m_LastClickedInstanceID: 17762
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: 742d0000d2430000023a0000
     m_RenameOverlay:
