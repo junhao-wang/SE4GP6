@@ -58,7 +58,7 @@ public class MapProperties : MonoBehaviour {
             Destroy(thingsToDestroy[i]);
         }
         Destroy(GameObject.FindGameObjectWithTag("Overworld Party"));
-        //Destroy(transform.gameObject);
+        Destroy(transform.gameObject);
     }
     //initialize tile list
     public void initList()
@@ -98,7 +98,7 @@ public class MapProperties : MonoBehaviour {
 
 
         List<ClutterProperties.ClutterSave> c = new List<ClutterProperties.ClutterSave>();
-        strOut = ";";
+        strOut = "";
         for (int i = 0; i < Nodes.Count; i++)
         {
             strOut += JsonUtility.ToJson(Clutter[i].GetComponent<ClutterProperties>().toClutterSave());
@@ -188,6 +188,7 @@ public class MapProperties : MonoBehaviour {
         reader = new StreamReader(pathp);
 
         PartyObject.GetComponent<PartyProperties>().fromPartySave(JsonUtility.FromJson<PartyProperties.PartySave>(reader.ReadToEnd()));
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScroll>().SnapToParty();
 
 
 

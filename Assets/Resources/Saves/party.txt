@@ -1,1 +1,1 @@
-{"occupiedNode":0,"CompletedDialogue":[],"Resources":[15.0,15.0]}
+{"occupiedNode":2,"CompletedDialogue":[91],"Resources":[18.0,13.0],"x":-0.948097288608551,"y":1.953830361366272,"z":9.889999389648438}

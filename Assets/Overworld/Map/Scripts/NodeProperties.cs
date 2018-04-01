@@ -73,7 +73,7 @@ public class NodeProperties : MonoBehaviour {
             Neighbors.Add(MController.GetComponent<MapProperties>().Nodes[n.Neighbors[i]]);
         }
         gameObject.transform.position =new Vector3(n.x,n.y,n.z );
-
+        SetColor();
 
     }
     // Use this for initialization

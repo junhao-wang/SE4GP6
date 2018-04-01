@@ -21,6 +21,7 @@ public class PartyProperties : MonoBehaviour {
         public int occupiedNode;
         public int[] CompletedDialogue;
         public float[] Resources;
+        public float x, y, z;
     }
 
     public PartySave toPartySave()
@@ -29,6 +30,9 @@ public class PartyProperties : MonoBehaviour {
         p.occupiedNode = OccupiedNode.GetComponent<NodeProperties>().ID;
         p.CompletedDialogue = CompletedDialogue.ToArray();
         p.Resources = Resources;
+        p.x = gameObject.transform.position.x;
+        p.y = gameObject.transform.position.y;
+        p.z = gameObject.transform.position.z;
         return p;
     }
 
@@ -38,6 +42,8 @@ public class PartyProperties : MonoBehaviour {
         OccupiedNode = MController.GetComponent<MapProperties>().Nodes[p.occupiedNode];
         CompletedDialogue = new List<int>(p.CompletedDialogue);
         Resources = p.Resources;
+        gameObject.transform.position = new Vector3(p.x, p.y, p.z);
+        OccupiedNode.GetComponent<NodeProperties>().visited = true;
     }
     // Use this for initialization
     void Start () {

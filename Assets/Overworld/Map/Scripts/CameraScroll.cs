@@ -46,4 +46,9 @@ public class CameraScroll : MonoBehaviour
         }
 
     }
+    public void SnapToParty()
+    {
+        gameObject.transform.position = new Vector3(party.transform.position.x, party.transform.position.y,gameObject.transform.position.z);
+        
+    }
 }
