@@ -19,16 +19,17 @@ public class ItemControl : MonoBehaviour {
 	void InputControl(){
 		
 		if (Input.GetKeyDown (KeyCode.A)) {
-			Add (item);
+			//Add (item);
 		}
 		if (Input.GetKeyDown (KeyCode.S)) {
-			Create (item);
+			//Create (item);
+
 		}
 		if (Input.GetKeyDown (KeyCode.D)) {
-			Hide (item);
+			//Hide (item);
 		}
 		if (Input.GetKeyDown (KeyCode.F)) {
-			Remove (item);
+			//Remove (item);
 		}
 		if (trigger) {
 			layout.formatItems ();
