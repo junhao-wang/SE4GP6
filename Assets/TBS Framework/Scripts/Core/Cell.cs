@@ -12,6 +12,8 @@ public abstract class Cell : MonoBehaviour, IGraphNode
 
     public enum HighlightState {None, Highlighted, Reachable, Path, Attackable, AttackSelected, Friendly, FriendlySelected };
 
+    public int cellNumber { get; set; }
+
     /// <summary>
     /// Indicates if something is occupying the cell.
     /// </summary>

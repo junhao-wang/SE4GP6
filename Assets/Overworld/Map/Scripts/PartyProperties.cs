@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 
 public class PartyProperties : MonoBehaviour {
@@ -12,10 +13,38 @@ public class PartyProperties : MonoBehaviour {
     public List<int> CompletedDialogue = new List<int>();
     public bool inDialogue = false;
     public float initialMoney = 15, initialSupply = 15;
-    public enum ResourceType {MONEY,SUPPLY ,SIZE};
+    public enum ResourceType { MONEY, SUPPLY, SIZE };
     public static string[] ResourceNames = { "Money", "Supply" };
-    public float[] Resources= new float[(int)ResourceType.SIZE];
+    public float[] Resources = new float[(int)ResourceType.SIZE];
+    [System.Serializable]
+    public struct PartySave{
+        public int occupiedNode;
+        public int[] CompletedDialogue;
+        public float[] Resources;
+        public float x, y, z;
+    }
 
+    public PartySave toPartySave()
+    {
+        PartySave p = new PartySave();
+        p.occupiedNode = OccupiedNode.GetComponent<NodeProperties>().ID;
+        p.CompletedDialogue = CompletedDialogue.ToArray();
+        p.Resources = Resources;
+        p.x = gameObject.transform.position.x;
+        p.y = gameObject.transform.position.y;
+        p.z = gameObject.transform.position.z;
+        return p;
+    }
+
+    public void fromPartySave(PartySave p)
+    {
+        GameObject MController = GameObject.Find("MapController");
+        OccupiedNode = MController.GetComponent<MapProperties>().Nodes[p.occupiedNode];
+        CompletedDialogue = new List<int>(p.CompletedDialogue);
+        Resources = p.Resources;
+        gameObject.transform.position = new Vector3(p.x, p.y, p.z);
+        OccupiedNode.GetComponent<NodeProperties>().visited = true;
+    }
     // Use this for initialization
     void Start () {
         Resources[(int)ResourceType.MONEY] = initialMoney;
@@ -40,7 +69,7 @@ public class PartyProperties : MonoBehaviour {
 		
 	}
 
-
+    //used to proccess resource events and update corresponding UI elements
     public void ProccessResourceEvent(float[] modifiers)
     {
         if (modifiers.Length == Resources.Length)
@@ -58,6 +87,7 @@ public class PartyProperties : MonoBehaviour {
         }
     }
 
+    //used to change resource values
     public void ModResource(ResourceType t, float amt)
     {
         Resources[(int)t] += amt;

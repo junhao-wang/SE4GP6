@@ -10,18 +10,18 @@ public class NodeProperties : MonoBehaviour {
     public GameObject PathPrefab;
     public GameObject Party;
     public int ID; //node id used purely for saving/loading
-    public Color ResourceEvent, DialogueEvent, CombatEvent, NoEvent;
-    public List<GameObject> Neighbors;
-    public bool visited = false;
+    public Color ResourceEvent, DialogueEvent, CombatEvent, NoEvent;//colours for node event types
+    public List<GameObject> Neighbors;//list of neighbours
+    public bool visited = false;//visited flag
     public List<GameObject> Pathing,OccupiedPathing;
     public EventType NodeEvent =EventType.NONE ;
-    public int dialogueID = 0, chainID = 0;
-    public enum Region{A,B,C,D,E,NULL};
-    public float[] ResourceMod = new float[(int)PartyProperties.ResourceType.SIZE];
-    public enum EventType { COMBAT,NARRATIVECORE,NARRATIVE,NONE};
-    public Region nodeRegion = Region.NULL;
-    public List<int> dialogueSet = new List<int>();
-    public List<DiaReq> dialogueReqs= new List<DiaReq>();
+    public int dialogueID = 0, chainID = 0;//dialogue related variables
+    public enum Region{A,B,C,D,E,NULL};//Region not yet implemented
+    public float[] ResourceMod = new float[(int)PartyProperties.ResourceType.SIZE]; //dynamic resource list
+    public enum EventType { COMBAT,NARRATIVECORE,NARRATIVE,NONE};//event related enum
+    public Region nodeRegion = Region.NULL;//REgion not yet implemented
+    public List<int> dialogueSet = new List<int>();//dialogue related variable
+    public List<DiaReq> dialogueReqs= new List<DiaReq>();//dialogue related variable
 
     public struct DiaReq
     {
@@ -29,7 +29,53 @@ public class NodeProperties : MonoBehaviour {
         public int[] Req;
     }
 
+    [System.Serializable]
+    public struct NodeSave
+    {
+        public int ID, NodeEvent, dialogueID, chainID;
+        public float[] ResourceMod;
+        public bool visited;
+        public int[] Neighbors;
+        public float x, y,z;
+    }
 
+    public NodeSave toNodeSave()
+    {
+        NodeSave n = new NodeSave();
+        n.ID = ID;
+        n.NodeEvent = (int)NodeEvent;
+        n.dialogueID = dialogueID;
+        n.chainID = chainID;
+        n.ResourceMod = ResourceMod;
+        n.visited = visited;
+        n.Neighbors = new int[Neighbors.Count];
+        for(int i = 0; i < Neighbors.Count; i++)
+        {
+            n.Neighbors[i] = Neighbors[i].GetComponent<NodeProperties>().ID;
+        }
+        n.x = gameObject.transform.position.x;
+        n.y = gameObject.transform.position.y;
+        n.z = gameObject.transform.position.z;
+        return n;
+    }
+    public void fromNodeSave(NodeSave n)
+    {
+        ID = n.ID;
+        NodeEvent = (EventType)n.NodeEvent;
+        dialogueID = n.dialogueID;
+        chainID = n.chainID;
+        ResourceMod = n.ResourceMod;
+        visited = n.visited;
+        Neighbors = new List<GameObject>();
+        GameObject MController = GameObject.Find("MapController");
+        for (int i = 0; i < n.Neighbors.Length; i++)
+        {
+            Neighbors.Add(MController.GetComponent<MapProperties>().Nodes[n.Neighbors[i]]);
+        }
+        gameObject.transform.position =new Vector3(n.x,n.y,n.z );
+        SetColor();
+
+    }
     // Use this for initialization
     void Start () {
         Party = GameObject.Find("PartyPlaceholder");
@@ -120,6 +166,7 @@ public class NodeProperties : MonoBehaviour {
         } else if (NodeEvent == EventType.NARRATIVECORE)
         {
           
+
             startDialogue();
             if (dialogueSet.Count == 1 && dialogueSet[0] == 0)
             {

@@ -9,6 +9,7 @@ public class OverlayUIScripts : MonoBehaviour {
     public PartyProperties pProp;
     public GameObject LooseScreen;
     public GameObject WinScreen;
+    public GameObject MapLoadSave;
 	// Use this for initialization
 	void Start () {
         GameObject Party = GameObject.FindWithTag("Overworld Party");
@@ -18,7 +19,15 @@ public class OverlayUIScripts : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            MapLoadSave.SetActive(!MapLoadSave.activeSelf);
+        }else if (Input.GetKeyUp(KeyCode.Pause))
+        {
+            GameObject MController = GameObject.Find("MapController");
+            MController.GetComponent<MapProperties>().defeat();
+            loadMainMenu();
+        }
 	}
 
     //update the displayed text to the actual current party statistic
@@ -85,5 +94,17 @@ public class OverlayUIScripts : MonoBehaviour {
     public void ClearNodePopUp()
     {
         ChangePopUp.GetComponent<Text>().text = "";
+    }
+
+    public void loadMap()
+    {
+        GameObject MController = GameObject.Find("MapController");
+        MController.GetComponent<MapProperties>().loadmap();
+    }
+
+    public void saveMap()
+    {
+        GameObject MController = GameObject.Find("MapController");
+        MController.GetComponent<MapProperties>().savemap();
     }
 }

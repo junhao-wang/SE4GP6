@@ -154,7 +154,6 @@ public class CellGrid : MonoBehaviour
     private void OnCellClicked(object sender, EventArgs e)
     {
         CellGridState.OnCellClicked(sender as Cell);
-
     }
 
     private void OnUnitClicked(object sender, EventArgs e)

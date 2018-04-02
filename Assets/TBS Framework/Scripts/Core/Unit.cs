@@ -363,7 +363,12 @@ public abstract class Unit : MonoBehaviour
             transform.position = Cell.transform.position + Offset;
 
         if (UnitMoved != null)
-            UnitMoved.Invoke(this, new MovementEventArgs(Cell, destinationCell, path));    
+            UnitMoved.Invoke(this, new MovementEventArgs(Cell, destinationCell, path));
+
+        foreach (SpriteRenderer sr in transform.GetComponentsInChildren<SpriteRenderer>())
+        {
+            sr.sortingOrder = Cell.cellNumber;
+        }  
     }
     protected virtual IEnumerator MovementAnimation(List<Cell> path)
     {

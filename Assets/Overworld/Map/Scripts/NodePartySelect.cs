@@ -9,6 +9,7 @@ public class NodePartySelect : MonoBehaviour {
     public static GameObject LooseScreen;
     public static bool spawned = true;
     public static bool walk = false;
+    public static bool inDialogue = false;
    
     // Use this for initialization
     void Start()
@@ -65,7 +66,7 @@ public class NodePartySelect : MonoBehaviour {
             gameObject.GetComponent<NodeHoverScript>().ReturnNaturalColor();
             */
         }
-        else if (SourceNode != null && SourceNode.GetComponent<NodeProperties>().Neighbors.Contains(gameObject))
+        else if (SourceNode != null && SourceNode.GetComponent<NodeProperties>().Neighbors.Contains(gameObject)&& PartyIcon.GetComponent<PartyProperties>().inDialogue==false)
         {
             //print(PartyIcon.GetComponent<PartyProperties>().Resources[(int)PartyProperties.ResourceType.SUPPLY]);
             if(PartyIcon.GetComponent<PartyProperties>().Resources[(int)PartyProperties.ResourceType.SUPPLY] < 1)
