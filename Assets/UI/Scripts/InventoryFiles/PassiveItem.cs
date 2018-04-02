@@ -2,17 +2,15 @@
 using System.Text;
 using System.Collections;
 using UnityEngine;
-
+//This class is an extention of the ItemInfo which represents all the items that apply a passive value change to the character.
+//Part of the Darkest's Dungeon scripts
 public class PassiveItem : ItemInfo {
 
 
-	public string id { get; set; }
-	//public string Rarity { get;  set; }
-	//public List<Buff> Buffs { get; private set; }
+	public string id { get; set; }		//represents the specific initalization of the passiveItem
+	//creats an empty base Passive item that is filled promptly
 	public PassiveItem():base("0", "passiveItem","passive", "This is a passive Item", new int[]{0,0,0,0,0,0,0,0})
 	{
-		//Buffs = new List<Buff>();
-		//ClassRequirements = new List<string>();
 		getLevel();
 	}
 	// Retrieves the value of the item's assigned level

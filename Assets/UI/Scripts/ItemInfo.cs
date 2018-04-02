@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-//This script states the type of item and what values that it passes to the player, will be used for item prefabs//
+//This class states the type of item and what values that it passes to the player, will be used for item prefabs//
 public class ItemInfo {
 
 	public string itemID { get; set; } 						// Item ID
@@ -14,6 +14,7 @@ public class ItemInfo {
 	public int[] stats{get; set;}				// The list of stat changes and money the item has, in form of:
 														// {HP,AR,ATT,GA,SP,RG,MV,money}
 	public Image image{get;set;}						// The image of the specific item
+	//The information remains here to ensure that no information is lost during transition periods
 //	public int activePeriod{ get; private set; }		// The time that the item is in effect
 //	public int cooldown{ get; private set; }			// The max cooldown of the specific item
 //	public int cdi{ get; private set;}				//	cooldown index

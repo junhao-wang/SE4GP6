@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//script that is applies the equipment to the combat scene
 public class ApplyEquipment : MonoBehaviour {
 
 

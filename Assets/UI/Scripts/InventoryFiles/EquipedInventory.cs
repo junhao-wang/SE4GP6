@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 //using UnityEngine;
-
+//This class is responsible for instantiating the equiped inventory for the player's campaign. right now the inventory is hard coded
 public class EquipedInventory {
 
-	public List<PassiveItem>  LeePassives{ get; set; }
+	public List<PassiveItem>  LeePassives{ get; set; }						//these are the passive items for the the units
 	public List<PassiveItem>  KronerPassives{ get; set; }
 	public List<PassiveItem>  AlexeiPassives{ get; set; }
-	public List<ConsumableItem>  LeeConsumables{ get; set; }
+	public List<ConsumableItem>  LeeConsumables{ get; set; }				//these are the consumable items for the units
 	public List<ConsumableItem>  KronerConsumables{ get; set; }
 	public List<ConsumableItem>  AlexeiConsumables{ get; set; }
-
+	//seciton for adding consumable items
 	public void AddConsumableItem(ConsumableItem consumable,string Name)
 	{
 		if(Name.Equals("Lee"))
@@ -30,7 +30,7 @@ public class EquipedInventory {
 			AlexeiConsumables.Remove(consumable);
 	}
 
-
+	//section for adding passiveitems 
 	public void AddPassiveItem(PassiveItem passive,string Name)
 	{
 		if(Name.Equals("Lee"))

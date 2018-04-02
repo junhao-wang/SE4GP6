@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 public delegate void InventoryRowEvent(int rowNumber);
-
+//This script is responsible for creating invetory rows for the inventory UI.
 public class InventoryRow : MonoBehaviour
 {
     public RectTransform RectTransform { get; private set; }

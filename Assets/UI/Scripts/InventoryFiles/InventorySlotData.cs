@@ -1,7 +1,9 @@
-﻿public class InventorySlotData
+﻿//This class instantiates the data that needed for the inventoryslots without needing to refer to the item itself
+//Part of the Darkest Dungeon scripts
+public class InventorySlotData
 {
-    public ItemDefinition Item { get; set; }
-    public ItemInfo ItemInfo { get; set; }
+    public ItemDefinition Item { get; set; }                            //the itemdefinintioninfo it is refering to
+    public ItemInfo ItemInfo { get; set; }                              //the item info it is refering to
 
     public InventorySlotData()
     {

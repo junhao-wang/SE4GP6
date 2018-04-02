@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections;
 using UnityEngine;
-
+//The consumable items from the iteminfo, it is a list of items that has a set number of items
 public class ConsumableItem : ItemInfo {
 
 

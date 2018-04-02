@@ -1,21 +1,22 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
-
+//This script creats a new inventory window that is the basis for all of the UI elements in the Inventory Window.
+//Part of the Darkest Dungeon Scripts
 public class MenuInventoryWindow : MonoBehaviour//, IInventory
 {
     [SerializeField]
-    private RectTransform ItemBox;
+    private RectTransform ItemBox;                                              //The panel where the items are generated
     [SerializeField]
-    private InventoryRow rowTemplate;
+    private InventoryRow rowTemplate;                                           //The template that is used when creating another row
 
-    private MenuInventory MenuInventory { get; set; }
-    private List<InventorySlot> InventorySlots { get { return ItemSlots; } }
-    private List<InventoryRow> InventoryRows { get; set; }
-    private int CurrentCapacity { get; set; }
-    private int MaxCapacity { get; set; }
+    private MenuInventory MenuInventory { get; set; }                           //The instance of the inventory menu
+    private List<InventorySlot> InventorySlots { get { return ItemSlots; } }    //The list of inventory slots in the inventory
+    private List<InventoryRow> InventoryRows { get; set; }                      //The list of inventory rows in the inventory
+    private int CurrentCapacity { get; set; }                                   //The current capacity of items in the inventory
+    private int MaxCapacity { get; set; }                                       //The max number of times that can be in the inventory
 
-    private readonly List<InventorySlot> ItemSlots = new List<InventorySlot>();
+    private readonly List<InventorySlot> ItemSlots = new List<InventorySlot>(); //The readonly of the item slots
 
     public event Action EventWindowClosed;
 
@@ -33,7 +34,7 @@ public class MenuInventoryWindow : MonoBehaviour//, IInventory
     }
 
     
-
+    //This method is reponsible for adding all of the items to the inventory from the inventorymanager
     public void Populate()
     {
 		MenuInventory = InventoryManager.MenuInventory;
@@ -81,7 +82,7 @@ public class MenuInventoryWindow : MonoBehaviour//, IInventory
             }
         }
     }
-
+    //Adds a passive item to the inventory
     public void AddPassive(PassiveItem passive)
     {
         if(CurrentCapacity < MaxCapacity)
@@ -111,7 +112,7 @@ public class MenuInventoryWindow : MonoBehaviour//, IInventory
         if (EventWindowClosed != null)
             EventWindowClosed();
     }
-
+    //Todo check to see if inventory space is filled
     public bool CheckSingleInventorySpace(ItemDefinition item)
     {
         return false;
@@ -154,7 +155,7 @@ public class MenuInventoryWindow : MonoBehaviour//, IInventory
         if (CurrentCapacity == MaxCapacity)
             AddRow();
     }
-
+    //removes an invetory row if there is less than 21 items to remove scrolling ability
     private void MenuInventoryRowEmptied(int rowNumber)
     {
         if (rowNumber > 3 && rowNumber == InventoryRows.Count)
@@ -171,7 +172,7 @@ public class MenuInventoryWindow : MonoBehaviour//, IInventory
             }
         }
     }
-
+    //adds a row to the inventory with the information initalized
     private InventoryRow AddRow()
     {
         InventoryRow newRow = Instantiate(rowTemplate);

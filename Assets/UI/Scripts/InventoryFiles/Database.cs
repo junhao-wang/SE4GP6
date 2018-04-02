@@ -6,7 +6,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using JsonClasses;
 using SimpleJSON;
-
+//this script is reponsible for instanitating the the database
+//part of the darkest dungeon scripts
 public class Database : MonoBehaviour {
 
 	private const string PassiveItemDirectory = "Data/Items/Passive";
@@ -23,7 +24,7 @@ public class Database : MonoBehaviour {
 //			Debug.Log (item.Key);
 //		}
 	}
-
+	//loads consumables from json file
 	private void LoadJsonConsumables()
 	{
 		
@@ -71,6 +72,7 @@ public class Database : MonoBehaviour {
 		}
 		return consumables;
 	}
+	//loads the passives from the json file
 	private void LoadJsonPassives()
 	{
 		

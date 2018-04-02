@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+//Script for creating a new inventory item 
+//Part of the Darkest Dungeon scripts
 public class InventoryItem : MonoBehaviour//, IPointerEnterHandler, IPointerExitHandler, 
     //IDragHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IPointerClickHandler
 {
@@ -53,7 +54,7 @@ public class InventoryItem : MonoBehaviour//, IPointerEnterHandler, IPointerExit
 
         return false;
     }
-
+    //creats a new empty inventory item
     public void Initialize(InventorySlot inventorySlot)
     {
         isEmpty = true;
@@ -73,7 +74,7 @@ public class InventoryItem : MonoBehaviour//, IPointerEnterHandler, IPointerExit
         Item.Amount = amount;
         LoadItem();
     }
-
+    //creates a new passive item
     public void Create(PassiveItem passive)
     {
         isEmpty = false;
@@ -97,7 +98,7 @@ public class InventoryItem : MonoBehaviour//, IPointerEnterHandler, IPointerExit
             LoadItem();
         }
     }
-
+    //removes the item by setting it to empty
     public void Delete()
     {
 

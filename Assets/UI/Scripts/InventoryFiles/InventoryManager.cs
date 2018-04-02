@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using SceneManager = UnityEngine.SceneManagement.SceneManager;
-
+//This script is responsible for reading the database and loading it to an instance
+//Part of the darkest dungeon script
 public class InventoryManager : MonoBehaviour
 {
 	public static InventoryManager Instanse { get; private set; }
