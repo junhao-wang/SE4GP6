@@ -98,6 +98,17 @@ public abstract class Unit : MonoBehaviour
     /// </summary>
     public bool isMoving { get; set; }
 
+	/// <summary>
+	/// Indicates the player has an item attached to them.
+	/// </summary>
+	public string Consumable1 {get;set;}
+
+	/// <summary>
+	/// Gets or sets the consumable1 amount.
+	/// </summary>
+	public int Consumable1Amount { get; set; }
+
+
     private static IPathfinding _pathfinder = new AStarPathfinding();
 
     /// <summary>
@@ -115,6 +126,8 @@ public abstract class Unit : MonoBehaviour
         TotalMovementPoints = MovementPoints;
         TotalActionPoints = ActionPoints;
         BaseAttack = AttackFactor;
+		//Consumable1 = "";
+		//Consumable1Amount = 0;
     }
 
     protected virtual void OnMouseDown()

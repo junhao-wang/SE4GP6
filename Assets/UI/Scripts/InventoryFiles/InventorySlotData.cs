@@ -1,7 +1,7 @@
 ﻿public class InventorySlotData
 {
     public ItemDefinition Item { get; set; }
-    public ItemData ItemInfo { get; set; }
+    public ItemInfo ItemInfo { get; set; }
 
     public InventorySlotData()
     {

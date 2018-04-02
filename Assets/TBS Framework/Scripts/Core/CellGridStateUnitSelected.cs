@@ -126,8 +126,19 @@ class CellGridStateUnitSelected : CellGridState
             Debug.Log("attacked name " + unit.name);
             if (usingGun)
             {
-                _unit.AttackFactor = _unit.GunAttack;
+				_unit.AttackFactor = _unit.GunAttack;
             }
+			if (usingGrenade) {
+				Debug.Log ("GRENADE HAS BEEN ACTIVATED");
+				if (_unit.Consumable1Amount >= 3 && _unit.Consumable1 == "grenade1") {
+					_unit.AttackFactor = 3;//grenadevalue;
+					_unit.Consumable1Amount--;
+					Debug.Log (_unit.name + " has " + _unit.Consumable1Amount + " left");
+					_unit.DealDamage(unit, attackingHealth, isTrueDamage);
+				} else {
+					_unit.AttackFactor = 0;
+				}
+			}
             _unit.DealDamage(unit, attackingHealth, isTrueDamage);
             
         }
@@ -135,6 +146,7 @@ class CellGridStateUnitSelected : CellGridState
         isAttacking = false;
         isTrueDamage = false;
         usingGun = false;
+		usingGrenade = false;
         _unit.AttackFactor = _unit.BaseAttack;
         _unit.AttackAOE = 1;
         if (_unit.ActionPoints == 0 && !_cellGrid.isActionDone)

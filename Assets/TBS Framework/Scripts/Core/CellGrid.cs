@@ -230,22 +230,26 @@ public class CellGrid : MonoBehaviour
     //set the grid state to attacking with a Gun
     public void ShootGun()
     {
-        
+		
         _cellGridState.isAttacking = true;
         _cellGridState.attackingHealth = true;
         _cellGridState.isTrueDamage = true;
         _cellGridState.usingGun = true;
         isActionDone = false;
+
     }
 
     //set the grid state to attack with an AOE attack, Testing purposes only. Should be substituted with an item function
     public void AoeAttack()
     {
+		//int[] test = { 1 };
         print("AOE");
         _cellGridState.isAttacking = true;
         _cellGridState.attackingHealth = true;
         CurrentUnit.AttackAOE = 3;
+		_cellGridState.usingGrenade = true;
         isActionDone = false;
+		//test [1] = 2;
     }
 
     /// <summary>

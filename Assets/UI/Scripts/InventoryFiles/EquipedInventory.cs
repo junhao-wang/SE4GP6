@@ -1,13 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
+//using UnityEngine;
 
 public class EquipedInventory {
-
 
 	public List<PassiveItem>  LeePassives{ get; set; }
 	public List<PassiveItem>  KronerPassives{ get; set; }
 	public List<PassiveItem>  AlexeiPassives{ get; set; }
+	public List<ConsumableItem>  LeeConsumables{ get; set; }
+	public List<ConsumableItem>  KronerConsumables{ get; set; }
+	public List<ConsumableItem>  AlexeiConsumables{ get; set; }
+
+	public void AddConsumableItem(ConsumableItem consumable,string Name)
+	{
+		if(Name.Equals("Lee"))
+			LeeConsumables.Add(consumable);
+		if(Name.Equals("Kroner"))
+			KronerConsumables.Add(consumable);
+		if(Name.Equals("Alexei"))
+			AlexeiConsumables.Add(consumable);
+	}
+	public void RemoveConsumableItem(ConsumableItem consumable,string Name)
+	{
+		if(Name.Equals("Lee"))
+			LeeConsumables.Remove(consumable);
+		if(Name.Equals("Kroner"))
+			KronerConsumables.Remove(consumable);
+		if(Name.Equals("Alexei"))
+			AlexeiConsumables.Remove(consumable);
+	}
+
+
 	public void AddPassiveItem(PassiveItem passive,string Name)
 	{
 		if(Name.Equals("Lee"))
@@ -29,11 +52,27 @@ public class EquipedInventory {
 	// Will add the basic inventory layout for the characters
 	public EquipedInventory()
 	{
+		PassiveItem defaultItem = (PassiveItem)InventoryManager.Data.Items["passive"]["1"];
+		ConsumableItem healthkit = (ConsumableItem)InventoryManager.Data.Items["consumable"]["1"];
+		ConsumableItem grenade = (ConsumableItem)InventoryManager.Data.Items["consumable"]["2"];
+
+
+		//Lee's sections
 		LeePassives = new List<PassiveItem>();
-		LeePassives.Add((PassiveItem)InventoryManager.Data.Items["passive"]["1"]);
+		LeeConsumables = new List<ConsumableItem>();
+		AddConsumableItem(healthkit,"Lee");
+
+		//Kroner's section
 		KronerPassives = new List<PassiveItem>();
-		KronerPassives.Add((PassiveItem)InventoryManager.Data.Items["passive"]["1"]);
+		KronerConsumables = new List<ConsumableItem>();
+		AddPassiveItem(defaultItem,"Kroner");
+		AddConsumableItem(grenade,"Kroner");
+		//Debug.Log ("THE GOD DAMN GRENADE VALUE IS: " + grenade.amount);
+
+		//Alexei's section
 		AlexeiPassives = new List<PassiveItem>();
-		AlexeiPassives.Add((PassiveItem)InventoryManager.Data.Items["passive"]["1"]);
+		AlexeiConsumables = new List<ConsumableItem>();
+		AddPassiveItem(defaultItem,"Alexei");
+		AddConsumableItem(grenade,"Alexei");
 	}
 }

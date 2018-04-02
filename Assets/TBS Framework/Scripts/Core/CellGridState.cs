@@ -24,6 +24,11 @@ public abstract class CellGridState
     /// </summary>
     public bool usingGun = false;
 
+	/// <summary>
+	/// Is the current attack performed using a Grenade?
+	/// </summary>
+	public bool usingGrenade = false;
+
     protected CellGridState(CellGrid cellGrid)
     {
         _cellGrid = cellGrid;
