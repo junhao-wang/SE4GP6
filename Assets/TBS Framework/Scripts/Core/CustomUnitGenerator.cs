@@ -8,9 +8,36 @@ public class CustomUnitGenerator : MonoBehaviour, IUnitGenerator
     public Transform UnitsParent;
     public Transform CellsParent;
 
+    public Dictionary<string, Dictionary<string, AudioClip>> unitAudio;
+    public SFXLoader sfx;
     /// <summary>
     /// Returns units that are already children of UnitsParent object.
     /// </summary>
+	
+	public virtual void Awake()
+    {
+        sfx = GameObject.Find("SFX Source").GetComponent<SFXLoader>();
+        unitAudio = new Dictionary<string, Dictionary<string, AudioClip>>() {
+            {"Lee", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Kroner", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Alexei", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Eyebot", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Robot", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Boar", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"K8", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Morphe", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Soldier", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Soldier1", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Soldier2", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Soldier3", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Soldier4", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Usarmy1", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Usarmy2", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Usarmy3", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) },
+            {"Usarmy4", (new Dictionary<string, AudioClip>(){ { "atkHp", sfx.Crossbow }, { "atkArmor", sfx.Crossbow2 }, { "gun", sfx.LeesGun }, { "aoe", sfx.Grenade },{ "move", sfx.Walk1 },{ "death", sfx.Grenade } }) }
+
+        };
+    }
     public List<Unit> SpawnUnits(List<Cell> cells)
     {
         List<Unit> ret = new List<Unit>();
@@ -27,6 +54,13 @@ public class CustomUnitGenerator : MonoBehaviour, IUnitGenerator
                     unit.transform.position = cell.transform.position;
                     unit.Initialize();
                     ret.Add(unit);
+					
+                    unit.atkArmorAud = unitAudio[unit.UnitName]["atkArmor"];
+                    unit.atkHpAud = unitAudio[unit.UnitName]["atkHp"];
+                    unit.gunAud = unitAudio[unit.UnitName]["gun"];
+                    unit.aoeAud = unitAudio[unit.UnitName]["aoe"];
+                    unit.moveAud = unitAudio[unit.UnitName]["move"];
+                    unit.deathAud = unitAudio[unit.UnitName]["death"];
                 }//Unit gets snapped to the nearest cell
                 else
                 {

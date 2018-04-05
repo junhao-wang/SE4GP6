@@ -57,7 +57,8 @@ public class CellGrid : MonoBehaviour
     public int lastPlayer; //ai or player
 
     public bool isActionDone = true;
-
+    public GameObject pausedMenu;
+	
     /// <summary>
     /// this will initialize the map for the combat scene of the game.
     /// </summary>
@@ -118,8 +119,6 @@ public class CellGrid : MonoBehaviour
         }    
         OrderSpeed();
 
-        //SFXLoader sfx = GameObject.Find("Audio Source").GetComponent<SFXLoader>();
-
         StartGame();
     }
 
@@ -129,6 +128,15 @@ public class CellGrid : MonoBehaviour
     private void Update()
     {
         CurrentUnit.Cell.Mark(Cell.HighlightState.FriendlySelected);
+		
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (pausedMenu.gameObject.activeSelf == true)
+            {
+                pausedMenu.GetComponent<PauseMenu>().Resume();
+            }
+            else { pausedMenu.GetComponent<PauseMenu>().Pause(); }
+        }
     }
 
     /// <summary>

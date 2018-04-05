@@ -65,6 +65,11 @@ public abstract class Unit : MonoBehaviour
     public int AttackRange;
     public int BaseAttackRange;
 
+	/// <summary>
+    /// Handles sfx effects
+    /// </summary>
+    public SFXLoader sfx;
+
     /// <summary>
     /// Determines the power of a unit's attack.
     /// </summary>
@@ -97,6 +102,16 @@ public abstract class Unit : MonoBehaviour
     /// Indicates if movement animation is playing.
     /// </summary>
     public bool isMoving { get; set; }
+	
+    /// <summary>
+    /// Audio clips that may be played, by audio name
+    /// </summary>
+    public AudioClip atkHpAud;
+    public AudioClip atkArmorAud;
+    public AudioClip gunAud;
+    public AudioClip aoeAud;
+    public AudioClip moveAud;
+    public AudioClip deathAud;
 
 	/// <summary>
 	/// Indicates the player has an item attached to them.
@@ -128,6 +143,7 @@ public abstract class Unit : MonoBehaviour
         BaseAttack = AttackFactor;
 		//Consumable1 = "";
 		//Consumable1Amount = 0;
+        sfx = GameObject.Find("SFX Source").GetComponent<SFXLoader>();
     }
 
     protected virtual void OnMouseDown()
@@ -182,7 +198,11 @@ public abstract class Unit : MonoBehaviour
     /// either victory or defeat
     /// </summary>
     public virtual void OnDestroyed()
-    {
+    {        
+		try{
+            sfx.LoadSFX(deathAud, 0f);
+		}
+        catch { }
         Cell.IsTaken = false;
         MarkAsDestroyed();
         Destroy(gameObject);
@@ -243,22 +263,17 @@ public abstract class Unit : MonoBehaviour
             return;
         }
            
-        switch (this.name)
+         try
         {
-            case ("Kroner"):
-                GameObject.Find("SFX Source").GetComponent<SFXLoader>().LoadLeesGunSFX();
-                break;
-            case ("Lee"):
-                GameObject.Find("SFX Source").GetComponent<SFXLoader>().LoadCrossbowSFX();
-                break;
-            case ("Alexei"):
-                GameObject.Find("SFX Source").GetComponent<SFXLoader>().LoadLeesGun2SFX();
-                break;
-            case ("Genomorph"):
-                GameObject.Find("SFX Source").GetComponent<SFXLoader>().LoadRobotWeaponSFX();
-                break;
+            if (isHp & !isTrueDamage)
+            {
+                sfx.LoadSFX(atkHpAud, 0f);
+            }
+            else if (isHp) { sfx.LoadSFX(gunAud,0f); }
+            else { sfx.LoadSFX(atkArmorAud, 0f); }
 
         }
+        catch { }
         print("attacked");
         MarkAsAttacking(other);
         other.Defend(this, AttackFactor, isHp, isTrueDamage);
@@ -270,6 +285,57 @@ public abstract class Unit : MonoBehaviour
             SetState(new UnitStateMarkedAsFinished(this));
             MovementPoints = 0;
         }  
+    }
+	
+    /// <summary>
+    /// deal damage with isAoe
+    /// </summary>
+    public virtual void DealDamage(Unit other, bool isHp, bool isTrueDamage, bool isAoe)
+    {
+        print("deal Damage branch: ");
+        if (isMoving)
+        {
+            print("isMoving");
+            return;
+        }
+        if (ActionPoints == 0)
+        {
+            print("no action points");
+            return;
+        }
+        if (!IsUnitAttackable(other, Cell))
+        {
+            print("not attackable");
+            return;
+        }
+
+        try
+        {
+            if (isAoe)
+            {
+                sfx.LoadSFX(aoeAud, 0f);
+            }else if (isTrueDamage)
+            {
+                sfx.LoadSFX(gunAud, 0f);
+            }else if (isHp)
+            {
+                sfx.LoadSFX(atkHpAud , 0f);
+            }
+            else { sfx.LoadSFX(atkArmorAud, 0f); }
+
+        }
+        catch { }
+        print("attacked");
+        MarkAsAttacking(other);
+        other.Defend(this, AttackFactor, isHp, isTrueDamage);
+        ActionPoints--;
+        print("actionpoints after attack:" + ActionPoints.ToString());
+
+        if (ActionPoints == 0)
+        {
+            SetState(new UnitStateMarkedAsFinished(this));
+            MovementPoints = 0;
+        }
     }
 
     /// <summary>
@@ -357,9 +423,14 @@ public abstract class Unit : MonoBehaviour
         Cell.unit = this;
         destinationCell.IsTaken = true;
 
-        if (MovementSpeed > 0)
+		if (MovementSpeed > 0){
+			try
+            {
+                    sfx.LoadSFX(moveAud, 0f);
+            }
+            catch { }
             StartCoroutine(MovementAnimation(path));
-        else
+		}else
             transform.position = Cell.transform.position + Offset;
 
         if (UnitMoved != null)

@@ -7,28 +7,29 @@ public class SFXLoader : MonoBehaviour {
     public float SFX = 1.0f;
 
     public AudioClip A1,A2,A3,A4,A5,C1,C2,Cin1;
-    public AudioClip AmmoUsage, 
-        AreaIntro, 
-        BossRoomIntro, 
-        Claymore, 
-        Crossbow, 
-        Door, 
-        EnemySwordHit, 
-        EngiRobotDeploy, 
-        Grenade, 
-        LeesGun, 
-        Magnitizer, 
-        MPPDD, 
-        NailGun, 
-        RapidFiringWeapon, 
-        RobotWeapon, 
-        RoboticEnemy, 
-        Spaceship, 
-        Transmission, 
+    public AudioClip AmmoUsage,
+        AreaIntro,
+        BossRoomIntro,
+        Claymore,
+        Crossbow,
+        Door,
+        EnemySwordHit,
+        EngiRobotDeploy,
+        Grenade,
+        LeesGun,
+        Magnitizer,
+        MPPDD,
+        NailGun,
+        RapidFiringWeapon,
+        RobotWeapon,
+        RoboticEnemy,
+        Spaceship,
+        Transmission,
         Windy,
         Crossbow2,
         LeesGun2,
         RoboticEnemy2,
+        Walk1,
         Windy2;
 	// Use this for initialization
 	void Start () {
@@ -59,6 +60,13 @@ public class SFXLoader : MonoBehaviour {
             SFX = PlayerPrefs.GetFloat("SFXVolume");
             print("SFX = " + SFX.ToString());
         }
+    }
+
+    public void LoadSFX(AudioClip audio, float delay)
+    {
+        gameObject.GetComponent<AudioSource>().clip = audio;
+        gameObject.GetComponent<AudioSource>().volume = 1f * master * SFX;
+        gameObject.GetComponent<AudioSource>().PlayDelayed(delay);
     }
 
     public void LoadA1Music() {
