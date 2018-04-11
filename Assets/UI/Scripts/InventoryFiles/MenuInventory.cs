@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 //This class acts as a instance for the list of current items in player's inventory
 //Part of the Darkest Dungeons scripts
 public class MenuInventory
@@ -21,7 +23,7 @@ public class MenuInventory
     public MenuInventory(SaveCampaignData saveData)
     {
         Passives = new List<PassiveItem>();
-		for(int i = 0; i < 8; i++)
+        for (int i = 0; i < 8; i++)
 			Passives.Add((PassiveItem)InventoryManager.Data.Items["passive"]["1"]);
 		//Orignal savegame code
         //for(int i = 0; i < saveData.InventoryPassives.Count; i++)

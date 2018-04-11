@@ -19,6 +19,7 @@ public class MenuInventoryWindow : MonoBehaviour//, IInventory
     private readonly List<InventorySlot> ItemSlots = new List<InventorySlot>(); //The readonly of the item slots
 
     public event Action EventWindowClosed;
+    public GameObject inventoryManager;
 
     private void Awake()
     {
@@ -37,7 +38,8 @@ public class MenuInventoryWindow : MonoBehaviour//, IInventory
     //This method is reponsible for adding all of the items to the inventory from the inventorymanager
     public void Populate()
     {
-		MenuInventory = InventoryManager.MenuInventory;
+        MenuInventory = InventoryManager.MenuInventory;
+        
         InventoryRows = new List<InventoryRow>();
 
 		int ItemCount = MenuInventory.Passives.Count;
