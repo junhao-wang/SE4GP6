@@ -126,6 +126,7 @@ ebf23ffa12b131a0f09c4ede87fa979b Assembly-CSharp.dll:.CameraController
 53b8d41c192bbe4c7fe7bc80b0488823 Assembly-CSharp.dll:.PanelSwap
 6449efafa426ed202dc6cd58b8527d00 Assembly-CSharp.dll:.CustomObstacleGenerator
 b7b4b0c9d3bc8b209f15f38b042437cc Assembly-CSharp.dll:.Resolution
+322cb40e1e282f28af980cbef7922a90 UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsEventTracker
 dc07d7ad69b399a46e92c483bf1c04ca UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
@@ -199,5 +200,4 @@ f08a07026bdc67d9251a11f58b3ae8f3 Assembly-CSharp.dll:.ItemInit
 f47efdfd87d7da5a083e843b70e378a7 Assembly-CSharp.dll:.MySquare
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.NodePartySelect
 a8425907250c9549ff247de260ea1008 Assembly-CSharp.dll:.EquipControl
-69a6fb56c0b0afa4ce5f60547c101363 Assembly-CSharp.dll:.MapProperties
-322cb40e1e282f28af980cbef7922a90 UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsEventTracker
+4ad8aef5aa3b27c73d0feadf2f350226 Assembly-CSharp.dll:.MapProperties

@@ -56,7 +56,7 @@ public class ApplyEquipment : MonoBehaviour {
 			units [gu].AttackFactor = heroStats [gu].getAttack () + stats [2];
 			units [gu].GunAttack = heroStats [gu].getGunAttack () + stats [3];
 			units [gu].Speed = heroStats [gu].getSpeed () + stats [4];
-			units [gu].AttackRange = heroStats [gu].getRange () + stats [5];
+			//units [gu].AttackRange = heroStats [gu].getRange () + stats [5];
 			units [gu].MovementPoints = heroStats [gu].getMoveRange () + stats [6];
 		//REPEAT FOR EVERY OTHER stat
 		}

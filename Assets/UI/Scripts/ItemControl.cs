@@ -1,17 +1,17 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 public class ItemControl : MonoBehaviour {
 
 	public GameObject item;
-	private ItemLayout layout;
+	//private ItemLayout layout;
 	private bool trigger;
 	void Start(){
-		layout = gameObject.GetComponent<ItemLayout> ();
+		//layout = gameObject.GetComponent<ItemLayout> ();
 	}
 	void Update(){
-		//itemPanel.GetComponentsInChildren<
+		
 		Button b = item.GetComponent<Button> ();
 		InputControl ();
 	}
@@ -32,7 +32,7 @@ public class ItemControl : MonoBehaviour {
 			//Remove (item);
 		}
 		if (trigger) {
-			layout.formatItems ();
+			//layout.formatItems ();
 			trigger = false;
 		}
 	}

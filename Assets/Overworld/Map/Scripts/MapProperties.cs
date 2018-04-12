@@ -108,7 +108,7 @@ public class MapProperties : MonoBehaviour {
             }
         }
         strOut += "";
-        string path = "Assets/Resources/Saves/node.txt";
+        string path = Path.Combine(Application.streamingAssetsPath, "Saves/node.txt");
         StreamWriter write = new StreamWriter(path);
         write.Write(strOut);
         write.Close();
@@ -126,13 +126,13 @@ public class MapProperties : MonoBehaviour {
 
         }
         strOut += "";
-        path = "Assets/Resources/Saves/clutters.txt";
+        path = Path.Combine(Application.streamingAssetsPath, "Saves/clutters.txt");
         write = new StreamWriter(path);
         write.Write(strOut);
         write.Close();
         PartyProperties.PartySave p = new PartyProperties.PartySave();
         p = PartyObject.GetComponent<PartyProperties>().toPartySave();
-        path = "Assets/Resources/Saves/party.txt";
+        path = Path.Combine(Application.streamingAssetsPath, "Saves/party.txt");
         write = new StreamWriter(path);
         write.Write(JsonUtility.ToJson(p));
         write.Close();
@@ -142,9 +142,9 @@ public class MapProperties : MonoBehaviour {
     }  
     public bool loadmap()
     {
-        string pathn = "Assets/Resources/Saves/node.txt";
-        string pathc = "Assets/Resources/Saves/clutters.txt";
-        string pathp = "Assets/Resources/Saves/party.txt";
+        string pathn = Path.Combine(Application.streamingAssetsPath, "Saves/node.txt");
+        string pathc = Path.Combine(Application.streamingAssetsPath, "Saves/clutters.txt");
+        string pathp = Path.Combine(Application.streamingAssetsPath, "Saves/party.txt");
         bool loadPossible = File.Exists(pathn) && File.Exists(pathc) && File.Exists(pathp);
         if (!loadPossible)
         {
