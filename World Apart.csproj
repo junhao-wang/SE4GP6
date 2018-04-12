@@ -406,6 +406,7 @@
     <Compile Include="Assets\UI\Scripts\InventoryFiles\PassiveItem.cs" />
     <Compile Include="Assets\UI\Scripts\InventoryFiles\SaveCampaignData.cs" />
     <Compile Include="Assets\UI\Scripts\InventoryFiles\SimpleJSON.cs" />
+    <Compile Include="Assets\UI\Scripts\ItemClick.cs" />
     <Compile Include="Assets\UI\Scripts\ItemControl.cs" />
     <Compile Include="Assets\UI\Scripts\ItemInfo.cs" />
     <Compile Include="Assets\UI\Scripts\ItemInit.cs" />
@@ -418,6 +419,7 @@
     <Compile Include="Assets\UI\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\UI\Scripts\Resolution.cs" />
     <Compile Include="Assets\UI\Scripts\Selection.cs" />
+    <Compile Include="Assets\UI\Scripts\StatDisplay.cs" />
     <Compile Include="Assets\UI\Scripts\SteralizableClasses\BattleState.cs" />
     <Compile Include="Assets\UI\Scripts\SteralizableClasses\HeroStats.cs" />
     <Compile Include="Assets\UI\Scripts\SteralizableClasses\SavedLoad.cs" />

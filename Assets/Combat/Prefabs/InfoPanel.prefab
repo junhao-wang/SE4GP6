@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 22438942}
   - component: {fileID: 22265210}
   - component: {fileID: 11487254}
+  - component: {fileID: 114517862548756540}
   m_Layer: 0
   m_Name: InfoPanel
   m_TagString: Untagged
@@ -552,6 +553,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 10/10
+--- !u!114 &114517862548756540
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5faea39698acdc44a80f66d20f6dda74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114548415218396730
 MonoBehaviour:
   m_ObjectHideFlags: 1
