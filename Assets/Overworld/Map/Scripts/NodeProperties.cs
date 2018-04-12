@@ -162,6 +162,7 @@ public class NodeProperties : MonoBehaviour {
     //processes the event associated with the node
     public void PopEvent()
     {
+        GameObject MController = GameObject.Find("MapController");
         if (NodeEvent == EventType.NONE)
         {
             return;
@@ -179,7 +180,7 @@ public class NodeProperties : MonoBehaviour {
         } else if (NodeEvent == EventType.COMBAT)
         {
             NodeEvent = EventType.NONE;
-            GameObject MController = GameObject.Find("MapController");
+            
             Party.GetComponent<PartyProperties>().battleState.enemyID = Random.Range(1,6);
             if (gameObject == MController.GetComponent<MapProperties>().Nodes[MController.GetComponent<MapProperties>().Nodes.Count - 1])
             {

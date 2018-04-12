@@ -39,6 +39,7 @@ public class NodePartySelect : MonoBehaviour {
 
     private void OnMouseUpAsButton()
     {
+        PartyIcon = GameObject.FindWithTag("Overworld Party");
         //commented section only used during debugging
         /*
         if (!spawned)
