@@ -23,6 +23,7 @@ public class InventoryManager : MonoBehaviour
 			Debug.Log ("After Load");
 			SaveCampaignData saveData = new SaveCampaignData ();
 			menuInventory = new MenuInventory(saveData);
+            Debug.Log(database.Items["passive"]["1"]);
         }
         else
         {

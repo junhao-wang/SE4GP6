@@ -7,7 +7,7 @@ public class InventoryItem : MonoBehaviour//, IPointerEnterHandler, IPointerExit
     //IDragHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IPointerClickHandler
 {
     [SerializeField]
-    private Image itemIcon;
+    private Sprite itemIcon;
     [SerializeField]
     private Image rarityIcon;
     [SerializeField]
@@ -205,7 +205,9 @@ public class InventoryItem : MonoBehaviour//, IPointerEnterHandler, IPointerExit
         //itemIcon.sprite = InvetoryManager.Data.Sprites["inv_" + Item.Type + "+" + Item.Id]
 		Debug.Log ("Before Load Sprite");
 		Debug.Log ("Desired sprite is: " + InventoryManager.Data.Items[passive.type][passive.itemID].name);
-		itemIcon = passive.image;
+		itemIcon = passive.sprite;
+        print("Sprite loaded: " + itemIcon);
+        Slot.OverlayIcon.sprite = itemIcon;
 		//itemIcon.sprite = passive.image.sprite;
         //rarityIcon.sprite = InventoryManager.Data.Sprites["rarity_" + trinket.RarityId];
 

@@ -8,7 +8,7 @@ public class InventorySlot : BaseSlot//, IDropHandler
 {
     [SerializeField]
     private Image overlayIcon;                                                          //The the item image that is shown
-	//private Image display = GetComponent<Image>();
+    private Image display;
     public InventoryItem SlotItem { get; private set; }                                 //The information about the desired item
     public bool InteractionDisabled { private get; set; }                               //states if user can interact with the slot
 	public Image OverlayIcon { get { return overlayIcon; } set { overlayIcon = value; } }//set { overlayIcon = Resources.Load<Image>("Icons/"+ InventoryManager.Data.Items["passive"]["1"].name);}}//
@@ -21,10 +21,9 @@ public class InventorySlot : BaseSlot//, IDropHandler
     //initalizes the empty slot
     public void Initialize()
     {
-		
-        SlotItem = GetComponentInChildren<InventoryItem>();
+		OverlayIcon = GetComponent<Image>();
+        SlotItem = GetComponent<InventoryItem>();
         SlotItem.Initialize(this);
-		//display = OverlayIcon;
     }
 
     public bool HasFreeSpaceForItem(ItemDefinition item)
