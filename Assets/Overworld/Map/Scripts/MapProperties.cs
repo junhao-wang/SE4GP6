@@ -197,18 +197,23 @@ public class MapProperties : MonoBehaviour {
 
 
 
-        StartCoroutine(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScroll>().SnapToParty());
-
-
-        GameObject Canvas = GameObject.FindWithTag("Overworld Canvas");
-        Canvas.GetComponent<DialogueControl>().skipDialogue();
-
+        StartCoroutine(tidyUp());
+        
 
 
 
         return true;
     }
     // Update is called once per frame
+
+    IEnumerator tidyUp()
+    {
+        yield return new WaitForSeconds(1);
+        GameObject Canvas = GameObject.FindWithTag("Overworld Canvas");
+        Canvas.GetComponent<DialogueControl>().skipDialogue();
+
+        StartCoroutine(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScroll>().SnapToParty());
+    }
     void Update () {
 		if(Input.GetKeyDown(KeyCode.R))
         {
