@@ -1,0 +1,26 @@
+﻿<Properties StartupItem="SantaHatesPoorKids.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TBS Framework\Scripts\Core\CellGridStateUnitSelected.cs">
+    <Files>
+      <File FileName="Assets\UI\Scripts\InventoryFiles\InventorySlotData.cs" Line="4" Column="20" />
+      <File FileName="Assets\UI\Scripts\InventoryFiles\ApplyEquipment.cs" Line="67" Column="7" />
+      <File FileName="Assets\UI\Scripts\InventoryFiles\InventoryManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\UI\Scripts\InventoryFiles\EquipedInventory.cs" Line="70" Column="5" />
+      <File FileName="Assets\UI\Scripts\SteralizableClasses\HeroStats.cs" Line="3" Column="1" />
+      <File FileName="Assets\UI\Scripts\InventoryFiles\PassiveItem.cs" Line="7" Column="1" />
+      <File FileName="Assets\UI\Scripts\ItemInfo.cs" Line="22" Column="1" />
+      <File FileName="Assets\UI\Scripts\InventoryFiles\ConsumableItem.cs" Line="32" Column="24" />
+      <File FileName="Assets\UI\Scripts\InventoryFiles\Database.cs" Line="73" Column="3" />
+      <File FileName="Assets\UI\Scripts\InventoryFiles\MenuInventory.cs" Line="1" Column="1" />
+      <File FileName="Assets\UI\Scripts\InventoryFiles\JsonReader.cs" Line="4" Column="8" />
+      <File FileName="Assets\TBS Framework\Scripts\Core\CellGrid.cs" Line="252" Column="5" />
+      <File FileName="Assets\TBS Framework\Scripts\Core\CellGridStateUnitSelected.cs" Line="134" Column="31" />
+      <File FileName="Assets\TBS Framework\Scripts\Core\Unit.cs" Line="130" Column="5" />
+      <File FileName="Assets\TBS Framework\Scripts\Core\CellGridState.cs" Line="29" Column="9" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
