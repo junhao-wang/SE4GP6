@@ -197,11 +197,11 @@ public class MapProperties : MonoBehaviour {
 
 
 
+        StartCoroutine(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScroll>().SnapToParty());
 
 
-
-
-
+        GameObject Canvas = GameObject.FindWithTag("Overworld Canvas");
+        Canvas.GetComponent<DialogueControl>().skipDialogue();
 
 
 
