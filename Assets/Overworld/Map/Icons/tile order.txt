@@ -1,6 +1,0 @@
-overlay priority
-
-uncontaminated:
-underwater
-
-ocean > snow > grass > sand > stone, ice
