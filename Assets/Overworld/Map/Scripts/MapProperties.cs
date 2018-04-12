@@ -12,6 +12,7 @@ public class MapProperties : MonoBehaviour {
     public static GameObject _instance;
     public List<GameObject> Nodes,Clutter;
     public GameObject PartyObject;
+    public bool load = false;
     bool nodeIDAssigned = false;
     int rows;
     int cols;
@@ -26,7 +27,7 @@ public class MapProperties : MonoBehaviour {
         print("map loaded");
         */
         GameObject.Find("Canvas").GetComponent<DialogueControl>().startDialogue(11);
-        DontDestroyOnLoad(transform.gameObject);
+      
         
         Camera.main.transform.SetPositionAndRotation(new Vector3(-6, 2, Camera.main.transform.position.z), transform.rotation);
 
@@ -46,19 +47,25 @@ public class MapProperties : MonoBehaviour {
         DontDestroyOnLoad(transform.gameObject);
     }
 
+    void OnEnable()
+    {
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name == "Map" && gameObject != null)
         {
-            
-            gameObject.GetComponent<AudioSource>().mute = false;
-            Camera.main.GetComponent<CameraScroll>().initX = PartyObject.transform.position.x;
-            Camera.main.GetComponent<CameraScroll>().initY = PartyObject.transform.position.y;
-            print("Party Location: " + PartyObject.transform.position);
-            
+            if (load){
+                loadmap();
+            }
+
+
         }
     }
+
+
+
 
     public void defeat()
     {
@@ -184,9 +191,10 @@ public class MapProperties : MonoBehaviour {
         reader = new StreamReader(pathc);
         List<ClutterProperties.ClutterSave> c = new List<ClutterProperties.ClutterSave>();
         strin = reader.ReadToEnd();
+        print(strin.Length);
         foreach (string s in strin.Split(';'))
         {
-
+            print(s);
             c.Add(JsonUtility.FromJson<ClutterProperties.ClutterSave>(s));
         }
         ClutterProperties.ClutterSave[] Clutters = c.ToArray();
@@ -197,6 +205,7 @@ public class MapProperties : MonoBehaviour {
             newclutter.GetComponent<ClutterProperties>().type = Clutters[i].type;
             newclutter.transform.position = new Vector3(Clutters[i].x, Clutters[i].y, Clutters[i].z);
             Clutter.Add(newclutter);
+            newclutter.GetComponent<ClutterProperties>().sortOrder();
             print(JsonUtility.ToJson(Clutter[i].GetComponent<ClutterProperties>().toClutterSave()));
         }
         reader.Close();
@@ -210,10 +219,10 @@ public class MapProperties : MonoBehaviour {
 
 
         StartCoroutine(tidyUp());
-        
 
 
 
+        load = false;
         return true;
     }
     // Update is called once per frame
