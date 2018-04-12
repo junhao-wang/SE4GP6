@@ -9,8 +9,10 @@ using UnityEngine.SceneManagement;
 public class MapProperties : MonoBehaviour {
     public GameObject nodePrefab;
     public GameObject[,] Tiles;
+    public static GameObject _instance;
     public List<GameObject> Nodes,Clutter;
     public GameObject PartyObject;
+    public bool load = false;
     bool nodeIDAssigned = false;
     int rows;
     int cols;
@@ -25,30 +27,45 @@ public class MapProperties : MonoBehaviour {
         print("map loaded");
         */
         GameObject.Find("Canvas").GetComponent<DialogueControl>().startDialogue(11);
-        DontDestroyOnLoad(transform.gameObject);
+      
         
         Camera.main.transform.SetPositionAndRotation(new Vector3(-6, 2, Camera.main.transform.position.z), transform.rotation);
 
 
 
     }
-
-    private void OnEnable()
+    void Awake()
     {
+        //if we don't have an [_instance] set yet
+        if (!_instance)
+            _instance = transform.gameObject;
+        //otherwise, if we do, kill this thing
+        else
+            Destroy(transform.gameObject);
+
+
+        DontDestroyOnLoad(transform.gameObject);
+    }
+
+    void OnEnable()
+    {
+
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
-
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Map")
+        if (scene.name == "Map" && gameObject != null)
         {
-            gameObject.GetComponent<AudioSource>().mute = false;
-            Camera.main.GetComponent<CameraScroll>().initX = PartyObject.transform.position.x;
-            Camera.main.GetComponent<CameraScroll>().initY = PartyObject.transform.position.y;
-            print("Party Location: " + PartyObject.transform.position);
-            
+            if (load){
+                loadmap();
+            }
+
+
         }
     }
+
+
+
 
     public void defeat()
     {
@@ -99,10 +116,10 @@ public class MapProperties : MonoBehaviour {
 
         List<ClutterProperties.ClutterSave> c = new List<ClutterProperties.ClutterSave>();
         strOut = "";
-        for (int i = 0; i < Nodes.Count; i++)
+        for (int i = 0; i < Clutter.Count; i++)
         {
             strOut += JsonUtility.ToJson(Clutter[i].GetComponent<ClutterProperties>().toClutterSave());
-            if (i < Nodes.Count - 1)
+            if (i < Clutter.Count - 1)
             {
                 strOut += ";";
             }
@@ -131,6 +148,7 @@ public class MapProperties : MonoBehaviour {
         bool loadPossible = File.Exists(pathn) && File.Exists(pathc) && File.Exists(pathp);
         if (!loadPossible)
         {
+            print("failed");
             return false;
         }
 
@@ -140,10 +158,12 @@ public class MapProperties : MonoBehaviour {
             Nodes[i].GetComponent<NodeProperties>().clearPaths();
             Destroy(Nodes[i]);
         }
+        Nodes.Clear();
         for(int i = 0; i < Clutter.Count; i++)
         {
             Destroy(Clutter[i]);
         }
+        Clutter.Clear();
         string strin;
         StreamReader reader = new StreamReader(pathn);
         Nodes = new List<GameObject>();
@@ -171,8 +191,10 @@ public class MapProperties : MonoBehaviour {
         reader = new StreamReader(pathc);
         List<ClutterProperties.ClutterSave> c = new List<ClutterProperties.ClutterSave>();
         strin = reader.ReadToEnd();
+        print(strin.Length);
         foreach (string s in strin.Split(';'))
         {
+            print(s);
             c.Add(JsonUtility.FromJson<ClutterProperties.ClutterSave>(s));
         }
         ClutterProperties.ClutterSave[] Clutters = c.ToArray();
@@ -181,29 +203,40 @@ public class MapProperties : MonoBehaviour {
            GameObject newclutter = GameObject.Instantiate(gameObject.GetComponent<MapGenerator>().ClutterPrefab);
             newclutter.GetComponent<SpriteRenderer>().sprite = gameObject.GetComponent<MapGenerator>().clutters[Clutters[i].type];
             newclutter.GetComponent<ClutterProperties>().type = Clutters[i].type;
+            newclutter.transform.position = new Vector3(Clutters[i].x, Clutters[i].y, Clutters[i].z);
             Clutter.Add(newclutter);
+            newclutter.GetComponent<ClutterProperties>().sortOrder();
+            print(JsonUtility.ToJson(Clutter[i].GetComponent<ClutterProperties>().toClutterSave()));
         }
         reader.Close();
 
         reader = new StreamReader(pathp);
 
         PartyObject.GetComponent<PartyProperties>().fromPartySave(JsonUtility.FromJson<PartyProperties.PartySave>(reader.ReadToEnd()));
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScroll>().SnapToParty();
+
+        PartyObject.GetComponent<PartyProperties>().OccupiedNode.GetComponent<NodeProperties>().drawCurrentPaths();
 
 
 
+        StartCoroutine(tidyUp());
 
 
 
-
-
-
-
-
-
+        load = false;
         return true;
     }
     // Update is called once per frame
+
+    IEnumerator tidyUp()
+    {
+        yield return new WaitForSeconds(1);
+        GameObject Canvas = GameObject.FindWithTag("Overworld Canvas");
+        Canvas.GetComponent<DialogueControl>().skipDialogue();
+
+        StartCoroutine(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScroll>().SnapToParty());
+        PartyObject = GameObject.FindGameObjectWithTag("Overworld Party");
+        PartyObject.GetComponent<PartyProperties>().OccupiedNode.GetComponent<NodePartySelect>().DebugClick();
+    }
     void Update () {
 		if(Input.GetKeyDown(KeyCode.R))
         {

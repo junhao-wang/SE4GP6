@@ -303,13 +303,18 @@ public class NextGuiController : MonoBehaviour
     {
         if(UnitsParent.transform.GetChild(0).GetComponent<Unit>().PlayerNumber == 0)
         {
+
+            
+            GameObject.Find("MapController").GetComponent<MapProperties>().load = true;
             GameObject.Find("MapController").GetComponent<AudioSource>().mute = false;
             SceneManager.LoadScene("Map");
+
         }
         else
         {
             SceneManager.LoadScene("menu");
         }
+        Destroy(transform.gameObject);
         
     }
 

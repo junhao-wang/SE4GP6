@@ -182,6 +182,7 @@ public class DialogueControl : MonoBehaviour {
                 dialogueIndex = 0;
 
                 dialogueParent.SetActive(false);
+                Party = GameObject.FindGameObjectWithTag("Overworld Party");
                 Party.GetComponent<PartyProperties>().inDialogue = false;
             }
         }
