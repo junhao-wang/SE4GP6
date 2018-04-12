@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class MapProperties : MonoBehaviour {
     public GameObject nodePrefab;
     public GameObject[,] Tiles;
+    public static GameObject _instance;
     public List<GameObject> Nodes,Clutter;
     public GameObject PartyObject;
     bool nodeIDAssigned = false;
@@ -32,7 +33,18 @@ public class MapProperties : MonoBehaviour {
 
 
     }
+    void Awake()
+    {
+        //if we don't have an [_instance] set yet
+        if (!_instance)
+            _instance = transform.gameObject;
+        //otherwise, if we do, kill this thing
+        else
+            Destroy(transform.gameObject);
 
+
+        DontDestroyOnLoad(transform.gameObject);
+    }
 
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
