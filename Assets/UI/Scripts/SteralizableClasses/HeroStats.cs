@@ -34,7 +34,7 @@ public class HeroStats {
 			this.Attack = 4;
 			this.GunAttack = 6;
 			this.Speed = 5;
-			this.Range = 6;
+			this.Range = 2;
 			this.MoveRange = 5;
 		}
 		if (Name == "Alexei") {

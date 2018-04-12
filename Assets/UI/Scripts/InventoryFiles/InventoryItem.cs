@@ -7,7 +7,7 @@ public class InventoryItem : MonoBehaviour//, IPointerEnterHandler, IPointerExit
     //IDragHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IPointerClickHandler
 {
     [SerializeField]
-    private Sprite itemIcon;
+    public Sprite itemIcon; //original is private
     [SerializeField]
     private Image rarityIcon;
     [SerializeField]
@@ -208,9 +208,6 @@ public class InventoryItem : MonoBehaviour//, IPointerEnterHandler, IPointerExit
 		itemIcon = passive.sprite;
         print("Sprite loaded: " + itemIcon);
         Slot.OverlayIcon.sprite = itemIcon;
-		//itemIcon.sprite = passive.image.sprite;
-        //rarityIcon.sprite = InventoryManager.Data.Sprites["rarity_" + trinket.RarityId];
-
         UpdateAmount();
 
         gameObject.SetActive(true);
