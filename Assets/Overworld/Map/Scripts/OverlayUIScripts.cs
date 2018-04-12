@@ -9,7 +9,9 @@ public class OverlayUIScripts : MonoBehaviour {
     public PartyProperties pProp;
     public GameObject LooseScreen;
     public GameObject WinScreen;
-    public GameObject MapLoadSave;
+    public GameObject pausedOverlay;
+    public GameObject thisCanvas;
+
 	// Use this for initialization
 	void Start () {
         GameObject Party = GameObject.FindWithTag("Overworld Party");
@@ -21,7 +23,17 @@ public class OverlayUIScripts : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            MapLoadSave.SetActive(!MapLoadSave.activeSelf);
+            if (!pausedOverlay.activeSelf)
+            {
+                thisCanvas.GetComponent<DialogueControl>().isPaused = true;
+                pausedOverlay.GetComponent<PauseMenu>().Pause();
+            }
+            else {
+                thisCanvas.GetComponent<DialogueControl>().isPaused = false;
+                pausedOverlay.GetComponent<PauseMenu>().Resume();
+            }
+            
+
         }else if (Input.GetKeyUp(KeyCode.Pause))
         {
             GameObject MController = GameObject.Find("MapController");

@@ -12,7 +12,7 @@ public class DialogueControl : MonoBehaviour {
     int lineIndex = 0;
     int dialogueSpeed = 100;
     string currentText = "";
-
+    public bool isPaused = false;
     bool doneScrolling = true;
     bool isSkipping = false;
 
@@ -45,49 +45,51 @@ public class DialogueControl : MonoBehaviour {
     /// going from one to the next, and the option to skip parts of the dialogue.
     /// </summary>
     void Update () {
-        
-        //move on to the next piece of dialogue on mouseclick and space, but only if the dialoge box is active
-        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode. Space) ) && dialogueParent.activeSelf && doneScrolling) 
-        {
-            //move through the dialogue of one character
-            if (lineIndex < currentDialogue.Dialogue[dialogueIndex].Lines.Count - 1)
-            { 
-                lineIndex++;
-                StartCoroutine("ScrollDialogue", currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex]);
-            }
-            //move to the next person speaking
-            else if (dialogueIndex < currentDialogue.Dialogue.Length - 1)
+        if (!isPaused)
+        {         //move on to the next piece of dialogue on mouseclick and space, but only if the dialoge box is active
+            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && dialogueParent.activeSelf && doneScrolling)
             {
-                dialogueIndex++;
-                lineIndex = 0;
-                StartCoroutine("ScrollDialogue", currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex]);
-                setName();
-                setPortrait();
+                //move through the dialogue of one character
+                if (lineIndex < currentDialogue.Dialogue[dialogueIndex].Lines.Count - 1)
+                {
+                    lineIndex++;
+                    StartCoroutine("ScrollDialogue", currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex]);
+                }
+                //move to the next person speaking
+                else if (dialogueIndex < currentDialogue.Dialogue.Length - 1)
+                {
+                    dialogueIndex++;
+                    lineIndex = 0;
+                    StartCoroutine("ScrollDialogue", currentDialogue.Dialogue[dialogueIndex].Lines[lineIndex]);
+                    setName();
+                    setPortrait();
+                }
+                //if there is no more dialogue, end the dialogue box
+                else
+                {
+                    lineIndex = 0;
+                    dialogueIndex = 0;
+
+                    dialogueParent.SetActive(false);
+                    Party.GetComponent<PartyProperties>().inDialogue = false;
+                }
             }
-            //if there is no more dialogue, end the dialogue box
-            else
+
+            if ((Input.GetKeyDown(KeyCode.RightControl) || Input.GetKeyDown(KeyCode.LeftControl)) && dialogueParent.activeSelf && !isSkipping)
             {
-                lineIndex = 0;
-                dialogueIndex = 0;
+                //move through the dialogue of one character
 
-                dialogueParent.SetActive(false);
-                Party.GetComponent<PartyProperties>().inDialogue = false;
+                StartCoroutine("SkipDialogue");
+
             }
+            if ((Input.GetKeyUp(KeyCode.RightControl) || Input.GetKeyUp(KeyCode.LeftControl)))
+            {
+                StopCoroutine("SkipDialogue");
+                isSkipping = false;
+            }
+            dText.text = currentText;
         }
 
-        if ((Input.GetKeyDown(KeyCode.RightControl)|| Input.GetKeyDown(KeyCode.LeftControl)) && dialogueParent.activeSelf && !isSkipping)
-        {
-            //move through the dialogue of one character
-            
-            StartCoroutine("SkipDialogue");
-            
-        }
-        if ((Input.GetKeyUp(KeyCode.RightControl) || Input.GetKeyUp(KeyCode.LeftControl)))
-        {
-            StopCoroutine("SkipDialogue");
-            isSkipping = false;
-        }
-        dText.text = currentText;
     }
 
     /// <summary>
