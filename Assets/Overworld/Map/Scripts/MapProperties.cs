@@ -225,6 +225,8 @@ public class MapProperties : MonoBehaviour {
         Canvas.GetComponent<DialogueControl>().skipDialogue();
 
         StartCoroutine(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScroll>().SnapToParty());
+        PartyObject = GameObject.FindGameObjectWithTag("Overworld Party");
+        PartyObject.GetComponent<PartyProperties>().OccupiedNode.GetComponent<NodePartySelect>().DebugClick();
     }
     void Update () {
 		if(Input.GetKeyDown(KeyCode.R))
