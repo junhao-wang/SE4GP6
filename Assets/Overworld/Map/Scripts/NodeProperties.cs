@@ -35,7 +35,7 @@ public class NodeProperties : MonoBehaviour {
         public int ID, NodeEvent, dialogueID, chainID;
         public float[] ResourceMod;
         public bool visited;
-        public int[] Neighbors;
+        public int[] Neighbors,dialogueSet;
         public float x, y,z;
     }
 
@@ -48,6 +48,7 @@ public class NodeProperties : MonoBehaviour {
         n.chainID = chainID;
         n.ResourceMod = ResourceMod;
         n.visited = visited;
+        n.dialogueSet = dialogueSet.ToArray();
         n.Neighbors = new int[Neighbors.Count];
         for(int i = 0; i < Neighbors.Count; i++)
         {
@@ -68,6 +69,7 @@ public class NodeProperties : MonoBehaviour {
         visited = n.visited;
         Neighbors = new List<GameObject>();
         GameObject MController = GameObject.Find("MapController");
+        dialogueSet = new List<int>(n.dialogueSet);
         for (int i = 0; i < n.Neighbors.Length; i++)
         {
             Neighbors.Add(MController.GetComponent<MapProperties>().Nodes[n.Neighbors[i]]);
@@ -81,7 +83,7 @@ public class NodeProperties : MonoBehaviour {
         Party = GameObject.Find("PartyPlaceholder");
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(ParentTile);
-        dialogueSet.Add(0);
+        
     }
 	
 	// Update is called once per frame
@@ -192,7 +194,9 @@ public class NodeProperties : MonoBehaviour {
             
             SavedLoad.savedHeroStats = Party.GetComponent<PartyProperties>().battleState;
             SavedLoad.Write();
-            GameObject.Find("MapController").GetComponent<AudioSource>().mute = true;
+            MController = GameObject.Find("MapController");
+            MController.GetComponent<AudioSource>().mute = true;
+            MController.GetComponent<MapProperties>().savemap();
             SceneManager.LoadScene("TestBattle");
 
         }
