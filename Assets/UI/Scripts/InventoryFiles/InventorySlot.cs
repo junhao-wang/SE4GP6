@@ -2,28 +2,28 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+//This class states all the UI elements of a Inventory Slot and it's item information. Button items wll be added
+//Part of the Darkest Dungeon scripts
 public class InventorySlot : BaseSlot//, IDropHandler
 {
     [SerializeField]
-    private Image overlayIcon;
-	//private Image display = GetComponent<Image>();
-    public InventoryItem SlotItem { get; private set; }
-    public bool InteractionDisabled { private get; set; }
+    private Image overlayIcon;                                                          //The the item image that is shown
+    private Image display;
+    public InventoryItem SlotItem { get; private set; }                                 //The information about the desired item
+    public bool InteractionDisabled { private get; set; }                               //states if user can interact with the slot
 	public Image OverlayIcon { get { return overlayIcon; } set { overlayIcon = value; } }//set { overlayIcon = Resources.Load<Image>("Icons/"+ InventoryManager.Data.Items["passive"]["1"].name);}}//
-    public bool HasItem { get { return SlotItem.IsNotEmpty; } }
-
+    public bool HasItem { get { return SlotItem.IsNotEmpty; } }                         //checks if this slot is empty or not
+    //TODO implement the actions below
     public event Action<InventorySlot, InventoryItem> EventDropOut;
     public event Action<InventorySlot, InventoryItem> EventDropIn;
     public event Action<InventorySlot, InventoryItem> EventSwap;
     public event Action<InventorySlot> EventActivate;
-
+    //initalizes the empty slot
     public void Initialize()
     {
-		
-        SlotItem = GetComponentInChildren<InventoryItem>();
+		OverlayIcon = GetComponent<Image>();
+        SlotItem = GetComponent<InventoryItem>();
         SlotItem.Initialize(this);
-		//display = OverlayIcon;
     }
 
     public bool HasFreeSpaceForItem(ItemDefinition item)
@@ -37,7 +37,7 @@ public class InventorySlot : BaseSlot//, IDropHandler
         SlotItem.Create(itemType, itemId, amount);
         
     }
-
+    //fills the slot with a passive item
 	public void CreateItem(PassiveItem passive)
     {
         SlotItem.gameObject.SetActive(true);

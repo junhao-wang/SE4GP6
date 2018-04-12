@@ -36,8 +36,8 @@ public class Resolution : MonoBehaviour {
         if (PlayerPrefs.HasKey("screen"))
         {
             if (PlayerPrefs.GetInt("screen") == 1) { toggle.isOn = true; } else { toggle.isOn = false; }
-            if (PlayerPrefs.HasKey("musicVolume")) { sfx.value = PlayerPrefs.GetInt("musicVolume"); }
-            if (PlayerPrefs.HasKey("SFXVolume")) { music.value = PlayerPrefs.GetInt("SFXVolume"); }
+            if (PlayerPrefs.HasKey("musicVolume")) { sfx.value = PlayerPrefs.GetFloat("musicVolume"); }
+            if (PlayerPrefs.HasKey("SFXVolume")) { music.value = PlayerPrefs.GetFloat("SFXVolume"); }
             if (PlayerPrefs.HasKey("res")) { dropdown.value = PlayerPrefs.GetInt("res"); } else { dropdown.value = 0; }
 
         }

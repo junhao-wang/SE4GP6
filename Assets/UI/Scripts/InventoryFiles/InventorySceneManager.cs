@@ -4,7 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.SceneManagement;
-
+//This script is reponsible for initalizing the entire inventory scene, database an UI.
+//Part of the Darkest Dungeon scripts
 public class InventorySceneManager : MonoBehaviour
 {
     public static InventorySceneManager Instanse { get; private set; }

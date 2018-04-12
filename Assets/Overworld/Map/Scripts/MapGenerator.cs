@@ -113,16 +113,28 @@ public class MapGenerator : MonoBehaviour {
         }
 
         //with the list of narrative core nodes, assign each NCNode a dialogue chain until we run out of nodes or dialogue
-        foreach(GameObject Node in NCNodes)
+        while(NCNodes.Count > 0)
         {
-            if(dSets.Count == 0)
+            GameObject Node = NCNodes[0];
+            if (dSets.Count == 0)
             {
-                return;//if we no longer have any unassigned dialogue left, we are done
+                foreach (GameObject leftOver in NCNodes)
+                {
+                    leftOver.GetComponent<NodeProperties>().NodeEvent = NodeProperties.EventType.NARRATIVE;
+                    for (int j = 0; j < (int)PartyProperties.ResourceType.SIZE; j++)
+                    {
+                        leftOver.GetComponent<NodeProperties>().ResourceMod[j] += (float)Random.Range(0, 4);
+                    }
+                    leftOver.GetComponent<NodeProperties>().SetColor();
+                }
+                NCNodes.Clear();
+               break;//if we no longer have any unassigned dialogue left, we are done
             }
             Node.GetComponent<NodeProperties>().chainID = dSets[0].chainID;
             Node.GetComponent<NodeProperties>().dialogueSet.AddRange(dSets[0].members);
             Node.GetComponent<NodeProperties>().SetColor();
             dSets.RemoveAt(0);
+            NCNodes.RemoveAt(0);
 
         }
 
@@ -137,16 +149,23 @@ public class MapGenerator : MonoBehaviour {
         }
 
         //with the list of side narrative, assign each NCNode a dialogue chain until we run out of nodes or dialogue
-        foreach (GameObject Node in SNNodes)
+        while(SNNodes.Count>0)
         {
+            GameObject Node = SNNodes[0];
             if (dSets.Count == 0)
             {
+                foreach (GameObject leftOver in SNNodes)
+                {
+                    leftOver.GetComponent<NodeProperties>().SetColor();
+                }
+                SNNodes.Clear();
                 return;//if we no longer have any unassigned dialogue left, we are done
             }
             Node.GetComponent<NodeProperties>().chainID = dSets[0].chainID;
             Node.GetComponent<NodeProperties>().dialogueSet.AddRange(dSets[0].members);
             Node.GetComponent<NodeProperties>().SetColor();
             dSets.RemoveAt(0);
+            SNNodes.RemoveAt(0);
 
         }
 
@@ -188,6 +207,7 @@ public class MapGenerator : MonoBehaviour {
             int imgIndex = Random.Range(begin, end + 1);
             newclutter.GetComponent<SpriteRenderer>().sprite = imgs[imgIndex];
             newclutter.GetComponent<ClutterProperties>().type = imgIndex;
+            newclutter.GetComponent<ClutterProperties>().sortOrder();
             gameObject.GetComponent<MapProperties>().Clutter.Add(newclutter);
             for (int i = 0; i < clutteramt; i++)
             {
@@ -202,6 +222,7 @@ public class MapGenerator : MonoBehaviour {
                     imgIndex = Random.Range(begin, end + 1);
                     additionalclutter.GetComponent<SpriteRenderer>().sprite = imgs[imgIndex];
                     additionalclutter.GetComponent<ClutterProperties>().type = imgIndex;
+                    additionalclutter.GetComponent<ClutterProperties>().sortOrder();
                     gameObject.GetComponent<MapProperties>().Clutter.Add(additionalclutter);
                 }
    

@@ -21,6 +21,13 @@ public class CameraScroll : MonoBehaviour
         transform.position = new Vector3(initX, initY, transform.position.z);
         print("Party Location: " + party.transform.position);
     }
+
+     private void Awake()
+    {
+
+        
+        StartCoroutine(SnapToParty());
+    }
     // Update is called once per frame
     void Update()
     {
@@ -46,9 +53,11 @@ public class CameraScroll : MonoBehaviour
         }
 
     }
-    public void SnapToParty()
+    public IEnumerator SnapToParty()
     {
+        yield return new WaitForSeconds(0.25f);
+        party = GameObject.FindGameObjectWithTag("Overworld Party");
+        print("Snapping");
         gameObject.transform.position = new Vector3(party.transform.position.x, party.transform.position.y,gameObject.transform.position.z);
-        
     }
 }

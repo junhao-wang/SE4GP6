@@ -3,7 +3,7 @@ using SimpleJSON;
 
 // ReSharper disable CollectionNeverUpdated.Global
 // ReSharper disable InconsistentNaming
-
+// NOT USED IGNORE, FROM DARKEST DUNGEON SCRIPTS
 namespace JsonClasses
 {
 	public class JsonPassive

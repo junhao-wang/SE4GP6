@@ -18,7 +18,7 @@ public abstract class CellGridState
     /// Is the current attack going to ignore armor?
     /// </summary>
     public bool isTrueDamage = false;
-
+    public bool isAoe = false;
     /// <summary>
     /// Is the current attack performed using a Gun?
     /// </summary>

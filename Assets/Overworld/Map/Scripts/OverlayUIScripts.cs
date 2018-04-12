@@ -10,21 +10,26 @@ public class OverlayUIScripts : MonoBehaviour {
     public GameObject LooseScreen;
     public GameObject WinScreen;
     public GameObject MapLoadSave;
+    public GameObject MController;
+    
 	// Use this for initialization
 	void Start () {
         GameObject Party = GameObject.FindWithTag("Overworld Party");
         pProp = Party.GetComponent<PartyProperties>();
         UpdatePartyStats();
+        
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+
+
+    // Update is called once per frame
+    void Update () {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             MapLoadSave.SetActive(!MapLoadSave.activeSelf);
         }else if (Input.GetKeyUp(KeyCode.Pause))
         {
-            GameObject MController = GameObject.Find("MapController");
+            MController = GameObject.Find("MapController");
             MController.GetComponent<MapProperties>().defeat();
             loadMainMenu();
         }
@@ -50,7 +55,11 @@ public class OverlayUIScripts : MonoBehaviour {
                 output += ResourceModToString(nProp.ResourceMod);
                 break;
             case (NodeProperties.EventType.NARRATIVE):
-                output += "There seems to be something interesting happening here.";
+                if(nProp.dialogueID > 0)
+                {
+                    output += "There seems to be something interesting happening here.";
+                }
+
                 output += ResourceModToString(nProp.ResourceMod);
                 break;
         }
@@ -87,6 +96,8 @@ public class OverlayUIScripts : MonoBehaviour {
 
     public void loadFinalBattle()
     {
+        MController = GameObject.Find("MapController");
+        MController.GetComponent<MapProperties>().savemap();
         SceneManager.LoadScene("TestBattle");
     }
 

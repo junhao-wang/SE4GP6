@@ -6,7 +6,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using JsonClasses;
 using SimpleJSON;
-
+//this script is reponsible for instanitating the the database
+//part of the darkest dungeon scripts
 public class Database : MonoBehaviour {
 
 	private const string PassiveItemDirectory = "Data/Items/Passive";
@@ -18,15 +19,15 @@ public class Database : MonoBehaviour {
 		Items = new Dictionary<string, Dictionary<string, ItemInfo>>();
 		LoadJsonPassives ();
 		LoadJsonConsumables ();
-//		foreach (KeyValuePair<string,Dictionary<string,ItemInfo>> item in Items) {
-//			Debug.Log ("Reading Item:");
-//			Debug.Log (item.Key);
-//		}
-	}
-
+        //		foreach (KeyValuePair<string,Dictionary<string,ItemInfo>> item in Items) {
+        //			Debug.Log ("Reading Item:");
+        //			Debug.Log (item.Key);
+        //		}
+        Debug.Log("Json Passive: " + Items["passive"]["1"]);
+    }
+	//loads consumables from json file
 	private void LoadJsonConsumables()
 	{
-		
 
 		if (!Items.ContainsKey("consumable"))
 			Items.Add("consumable", new Dictionary<string, ItemInfo>());
@@ -64,13 +65,14 @@ public class Database : MonoBehaviour {
 				statVals[j] = int.Parse(consumableDatabase["consumable"][i][4][j].Value);
 			}
 			consumable.stats = statVals;
-			Image image = Resources.Load<Image> (ItemImageDirectory+consumable.name);
+			Image image = Resources.Load<Image> (ItemImageDirectory + "/" +consumable.name);
 			consumable.image = image;
 			consumables.Add(consumable);
 			Debug.Log("Consumable id is: " + consumable.name);
 		}
 		return consumables;
 	}
+	//loads the passives from the json file
 	private void LoadJsonPassives()
 	{
 		
@@ -100,7 +102,6 @@ public class Database : MonoBehaviour {
 		//for (int i = 0; i < jsonPassives.Count; i++)
 		for (int i = 0; i < 4; i++)
 		{
-			
 			PassiveItem passive = new PassiveItem ();
 			//Debug.Log("Passive id is3: " + passiveDatabase["passive"][0][1].Value);
 			passive.itemID = passiveDatabase["passive"][i][0].Value;
@@ -113,12 +114,15 @@ public class Database : MonoBehaviour {
 				statVals[j] = int.Parse(passiveDatabase["passive"][i][4][j].Value);
 			}
 			passive.stats = statVals;
-			Image image = Resources.Load<Image> (ItemImageDirectory+passive.name);
-			passive.image = image;
-			passives.Add(passive);
+            passive.sprite = new Sprite();
+            passive.sprite = Resources.Load<Sprite>(ItemImageDirectory + "/" + passive.name);
+
+            passives.Add(passive);
 			Debug.Log("Passive id is: " + passive.name);
 		}
-		return passives;
+        
+
+        return passives;
 	}
 }
 

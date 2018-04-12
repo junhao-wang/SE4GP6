@@ -68,9 +68,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bd8e1480a6505b4f914430e79ab0766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleState:
+    finalBattle: 0
+    mapName: default
+    enemyID: 5
+    Kroner:
+      name: Kroner
+    Lee:
+      name: Lee
+    Alexei:
+      name: Alexei
   OccupiedNode: {fileID: 0}
   Canvas: {fileID: 0}
   path: []
+  CompletedDialogue: 
   inDialogue: 0
   initialMoney: 15
   initialSupply: 15
@@ -110,7 +121,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1140445353
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 32767
   m_Sprite: {fileID: 21300000, guid: 3fde56ea9ad9d5c48b0fd088868ced00, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

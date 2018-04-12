@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Web.UI;
 
 public class MusicLoader : MonoBehaviour {
     public float master = 1.0f;
@@ -88,6 +89,13 @@ public class MusicLoader : MonoBehaviour {
             music = PlayerPrefs.GetFloat("musicVolume");
             print("Music = " + music.ToString());
         }
+    }
+
+    public void LoadMusic(AudioClip audio)
+    {
+        gameObject.GetComponent<AudioSource>().clip =  audio;
+        gameObject.GetComponent<AudioSource>().volume = 1f * master * music;
+        gameObject.GetComponent<AudioSource>().Play();
     }
 
     public void LoadA1Music() {

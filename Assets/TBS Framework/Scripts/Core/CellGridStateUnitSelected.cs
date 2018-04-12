@@ -139,12 +139,13 @@ class CellGridStateUnitSelected : CellGridState
 					_unit.AttackFactor = 0;
 				}
 			}
-            _unit.DealDamage(unit, attackingHealth, isTrueDamage);
+            _unit.DealDamage(unit, attackingHealth, isTrueDamage, isAoe );
             
         }
         _cellGrid.CellGridState = new CellGridStateUnitSelected(_cellGrid, _unit);
         isAttacking = false;
         isTrueDamage = false;
+        isAoe = false;
         usingGun = false;
 		usingGrenade = false;
         _unit.AttackFactor = _unit.BaseAttack;

@@ -312,6 +312,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Overworld\Map\Icons\tile order.txt" />
+    <None Include="Assets\Resources\Saves\clutters.txt" />
+    <None Include="Assets\Resources\Saves\node.txt" />
+    <None Include="Assets\Resources\Saves\party.txt" />
     <None Include="Assets\TBS Framework\ReleaseNotes.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

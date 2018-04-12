@@ -5,10 +5,10 @@ using UnityEngine;
 public class MenuOpenClose : MonoBehaviour {
 
 
-	private GameObject menu;
+	public GameObject menu;
 	// Use this for initialization
 	void Start () {
-		menu = GameObject.Find ("Inventory");
+		//menu = GameObject.Find ("Inventory");
 	}
 	
 	// Update is called once per frame
