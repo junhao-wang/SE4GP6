@@ -1928,6 +1928,7 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
     - target: {fileID: 224221101726538014, guid: fc78583f5649fdd4492bc6bf197e2be8,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -2032,6 +2033,8 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 420
 =======
+=======
+>>>>>>> origin/EquipmentPanel
     - target: {fileID: 224230373301596684, guid: fc78583f5649fdd4492bc6bf197e2be8,
         type: 2}
       propertyPath: m_AnchorMin.y
@@ -2056,7 +2059,10 @@ Prefab:
         type: 2}
       propertyPath: m_RootOrder
       value: 3
+<<<<<<< HEAD
 >>>>>>> 03fc131f8a2dafbc18ca64e9078d2f15aa0326cc
+=======
+>>>>>>> origin/EquipmentPanel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc78583f5649fdd4492bc6bf197e2be8, type: 2}
