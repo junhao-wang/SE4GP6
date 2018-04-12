@@ -9,7 +9,7 @@ public class NodePartySelect : MonoBehaviour {
     public static GameObject LooseScreen;
     public static bool spawned = true;
     public static bool walk = false;
-    public static bool inDialogue = false;
+    public static bool inDialogue = true;
    
     // Use this for initialization
     void Start()

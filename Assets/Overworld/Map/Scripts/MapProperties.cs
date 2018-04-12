@@ -99,10 +99,10 @@ public class MapProperties : MonoBehaviour {
 
         List<ClutterProperties.ClutterSave> c = new List<ClutterProperties.ClutterSave>();
         strOut = "";
-        for (int i = 0; i < Nodes.Count; i++)
+        for (int i = 0; i < Clutter.Count; i++)
         {
             strOut += JsonUtility.ToJson(Clutter[i].GetComponent<ClutterProperties>().toClutterSave());
-            if (i < Nodes.Count - 1)
+            if (i < Clutter.Count - 1)
             {
                 strOut += ";";
             }
@@ -173,6 +173,7 @@ public class MapProperties : MonoBehaviour {
         strin = reader.ReadToEnd();
         foreach (string s in strin.Split(';'))
         {
+            print(s);
             c.Add(JsonUtility.FromJson<ClutterProperties.ClutterSave>(s));
         }
         ClutterProperties.ClutterSave[] Clutters = c.ToArray();
@@ -188,7 +189,8 @@ public class MapProperties : MonoBehaviour {
         reader = new StreamReader(pathp);
 
         PartyObject.GetComponent<PartyProperties>().fromPartySave(JsonUtility.FromJson<PartyProperties.PartySave>(reader.ReadToEnd()));
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraScroll>().SnapToParty();
+
+        PartyObject.GetComponent<PartyProperties>().OccupiedNode.GetComponent<NodeProperties>().drawCurrentPaths();
 
 
 

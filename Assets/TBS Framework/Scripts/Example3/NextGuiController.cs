@@ -304,6 +304,7 @@ public class NextGuiController : MonoBehaviour
         if(UnitsParent.transform.GetChild(0).GetComponent<Unit>().PlayerNumber == 0)
         {
             GameObject.Find("MapController").GetComponent<AudioSource>().mute = false;
+            GameObject.Find("MapController").GetComponent<MapProperties>().loadmap();
             SceneManager.LoadScene("Map");
         }
         else
