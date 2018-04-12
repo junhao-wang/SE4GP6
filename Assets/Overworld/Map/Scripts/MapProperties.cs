@@ -33,15 +33,13 @@ public class MapProperties : MonoBehaviour {
 
     }
 
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
+
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Map")
+        if (scene.name == "Map" && gameObject != null)
         {
+            
             gameObject.GetComponent<AudioSource>().mute = false;
             Camera.main.GetComponent<CameraScroll>().initX = PartyObject.transform.position.x;
             Camera.main.GetComponent<CameraScroll>().initY = PartyObject.transform.position.y;
@@ -131,6 +129,7 @@ public class MapProperties : MonoBehaviour {
         bool loadPossible = File.Exists(pathn) && File.Exists(pathc) && File.Exists(pathp);
         if (!loadPossible)
         {
+            print("failed");
             return false;
         }
 
@@ -140,10 +139,12 @@ public class MapProperties : MonoBehaviour {
             Nodes[i].GetComponent<NodeProperties>().clearPaths();
             Destroy(Nodes[i]);
         }
+        Nodes.Clear();
         for(int i = 0; i < Clutter.Count; i++)
         {
             Destroy(Clutter[i]);
         }
+        Clutter.Clear();
         string strin;
         StreamReader reader = new StreamReader(pathn);
         Nodes = new List<GameObject>();
@@ -173,7 +174,7 @@ public class MapProperties : MonoBehaviour {
         strin = reader.ReadToEnd();
         foreach (string s in strin.Split(';'))
         {
-            print(s);
+
             c.Add(JsonUtility.FromJson<ClutterProperties.ClutterSave>(s));
         }
         ClutterProperties.ClutterSave[] Clutters = c.ToArray();
@@ -182,7 +183,9 @@ public class MapProperties : MonoBehaviour {
            GameObject newclutter = GameObject.Instantiate(gameObject.GetComponent<MapGenerator>().ClutterPrefab);
             newclutter.GetComponent<SpriteRenderer>().sprite = gameObject.GetComponent<MapGenerator>().clutters[Clutters[i].type];
             newclutter.GetComponent<ClutterProperties>().type = Clutters[i].type;
+            newclutter.transform.position = new Vector3(Clutters[i].x, Clutters[i].y, Clutters[i].z);
             Clutter.Add(newclutter);
+            print(JsonUtility.ToJson(Clutter[i].GetComponent<ClutterProperties>().toClutterSave()));
         }
         reader.Close();
 
