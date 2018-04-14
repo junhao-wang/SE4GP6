@@ -62,6 +62,7 @@ public class MusicLoader : MonoBehaviour {
                     break;
                 }
         }
+        StartCoroutine(FadeIn());
 	}
 	
 	// Update is called once per frame
@@ -260,5 +261,18 @@ public class MusicLoader : MonoBehaviour {
         gameObject.GetComponent<AudioSource>().Play();
     }
 
+    IEnumerator FadeIn()
+    {
+        float i = 0;
+        while (i < 100)
+        {
+            AudioSource source = gameObject.GetComponent<AudioSource>();
+            source.volume = i / 100;
+            yield return new WaitForSeconds(0.0001f);
+            print(i);
+            i++;
+
+        }
+    }
 
 }

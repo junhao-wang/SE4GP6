@@ -3,10 +3,12 @@ SceneListBegin?
 Assets/Scenes/menu.unity
 Assets/Scenes/Map.unity
 Assets/Scenes/TestBattle.unity
+Assets/Scenes/Opening.unity
 SceneListEnd?
 98eaa1db8e76798c9dec113df59248f6 Assembly-CSharp.dll:.NextImage
 4ad344ad9a9b55ddbaa3cd7ea97cc6d2 Assembly-CSharp.dll:.LevelInfo
 a47b073f01b654cc9b5caa00a3768eab Assembly-CSharp.dll:.NextGuiController
+01eebaffd954d7f26fe53f5a7c3986fd Assembly-CSharp.dll:.OpeningScroll
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 dbc29a6f2739d277c10da432d73adb6d UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 8144169769d51429c4aedc8b0f92d47b UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -140,10 +142,11 @@ e4665ebf0f78d8d53e1c9c864b0da096 Assembly-CSharp.dll:.CameraScroll
 2ce7ad81dcf2ec326093bc008d51baea Assembly-CSharp.dll:.NodeEvent
 2b4c536cc24b2275e186b5866ae37f8d Assembly-CSharp.dll:.MenuInventoryWindow
 745c88bb76a62b9c21120cee348d4739 Assembly-CSharp.dll:.TriangularHexGridGenerator
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.StatDisplay
 bb36f4b97f3c769e70b068b7e6dafca3 Assembly-CSharp.dll:.GenerateBattlemap
 bf3114257e7fe1dc17e3514c924acf1b Assembly-CSharp.dll:.CellGrid
 7bd8768b90b905d5b5541fe42addb342 Assembly-CSharp.dll:.MenuOpenClose
-eca1b7ac613e8885fc4f96a43ee9320e Assembly-CSharp.dll:.DialogueControl
+b81f55b34b0da5ac40a3fe4127d4a859 Assembly-CSharp.dll:.DialogueControl
 7af846fc62bbec623e5fb15b757f7eb2 Assembly-CSharp.dll:.GuiController
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MainMenu
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
@@ -173,6 +176,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 6bdfc2bd046bdf00f0af214c1774ecd1 Assembly-CSharp.dll:.Archer
 1192ab35e84d9cd5c0b25fffe8b978f8 Assembly-CSharp.dll:.PartyWalk
 8cd6e85a1b48d1ad7cc91bee415d1564 Assembly-CSharp.dll:.InventorySceneManager
+70ac25fe3cb47cead75553020a4926e3 Assembly-CSharp.dll:.ItemClick
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.InventoryRow
 eef65ded8b514b96e06af2316aea1473 Assembly-CSharp.dll:.ApplyEquipment
 12946159035ff0cecbf6366f8c8409ec Assembly-CSharp.dll:.NodeProperties
@@ -192,7 +196,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 45f94b222e553650df64348a7144adca Assembly-CSharp.dll:.NodeHoverScript
 f08a07026bdc67d9251a11f58b3ae8f3 Assembly-CSharp.dll:.ItemInit
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-005bd1b6156a6224dca375014fe973c8 Assembly-CSharp.dll:.OverlayUIScripts
+14e286fee0a27e4a5940bcbe5a19100c Assembly-CSharp.dll:.OverlayUIScripts
 6bdfc2bd046bdf00f0af214c1774ecd1 Assembly-CSharp.dll:.Spearman
 55753183b256c73ac742f925dd8da5d0 Assembly-CSharp.dll:.RectangularHexGridGenerator
 7e15788b8381a1dc45ebba6c9c762a96 Assembly-CSharp.dll:.InventorySlot

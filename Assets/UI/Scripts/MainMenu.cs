@@ -10,10 +10,18 @@ public class MainMenu : MonoBehaviour
     int resolution;
     bool fullWindowed;
     int sHeight, sWidth;
+    bool destroyOnLoad = false;
+    GameObject music;
+    GameObject sfx;
 
     // Use this for initialization
     void Start()
     {
+        music = GameObject.Find("Music Source");
+        sfx = GameObject.Find("SFX Source");
+        DontDestroyOnLoad(music);
+        DontDestroyOnLoad(sfx);
+        DontDestroyOnLoad(gameObject);
         try
         {
             resolution = PlayerPrefs.GetInt("res"); //resolutionList = { "", "1600x900", "1366x1080",  "1280x1024", "1280x800", "800x600" };
@@ -48,16 +56,26 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Scene currentScene = SceneManager.GetActiveScene();
+        if (currentScene.name == "Map")
+        {
+            Destroy(music);
+            Destroy(sfx);
+            Destroy(gameObject);
+        }
     }
-    
+
+    private void OnLevelWasLoaded(int level)
+    {
+        if (destroyOnLoad) Destroy(gameObject);
+    }
 
     public void StartGame()
     {
         GameObject.Find("SFX Source").GetComponent<SFXLoader>().LoadDoorSFX();
         PlayerPrefs.SetFloat("musicVolume", GameObject.Find("Music Source").GetComponent<MusicLoader>().music);
         PlayerPrefs.SetFloat("SFXVolume", GameObject.Find("SFX Source").GetComponent<SFXLoader>().SFX);
-        SceneManager.LoadScene("Map");
+        SceneManager.LoadScene("Opening");
 
     }
 

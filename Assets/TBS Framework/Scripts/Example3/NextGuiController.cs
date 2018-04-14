@@ -78,8 +78,9 @@ public class NextGuiController : MonoBehaviour
             RectTransform hpRect = _bar[i].transform.Find("HPBar").GetComponent<RectTransform>();
             RectTransform armorRect = _bar[i].transform.Find("ArmorBar").GetComponent<RectTransform>();
 
-            hpRect.offsetMin = new Vector2(hpRect.offsetMin.x, 1.5f + 56.5f * (1 - (float)u.HitPoints / u.TotalHitPoints));
-            armorRect.offsetMin = new Vector2(armorRect.offsetMin.x, 1.5f + 56.5f * (1 - (float)u.Armor / u.TotalArmor));
+
+            hpRect.offsetMin = new Vector2(hpRect.offsetMin.x, 1.5f + 56.5f * (1 - Mathf.Min(((float)u.HitPoints / u.TotalHitPoints), 1)));
+            armorRect.offsetMin = new Vector2(armorRect.offsetMin.x, 1.5f + 56.5f * (1 - Mathf.Min(((float)u.Armor / u.TotalArmor), 1)));
             _bar[i].transform.Find("HPText").GetComponent<Text>().text = u.HitPoints.ToString();
             _bar[i].transform.Find("ArmorText").GetComponent<Text>().text = u.Armor.ToString();
 

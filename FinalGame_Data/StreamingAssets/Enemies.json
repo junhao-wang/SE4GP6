@@ -79,7 +79,7 @@
     "attack": 8,
     "speed": 6,
     "range": 4,
-    "Movement": 5,
+    "movement": 5,
     "gun": 5,
     "level": 7
   },

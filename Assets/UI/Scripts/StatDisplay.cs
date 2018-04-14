@@ -19,7 +19,7 @@ public class StatDisplay : MonoBehaviour {
 		updatedInfoPanelStats();
 		selectedItem = null;
 		Image image = GetComponentsInChildren<Image>()[1];
-		image.sprite = Resources.Load<Sprite>("Icons/ImageBackground");
+		//image.sprite = Resources.Load<Sprite>("Icons/ImageBackground");
 	}
 	
 	// Update is called once per frame
@@ -47,7 +47,7 @@ public class StatDisplay : MonoBehaviour {
 	}
 	public void updatedInfoPanelStats(){
 		Text[] stats = GetComponentsInChildren<Text>();
-		if(selectedItem == null){
+		/*if(selectedItem == null){
 		stats[3].text = displayedHeroStats.getHP().ToString();
 		stats[4].text = displayedHeroStats.getArmour().ToString();
 		stats[5].text = displayedHeroStats.getGunAttack().ToString();
@@ -66,7 +66,7 @@ public class StatDisplay : MonoBehaviour {
 		stats[7].text = (displayedHeroStats.getRange()+selectedItem.stats[5]).ToString();
 		stats[8].text = (displayedHeroStats.getSpeed()+selectedItem.stats[4]).ToString();
 		stats[9].text = (displayedHeroStats.getMoveRange()+selectedItem.stats[6]).ToString();
-		}
+		}*/
 	}
 
 }
